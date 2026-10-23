@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content=" PHP Arrays and Superglobals">
+<title>\ PHP Arrays and Superglobals</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================= -->
+<!-- شريط التنقل الجانبي -->
+<!-- ============================================= -->
+<nav class="side-nav" aria-label="تنقل جانبي بين الفقرات">
+
+  <div class="side-nav-title">📑 الفقرات</div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">1. المصفوفات (Arrays)</div>
+    <a href="#s1-1"><span class="nav-num">1.1</span> مفهوم المصفوفة</a>
+    <a href="#s1-2"><span class="nav-num">1.2</span> مفاتيح وقيم</a>
+    <a href="#s1-3"><span class="nav-num">1.3</span> إنشاء المصفوفات</a>
+    <a href="#s1-4"><span class="nav-num">1.4</span> الوصول للقيم</a>
+    <a href="#s1-5"><span class="nav-num">1.5</span> مفاتيح صريحة</a>
+    <a href="#s1-6"><span class="nav-num">1.6</span> متعددة الأبعاد</a>
+    <a href="#s1-7"><span class="nav-num">1.7</span> التكرار</a>
+    <a href="#s1-8"><span class="nav-num">1.8</span> الإضافة</a>
+    <a href="#s1-9"><span class="nav-num">1.9</span> الحذف</a>
+    <a href="#s1-10"><span class="nav-num">1.10</span> isset()</a>
+    <a href="#s1-11"><span class="nav-num">1.11</span> الترتيب</a>
+    <a href="#s1-12"><span class="nav-num">1.12</span> عمليات أخرى</a>
+    <a href="#s1-13"><span class="nav-num">1.13</span> gettype()</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">2. $_GET و $_POST</div>
+    <a href="#s2-1"><span class="nav-num">2.1</span> Superglobal Arrays</a>
+    <a href="#s2-2"><span class="nav-num">2.2</span> $_GET و $_POST</a>
+    <a href="#s2-3"><span class="nav-num">2.3</span> سؤال HW</a>
+    <a href="#s2-4"><span class="nav-num">2.4</span> Form Array Data</a>
+    <a href="#s2-5"><span class="nav-num">2.5</span> Query String Links</a>
+    <a href="#s2-6"><span class="nav-num">2.6</span> Sanitizing</a>
+    <a href="#s2-7"><span class="nav-num">2.7</span> Associative Example</a>
+    <a href="#s2-8"><span class="nav-num">2.8</span> Assignment</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">3. $_SERVER</div>
+    <a href="#s3-1"><span class="nav-num">3.1</span> مصفوفة $_SERVER</a>
+    <a href="#s3-2"><span class="nav-num">3.2</span> HTTP Headers</a>
+    <a href="#s3-3"><span class="nav-num">3.3</span> Server Info Keys</a>
+    <a href="#s3-4"><span class="nav-num">3.4</span> Request Header Keys</a>
+    <a href="#s3-5"><span class="nav-num">3.5</span> Security Warning</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">4. $_FILES</div>
+    <a href="#s4-1"><span class="nav-num">4.1</span> مصفوفة $_FILES</a>
+    <a href="#s4-2"><span class="nav-num">4.2</span> تفاصيل المفاتيح</a>
+    <a href="#s4-3"><span class="nav-num">4.3</span> التحقق من الأخطاء</a>
+    <a href="#s4-4"><span class="nav-num">4.4</span> قيود الحجم</a>
+    <a href="#s4-5"><span class="nav-num">4.5</span> تحديد النوع</a>
+    <a href="#s4-6"><span class="nav-num">4.6</span> نقل الملف</a>
+    <a href="#s4-7"><span class="nav-num">4.7</span> Assignment</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">5. قراءة/كتابة الملفات</div>
+    <a href="#s5-1"><span class="nav-num">5.1</span> إدارة الملفات</a>
+    <a href="#s5-2"><span class="nav-num">5.2</span> fopen()</a>
+    <a href="#s5-3"><span class="nav-num">5.3</span> fwrite()</a>
+    <a href="#s5-4"><span class="nav-num">5.4</span> fread()</a>
+    <a href="#s5-5"><span class="nav-num">5.5</span> fclose()</a>
+    <a href="#s5-6"><span class="nav-num">5.6</span> file_get_contents()</a>
+    <a href="#s5-7"><span class="nav-num">5.7</span> Stream vs Memory</a>
+    <a href="#s5-8"><span class="nav-num">5.8</span> Stream Access</a>
+    <a href="#s5-9"><span class="nav-num">5.9</span> In-Memory Access</a>
+    <a href="#s5-10"><span class="nav-num">5.10</span> تحليل CSV</a>
+    <a href="#s5-11"><span class="nav-num">5.11</span> Assignment</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">6. التعاريف</div>
+    <a href="#section-6"><span class="nav-num">6</span> التعاريف الأساسية</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">7. المقارنات</div>
+    <a href="#section-7"><span class="nav-num">7</span> جداول المقارنة</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">8. الاختبار</div>
+    <a href="#section-8"><span class="nav-num">8</span> اختبار تفاعلي</a>
+  </div>
+
+</nav>
+
+<header class="page-header">
+  <!-- شريط التنقل العلوي -->
+<nav class="top-nav" aria-label="التنقل بين الشابترات">
+  <div class="top-nav-inner">
+    <a href="index.html" class="top-nav-brand">
+      <span class="brand-icon">📚</span>
+      <span>الفهرس</span>
+    </a>
+
+    <button id="topNavToggle" class="top-nav-toggle" type="button" aria-expanded="false" aria-controls="topNavLinks">
+      <span>☰</span> <span>الشابترات</span>
+    </button>
+
+    <ul class="top-nav-links" id="topNavLinks">
+      <li><a href="index.html"><span class="nav-icon">🏠</span> الرئيسية</a></li>
+      <li><a href="ch1.html"><span class="nav-icon">📘</span> الشابتر 1</a></li>
+      <li><a href="ch2.html" class="active"><span class="nav-icon">📗</span> الشابتر 2</a></li>
+      <li><a href="ch3.html"><span class="nav-icon">📙</span> الشابتر 3</a></li>
+      <li><a href="ch4.html"><span class="nav-icon">📕</span> الشابتر 4</a></li>
+      <li><a href="ch5.html"><span class="nav-icon">📓</span> الشابتر 5</a></li>
+    </ul>
+  </div>
+</nav>
+  <div class="container">
+    <h1 class="page-title"> المذاكرة الشاملة — Chapter 3+4</h1>
+    <p class="page-subtitle">PHP Arrays and Superglobals</p>
+
+    <div class="toolbar">
+      <button id="themeToggle" class="btn" type="button" aria-label="تبديل الوضع">
+        <span class="icon">🌙</span> <span class="label">الوضع الداكن</span>
+      </button>
+      <button id="printBtn" class="btn" type="button" aria-label="طباعة أو حفظ PDF">
+        <span class="icon">🖨️</span> <span class="label">طباعة / PDF</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="فهرس المحتويات">
+  <div class="container">
+    <h2 class="toc-title">فهرس المحتويات</h2>
+    <ol class="toc-list">
+      <li><a href="#section-1">1. المصفوفات في PHP (PHP Arrays)</a></li>
+      <li><a href="#section-2">2. مصفوفات $_GET و $_POST</a></li>
+      <li><a href="#section-3">3. مصفوفة $_SERVER</a></li>
+      <li><a href="#section-4">4. مصفوفة $_FILES</a></li>
+      <li><a href="#section-5">5. قراءة وكتابة الملفات (Reading/Writing Files)</a></li>
+      <li><a href="#section-6">6. التعاريف الأساسية (Definitions)</a></li>
+      <li><a href="#section-7">7. جداول المقارنة (Comparison Tables)</a></li>
+      <li><a href="#section-8">8. اختبار تفاعلي (Interactive Quiz)</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="container">
+
+<!-- ============================================= -->
+<!-- Section 1: Arrays -->
+<!-- ============================================= -->
+<section id="section-1" class="section">
+  <h2 class="section-title">1. المصفوفات في PHP <span dir="ltr" class="en">(PHP Arrays)</span></h2>
+
+  <h3 id="s1-1">1.1 مفهوم المصفوفة <span dir="ltr" class="en">(Array Concept)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">An array is a data structure that: collects a number of related elements together in a single variable; allows the set to be iterated; allows access of any element. Since PHP implements an array as a dynamic structure: you can add to the array and remove from the array.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> المصفوفة (Array) هي بنية بيانات تقوم بـ: جمع عدد من العناصر المترابطة معًا في متغير واحد؛ السماح بالمرور على المجموعة (Iterate)؛ السماح بالوصول إلى أي عنصر. وبما أن PHP تنفّذ المصفوفة كبنية ديناميكية: يمكنك الإضافة إلى المصفوفة والحذف منها.</p>
+
+  <h3 id="s1-2">1.2 المفاتيح والقيم <span dir="ltr" class="en">(Array Keys &amp; Values)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original — Keys</p>
+    <ul class="bullets" dir="ltr">
+      <li>In PHP an array is actually an ordered map, which associates each value in the array with a key.</li>
+      <li>Array keys are the means by which you refer to single elements in the array.</li>
+      <li>In most programming languages array keys are limited to integers, start at 0, and go up by 1.</li>
+      <li>In PHP, array keys must be either integers or strings and need not be sequential.</li>
+      <li>If you don't explicitly define them they are 0, 1, ...</li>
+    </ul>
+  </div>
+
+  <p><strong>الترجمة:</strong></p>
+  <ul class="bullets">
+    <li>في PHP، المصفوفة هي في الحقيقة <strong>خريطة مرتبة (Ordered Map)</strong> تربط كل قيمة في المصفوفة بمفتاح.</li>
+    <li>مفاتيح المصفوفة هي الوسيلة التي تشير بها إلى عناصر مفردة داخل المصفوفة.</li>
+    <li>في معظم لغات البرمجة، مفاتيح المصفوفة محصورة بالأعداد الصحيحة، وتبدأ من 0 وتزيد بمقدار 1.</li>
+    <li>في PHP، مفاتيح المصفوفة يجب أن تكون إما أعدادًا صحيحة أو نصوصًا، ولا يلزم أن تكون متسلسلة.</li>
+    <li>إذا لم تُعرّفها بشكل صريح، فإنها تكون 0، 1، ...</li>
+  </ul>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original — Values</p>
+    <p dir="ltr">Array values, unlike keys, are not restricted to integers and strings. They can be any object, type, or primitive supported in PHP.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> قيم المصفوفة، على عكس المفاتيح، ليست محصورة بالأعداد الصحيحة والنصوص. يمكن أن تكون أي كائن أو نوع أو قيمة أولية يدعمها PHP.</p>
+
+  <h3 id="s1-3">1.3 إنشاء المصفوفات <span dir="ltr" class="en">(Defining an Array)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">The following declares an empty array named days: <code>$days = array();</code>. You can also initialize it with a comma-delimited list of values inside the () braces using either of two syntaxes.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> السطر التالي يعرّف مصفوفة فارغة باسم <code dir="ltr">$days</code>. يمكنك أيضًا تهيئتها بقائمة قيم مفصولة بفواصل داخل الأقواس باستخدام إحدى الصيغتين.</p>
+
+<pre class="code-block"><code dir="ltr">$days = array("Mon", "Tue", "Wed", "Thu", "Fri");
+$days = ["Mon", "Tue", "Wed", "Thu", "Fri"]; // alternate syntax</code></pre>
+
+  <h3 id="s1-4">1.4 الوصول إلى القيم <span dir="ltr" class="en">(Accessing Array Values)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">To access values in an array you refer to their key using the square bracket notation.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> للوصول إلى القيم في المصفوفة، تشير إلى مفتاحها باستخدام صيغة الأقواس المربعة.</p>
+
+<pre class="code-block"><code dir="ltr">echo "Value at index 1 is " . $days[1];</code></pre>
+
+  <h3 id="s1-5">1.5 مفاتيح صريحة <span dir="ltr" class="en">(Explicit Keys)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">In PHP, you are also able to explicitly define the keys in addition to the values. This allows you to use keys other than the classic 0, 1, 2, ..., n to define the indexes of an array.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> في PHP، يمكنك أيضًا تعريف المفاتيح صراحةً بالإضافة إلى القيم. هذا يتيح لك استخدام مفاتيح أخرى غير المفاهيم الكلاسيكية 0، 1، 2، ... n لتحديد فهارس المصفوفة.</p>
+
+<pre class="code-block"><code dir="ltr">$days = array(0 =&gt; "Mon", 1 =&gt; "Tue", 2 =&gt; "Wed", 3 =&gt; "Thu", 4 =&gt; "Fri");
+
+// Array with string keys, integer values
+$forecast = array("Mon" =&gt; 40, "Tue" =&gt; 47, "Wed" =&gt; 52, "Thu" =&gt; 40, "Fri" =&gt; 37);
+
+echo $forecast["Tue"]; // outputs 47
+echo $forecast["Thu"]; // outputs 40</code></pre>
+
+  <h3 id="s1-6">1.6 المصفوفات متعددة الأبعاد <span dir="ltr" class="en">(Multidimensional Arrays)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Multidimensional arrays are created by nesting arrays inside arrays. Access to elements is done by chaining multiple bracket notations.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> المصفوفات متعددة الأبعاد تُنشأ بتداخل مصفوفات داخل مصفوفات. يتم الوصول إلى العناصر بتسلسل عدة أقواس مربعة.</p>
+
+<pre class="code-block"><code dir="ltr">$month = array(
+    array("Mon", "Tue", "Wed", "Thu", "Fri"),
+    array("Mon", "Tue", "Wed", "Thu", "Fri"),
+    array("Mon", "Tue", "Wed", "Thu", "Fri"),
+    array("Mon", "Tue", "Wed", "Thu", "Fri")
+);
+
+echo $month[0][3]; // outputs Thu</code></pre>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Another Example — Shopping Cart</p>
+<pre class="code-block"><code dir="ltr">$cart = array();
+$cart[] = array("id" =&gt; 37,  "title" =&gt; "Burial at Ornans", "quantity" =&gt; 1);
+$cart[] = array("id" =&gt; 345, "title" =&gt; "The Death of Marat", "quantity" =&gt; 1);
+$cart[] = array("id" =&gt; 63,  "title" =&gt; "Starry Night", "quantity" =&gt; 1);
+
+echo $cart[2]["title"]; // outputs: Starry Night</code></pre>
+  </div>
+
+  <h3 id="s1-7">1.7 التكرار عبر المصفوفة <span dir="ltr" class="en">(Iterating through an Array)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 9.2 — while, do while, and for</p>
+<pre class="code-block"><code dir="ltr">// while loop
+$i = 0;
+while ($i &lt; count($days)) {
+    echo $days[$i] . "&lt;br&gt;";
+    $i++;
+}
+
+// do-while loop
+$i = 0;
+do {
+    echo $days[$i] . "&lt;br&gt;";
+    $i++;
+} while ($i &lt; count($days));
+
+// for loop
+for ($i = 0; $i &lt; count($days); $i++) {
+    echo $days[$i] . "&lt;br&gt;";
+}</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 9.3 — foreach (values and keys)</p>
+<pre class="code-block"><code dir="ltr">// foreach: iterating through the values
+foreach ($forecast as $value) {
+    echo $value . "&lt;br&gt;";
+}
+
+// foreach: iterating through values AND keys
+foreach ($forecast as $key =&gt; $value) {
+    echo "day " . $key . " = " . $value;
+}</code></pre>
+  </div>
+
+  <h3 id="s1-8">1.8 الإضافة إلى المصفوفة <span dir="ltr" class="en">(Adding to an Array)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">An element can be added to an array simply by using a key/index that hasn't been used. A new element can be added to the end of any array using the empty bracket notation.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> يمكن إضافة عنصر إلى المصفوفة ببساطة باستخدام مفتاح/فهرس لم يُستخدم من قبل. ويمكن إضافة عنصر جديد إلى نهاية أي مصفوفة باستخدام الأقواس المربعة الفارغة.</p>
+
+<pre class="code-block"><code dir="ltr">$days[5] = "Sat";   // explicit key
+$days[]  = "Sun";   // next sequential key</code></pre>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Skipping indices + print_r()</p>
+<pre class="code-block"><code dir="ltr">$days = array("Mon", "Tue", "Wed", "Thu", "Fri");
+$days[7] = "Sat";
+print_r($days);
+// Output:
+// Array ( [0] =&gt; Mon [1] =&gt; Tue [2] =&gt; Wed [3] =&gt; Thu [4] =&gt; Fri [7] =&gt; Sat )</code></pre>
+  </div>
+
+  <h3 id="s1-9">1.9 الحذف من المصفوفة <span dir="ltr" class="en">(Deleting from an Array)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 9.4 — unset() + array_values()</p>
+<pre class="code-block"><code dir="ltr">$days = array("Mon", "Tue", "Wed", "Thu", "Fri");
+unset($days[2]);
+unset($days[3]);
+print_r($days);
+// Array ( [0] =&gt; Mon [1] =&gt; Tue [4] =&gt; Fri )
+
+$days = array_values($days);
+print_r($days);
+// Array ( [0] =&gt; Mon [1] =&gt; Tue [2] =&gt; Fri )</code></pre>
+    <p><strong>الترجمة:</strong> <code>unset()</code> تحذف العنصر لكنها <strong>لا تعيد ترقيم الفهارس</strong>. <code>array_values()</code> تعيد ترقيم الفهارس من جديد.</p>
+  </div>
+
+  <h3 id="s1-10">1.10 التحقق من وجود قيمة بـ <code dir="ltr">isset()</code></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 9.5 — nonsequential keys + isset()</p>
+<pre class="code-block"><code dir="ltr">$oddKeys = array(1 =&gt; "hello", 3 =&gt; "world", 5 =&gt; "!");
+
+if (isset($oddKeys[0])) {
+    // never reached — $oddKeys[0] is not set
+    echo "there is something set for key 0";
+}
+
+if (isset($oddKeys[1])) {
+    echo "there is something set for key 1, namely " . $oddKeys[1];
+}</code></pre>
+    <p><strong>الترجمة:</strong> <code>isset()</code> تعيد <code>true</code> إذا كانت القيمة موجودة، و<code>false</code> إذا لم تكن موجودة.</p>
+  </div>
+
+  <h3 id="s1-11">1.11 ترتيب المصفوفة <span dir="ltr" class="en">(Array Sorting)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">sort() vs asort()</p>
+<pre class="code-block"><code dir="ltr">// sort() by value — loses keys
+sort($days);
+print_r($days);
+// Array ( [0] =&gt; Fri [1] =&gt; Mon [2] =&gt; Sat [3] =&gt; Sun [4] =&gt; Thu [5] =&gt; Tue [6] =&gt; Wed )
+
+// asort() preserves key-value association
+asort($days);
+print_r($days);
+// Array ( [4] =&gt; Fri [0] =&gt; Mon [5] =&gt; Sat [6] =&gt; Sun [3] =&gt; Thu [1] =&gt; Tue [2] =&gt; Wed )</code></pre>
+    <p><strong>الترجمة:</strong> <code>sort()</code> ترتب حسب القيمة وتفقد المفاتيح الأصلية. <code>asort()</code> ترتب حسب القيمة وتحافظ على ارتباط المفاتيح بالقيم.</p>
+  </div>
+
+  <h3 id="s1-12">1.12 عمليات أخرى على المصفوفات <span dir="ltr" class="en">(More Array Operations)</span></h3>
+
+  <div class="note-box">
+    <p class="note-label">📌 دوال شائعة:</p>
+    <ul class="bullets" dir="ltr">
+      <li><code>array_keys($someArray)</code></li>
+      <li><code>array_values($someArray)</code></li>
+      <li><code>array_rand($someArray, $num = 1)</code></li>
+      <li><code>array_reverse($someArray)</code></li>
+      <li><code>array_walk($someArray, $callback, optionalParam)</code></li>
+      <li><code>in_array($needle, $haystack)</code></li>
+      <li><code>shuffle($someArray)</code></li>
+      <li>...</li>
+    </ul>
+  </div>
+    <!-- ===== 1.13 مثال gettype() ===== -->
+  <h3 id="s1-13">1.13 مثال على <code dir="ltr">gettype()</code> — أنواع البيانات</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+$name    = 'Mohammad';
+$number  = 100;
+$double  = 100.0236;
+$boolean = true;
+$test;   // undefined variable
+
+print gettype($name);    print "&lt;br&gt;";
+print gettype($number);  print "&lt;br&gt;";
+print gettype($double);  print "&lt;br&gt;";
+print gettype($boolean); print "&lt;br&gt;";
+print gettype($test);
+?&gt;</code></pre>
+  </div>
+
+  <p><strong>الترجمة:</strong> هذه الدالة <code dir="ltr">gettype()</code> تُظهر نوع المتغير. يمكن استخدامها لفحص الأنواع التي تدعمها PHP: string، integer، double (float)، boolean، و NULL للمتغير غير المعرّف.</p>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 2: $_GET and $_POST -->
+<!-- ============================================= -->
+<section id="section-2" class="section">
+  <h2 class="section-title">2. مصفوفات <span dir="ltr">$_GET</span> و <span dir="ltr">$_POST</span> الفائقة</h2>
+
+  <h3 id="s2-1">2.1 المصفوفات الفائقة <span dir="ltr" class="en">(Superglobal Arrays)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">PHP uses special predefined associative arrays called superglobal variables. They allow the programmer to easily access HTTP headers, query string parameters, and other commonly needed information. They are called superglobal because they are always in scope, and always defined.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> يستخدم PHP مصفوفات ترابطية خاصة معرّفة مسبقًا تُسمى <strong>المتغيرات الفائقة (Superglobal Variables)</strong>. تتيح للمبرمج الوصول بسهولة إلى ترويسات HTTP، ومعاملات سلسلة الاستعلام (Query String)، وغيرها من المعلومات الشائعة. سُميت "فائقة" لأنها دائمًا في النطاق (in scope)، ودائمًا معرّفة.</p>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>المصفوفة</th>
+          <th>الوصف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td dir="ltr"><strong>$_GET</strong></td>
+          <td>Array of query string data passed to the server via the URL. — مصفوفة بيانات سلسلة الاستعلام المرسلة إلى الخادم عبر URL.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>$_POST</strong></td>
+          <td>Array of query string data passed to the server via the HTTP header. — مصفوفة بيانات سلسلة الاستعلام المرسلة إلى الخادم عبر ترويسة HTTP.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>$_REQUEST</strong></td>
+          <td>Array containing the contents of $_GET, $_POST, and $_COOKIES. — مصفوفة تحتوي على محتويات $_GET و $_POST و $_COOKIES.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>$_SESSION</strong></td>
+          <td>Array that contains session data. — مصفوفة تحتوي على بيانات الجلسة.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>$_SERVER</strong></td>
+          <td>Array containing information about the request and the server. — مصفوفة تحتوي على معلومات عن الطلب والخادم.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="s2-2">2.2 <span dir="ltr">$_GET</span> و <span dir="ltr">$_POST</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">The $_GET and $_POST arrays are the most important superglobal variables in PHP since they allow the programmer to access data sent by the client in a query string.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> المصفوفتان <code dir="ltr">$_GET</code> و <code dir="ltr">$_POST</code> هما أهم المتغيرات الفائقة في PHP؛ لأنهما تتيحان للمبرمج الوصول إلى البيانات المرسلة من العميل عبر سلسلة الاستعلام.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original — GET vs POST</p>
+    <ul class="bullets" dir="ltr">
+      <li>GET requests parse query strings into the $_GET array.</li>
+      <li>POST requests are parsed into the $_POST array.</li>
+    </ul>
+  </div>
+
+  <p><strong>الترجمة:</strong></p>
+  <ul class="bullets">
+    <li>طلبات <strong>GET</strong> تُحلَّل سلاسل الاستعلام فيها إلى مصفوفة <code dir="ltr">$_GET</code>.</li>
+    <li>طلبات <strong>POST</strong> تُحلَّل إلى مصفوفة <code dir="ltr">$_POST</code>.</li>
+  </ul>
+
+  <h4>مثال متكامل — GET</h4>
+
+  <div class="example-box">
+    <p class="example-label">HTML Form + Browser + HTTP Request + PHP</p>
+<pre class="code-block"><code dir="ltr">&lt;!-- HTML (client) --&gt;
+&lt;form action="processLogin.php" method="GET"&gt;
+    Name &lt;input type="text" name="uname" /&gt;
+    Pass &lt;input type="text" name="pass" /&gt;
+    &lt;input type="submit"&gt;
+&lt;/form&gt;
+
+&lt;!-- Browser fills in: Name=ricardo, Pass=pw01 --&gt;
+&lt;!-- HTTP Request --&gt;
+GET processLogin.php?uname=ricardo&amp;pass=pw01</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label">PHP (server) — processLogin.php</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+// within file processLogin.php
+echo $_GET["uname"]; // outputs ricardo
+echo $_GET["pass"];  // outputs pw01
+?&gt;</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 الفرق الجوهري بين GET و POST:</p>
+    <ul class="bullets">
+      <li><strong>GET:</strong> البيانات تظهر علنًا في شريط العنوان (URL)، ولها حد أقصى للطول، ومناسبة لعمليات القراءة والبحث.</li>
+      <li><strong>POST:</strong> البيانات تُرسل داخل جسم الطلب (Request Body)، ولا تظهر في URL، وتسمح بأحجام كبيرة — مناسبة للمعلومات الحساسة ورفع الملفات.</li>
+    </ul>
+  </div>
+
+  <h3 id="s2-3">2.3 نشاط منزلي <span dir="ltr" class="en">(HW Activity)</span></h3>
+
+  <div class="note-box">
+    <p class="note-label" dir="ltr">HW activity</p>
+    <p dir="ltr">Build an email sender and receiver via two or three PHP pages as simulator.</p>
+    <p><strong>الترجمة:</strong> أنشئ مُرسِلًا ومُستقبِلًا للبريد الإلكتروني عبر صفحتين أو ثلاث صفحات PHP كمحاكاة.</p>
+  </div>
+    <!-- ===== 2.4 Accessing Form Array Data ===== -->
+  <h3 id="s2-4">2.4 الوصول إلى بيانات النموذج كـ Array <span dir="ltr" class="en">(Accessing Form Array Data)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Sometimes in HTML forms you might have multiple values associated with a single name. If the user selects more than one day and submits the form, the <code>$_GET['day']</code> value will only contain the last value selected.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> أحيانًا في نماذج HTML، قد يكون لديك قيم متعددة مرتبطة باسم واحد. إذا اختار المستخدم أكثر من يوم وأرسل النموذج، فإن القيمة <code dir="ltr">$_GET['day']</code> ستحتوي فقط على القيمة الأخيرة المختارة.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 9.7 — Multiple values for one name (BEFORE fix)</p>
+<pre class="code-block"><code dir="ltr">&lt;form method="get"&gt;
+  Please select days of the week you are free.&lt;br /&gt;
+  Monday &lt;input type="checkbox" name="day" value="Monday" /&gt; &lt;br /&gt;
+  Tuesday &lt;input type="checkbox" name="day" value="Tuesday" /&gt; &lt;br /&gt;
+  Wednesday &lt;input type="checkbox" name="day" value="Wednesday" /&gt; &lt;br /&gt;
+  Thursday &lt;input type="checkbox" name="day" value="Thursday" /&gt; &lt;br /&gt;
+  Friday &lt;input type="checkbox" name="day" value="Friday" /&gt; &lt;br /&gt;
+  &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;</code></pre>
+    <p><strong>المشكلة:</strong> سيُرسل يوم واحد فقط (آخر يوم مختار) إلى الخادم.</p>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">The Fix — change name="day" to name="day[]"</p>
+<pre class="code-block"><code dir="ltr">Monday &lt;input type="checkbox" name="day[]" value="Monday" /&gt;
+Tuesday &lt;input type="checkbox" name="day[]" value="Tuesday" /&gt;
+<!-- ... وهكذا لبقية الأيام ... --></code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 9.8 — PHP code to display array of checkbox variables</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+echo "You submitted " . count($_GET['day']) . " values";
+foreach ($_GET['day'] as $d) {
+    echo $d . " ";
+}
+?&gt;</code></pre>
+    <p><strong>الترجمة:</strong> بعد التعديل، المتغير <code dir="ltr">$_GET['day']</code> أصبح مصفوفة. نستخدم <code dir="ltr">count()</code> لعدّ القيم و<code dir="ltr">foreach</code> للمرور عليها.</p>
+  </div>
+
+  <!-- ===== 2.5 Using Query String in Links ===== -->
+  <h3 id="s2-5">2.5 استخدام Query String في الروابط <span dir="ltr" class="en">(Using Query Strings in Links)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Imagine a web page in which we are displaying a list of book links. One approach would be to have a separate page for each book. A better approach is to use a single page with a query string that identifies the book.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> تخيل صفحة ويب تعرض قائمة بروابط كتب. إحدى الطرق هي تخصيص صفحة منفصلة لكل كتاب. الطريقة الأفضل هي استخدام <strong>صفحة واحدة</strong> مع <strong>query string</strong> يحدد الكتاب.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Bad approach — separate page per book</p>
+<pre class="code-block"><code dir="ltr">&lt;a href="elementaryAlgebra.php"&gt;Elementary Algebra&lt;/a&gt;
+&lt;a href="curiousWriter.php"&gt;The Curious Writer&lt;/a&gt;
+&lt;a href="usingMIS.php"&gt;Using MIS&lt;/a&gt;
+&lt;a href="databaseProcessing.php"&gt;Database Processing&lt;/a&gt;</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Good approach — one displayBook.php with query string</p>
+<pre class="code-block"><code dir="ltr">&lt;a href="displayBook.php?isbn=0132145375"&gt;Database Processing&lt;/a&gt;</code></pre>
+    <p><strong>الترجمة:</strong> رابط واحد فقط، مع <code dir="ltr">?isbn=0132145375</code> كـ query string يحدد الكتاب. هذا يقلل تكرار الكود.</p>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملاحظة:</p>
+    <p>سنتعلم المزيد عن كيفية تنفيذ هذه الصفحات باستخدام قاعدة البيانات في الفصل الحادي عشر.</p>
+  </div>
+
+  <!-- ===== 2.6 Sanitizing Query Strings ===== -->
+  <h3 id="s2-6">2.6 تنقية Query Strings <span dir="ltr" class="en">(Sanitizing Query Strings)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">The process of checking user input for incorrect or missing information and examining SQL injection attacks is sometimes referred to as the process of sanitizing (check) user inputs.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> عملية التحقق من مدخلات المستخدم بحثًا عن معلومات غير صحيحة أو مفقودة وفحص هجمات SQL Injection تُسمى أحيانًا عملية <strong>تنقية (sanitizing)</strong> مدخلات المستخدم.</p>
+
+  <div class="warning-box">
+    <p><strong>⚠️ قاعدة أساسية:</strong> جميع قيم البيانات التي قد يُعدّلها المستخدم — مثل query strings، أو قيم النماذج، أو قيم الكوكيز — <strong>يجب تنقيتها قبل الاستخدام</strong>.</p>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 9.9 — Simple sanitization of query string values</p>
+<pre class="code-block"><code dir="ltr">// This uses a database API . . . we will learn about it in Chapter 11
+$pid = mysql_real_escape_string($link, $_GET['id']);
+
+if (is_int($pid)) {
+    // Continue processing as normal
+} else {
+    // Error detected. Possibly a malicious user
+}</code></pre>
+  </div>
+
+  <!-- ===== 2.7 Associative Array Example ===== -->
+  <h3 id="s2-7">2.7 مثال على المصفوفة الترابطية</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Associative array is an array that uses named keys that you assign to values that are requested by array name.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> المصفوفة الترابطية هي مصفوفة تستخدم مفاتيح مسماة تُسندها إلى القيم، ويتم طلبها باسم المصفوفة.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Example</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+// simple array
+$data = array("Marwa", "Alhadi");
+echo $data[0];
+?&gt;
+
+&lt;?php
+// associative array
+$data = array("first" =&gt; "Marwa", "last" =&gt; "Alhadi");
+echo "my first name is $data[first] and my last name is $data[last].";
+?&gt;</code></pre>
+  </div>
+
+  <!-- ===== 2.8 Assignment ===== -->
+  <h3 id="s2-8">2.8 Assignment</h3>
+
+  <div class="note-box">
+    <p class="note-label" dir="ltr">Assignment</p>
+    <p dir="ltr">Write an associative array about all your CV details:</p>
+    <ul class="bullets">
+      <li>Your full name</li>
+      <li>Your age</li>
+      <li>Your level</li>
+      <li>Your job</li>
+      <li>Your hobbies</li>
+      <li>Your ambition</li>
+    </ul>
+    <p><strong>الترجمة:</strong> اكتب مصفوفة ترابطية تحتوي على كل تفاصيل سيرتك الذاتية: اسمك الكامل، عمرك، مستواك، وظيفتك، هواياتك، طموحك.</p>
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 3: $_SERVER -->
+<!-- ============================================= -->
+<section id="section-3" class="section">
+  <h2 class="section-title">3. مصفوفة <span dir="ltr">$_SERVER</span></h2>
+
+  <h3 id="s3-1">3.1 مصفوفة معلومات الخادم</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">$_SERVER is a superglobal array containing information about the request and the server, created and populated by the web server (such as Apache).</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> <code dir="ltr">$_SERVER</code> مصفوفة فائقة تحتوي على معلومات عن الطلب والخادم، يُنشئها ويُغذّيها خادم الويب (مثل Apache).</p>
+
+  <p>من أهم عناصر المصفوفة في المقرر:</p>
+  <ul class="bullets">
+    <li><strong><code dir="ltr">$_SERVER['PHP_SELF']</code>:</strong> returns the filename of the currently executing script relative to document root. — يعيد اسم ومسار الملف الحالي بالنسبة لجذر المستند (مثل <code dir="ltr">/test.php</code>).</li>
+    <li><strong><code dir="ltr">$_SERVER['SERVER_NAME']</code>:</strong> returns the host/server name. — يعيد اسم المضيف أو الخادم.</li>
+    <li><strong><code dir="ltr">$_SERVER['REQUEST_METHOD']</code>:</strong> returns the request method (e.g., <code dir="ltr">'GET'</code> or <code dir="ltr">'POST'</code>). — يعيد طريقة الطلب المستخدمة.</li>
+    <li><strong><code dir="ltr">$_SERVER['HTTP_USER_AGENT']</code>:</strong> returns the client's browser / OS info. — يعيد معلومات نصية عن متصفح ونظام تشغيل العميل.</li>
+  </ul>
+
+  <div class="example-box">
+    <p class="example-label">مثال عملي</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+echo "مسار السكريبت الحالي: " . $_SERVER['PHP_SELF'] . "&lt;br&gt;";
+echo "طريقة الطلب المستخدمة: " . $_SERVER['REQUEST_METHOD'];
+?&gt;</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 تنبيه:</p>
+    <p>ليست كل المفاتيح مضمونة الوجود في كل البيئات؛ فهي تتأثر بالخادم والإعدادات وطريقة التشغيل (CLI vs Web Server).</p>
+  </div>
+    <!-- ===== 3.2 HTTP Request Headers Diagram ===== -->
+  <h3 id="s3-2">3.2 مخطط ترويسات HTTP <span dir="ltr" class="en">(HTTP Request Headers)</span></h3>
+
+  <p>يوضح المخطط كيف تُترجم ترويسات HTTP (التي يرسلها العميل) إلى مفاتيح في <code dir="ltr">$_SERVER</code>. كما يُظهر المفاتيح المتعلقة بمعلومات الخادم نفسه:</p>
+
+<pre class="code-block"><code dir="ltr">POST /page.php HTTP/1.1
+Date: Sun, 20 May 2012 23:59:59 GMT
+Host: www.mysite.com
+User-Agent: Mozilla/4.0
+Accept-Encoding: gzip
+Connection: Keep-Alive
+...
+
+&lt;html&gt; ...
+
+ترويسات الطلب (HTTP Request Header) →
+  $_SERVER['REQUEST_METHOD']
+  $_SERVER['REQUEST_TIME']
+  $_SERVER['SERVER_PROTOCOL']
+  $_SERVER['HTTP_HOST']
+  $_SERVER['HTTP_USER_AGENT']
+  $_SERVER['HTTP_ACCEPT_ENCODING']
+  $_SERVER['HTTP_CONNECTION']</code></pre>
+
+<pre class="code-block"><code dir="ltr">// من ملفات إعدادات الخادم:
+$_SERVER['SERVER_NAME']   // site name
+$_SERVER['SERVER_ADDR']   // IP of server
+$_SERVER['SERVER_PORT']</code></pre>
+
+  <!-- ===== 3.3 Server Information Keys ===== -->
+  <h3 id="s3-3">3.3 مفاتيح معلومات الخادم <span dir="ltr" class="en">(Server Information Keys)</span></h3>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>المفتاح</th>
+          <th>الوصف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td dir="ltr"><strong>SERVER_NAME</strong></td><td>يحتوي على اسم الموقع المطلوب.</td></tr>
+        <tr><td dir="ltr"><strong>SERVER_ADDR</strong></td><td>يعيد IP الخادم.</td></tr>
+        <tr><td dir="ltr"><strong>DOCUMENT_ROOT</strong></td><td>الموقع الذي تُشغّل منه السكريبت حاليًا.</td></tr>
+        <tr><td dir="ltr"><strong>SCRIPT_NAME</strong></td><td>المفتاح الذي يحدد السكريبت الفعلي الجاري تنفيذه.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== 3.4 Request Header Keys ===== -->
+  <h3 id="s3-4">3.4 مفاتيح ترويسات الطلب <span dir="ltr" class="en">(Request Header Keys)</span></h3>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>المفتاح</th>
+          <th>الوصف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td dir="ltr"><strong>REQUEST_METHOD</strong></td><td>طريقة الطلب: GET، HEAD، POST، PUT.</td></tr>
+        <tr><td dir="ltr"><strong>REMOTE_ADDR</strong></td><td>عنوان IP للطالب.</td></tr>
+        <tr><td dir="ltr"><strong>HTTP_USER_AGENT</strong></td><td>نظام التشغيل والمتصفح اللذان يستخدمهما العميل.</td></tr>
+        <tr><td dir="ltr"><strong>HTTP_REFERER</strong></td><td>عنوان الصفحة التي أحالتنا إلى هذه الصفحة (إن وُجد) عبر رابط.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Example — print all $_SERVER keys</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+foreach ($_SERVER as $key =&gt; $value) {
+    echo $key . ' - ';
+    if (!is_array($value)) {
+        echo $key . '=' . $value . '&lt;br&gt;';
+    }
+}
+?&gt;</code></pre>
+  </div>
+
+  <!-- ===== 3.5 Security Warning ===== -->
+  <h3 id="s3-5">3.5 تحذير أمني <span dir="ltr" class="en">(Security — Headers can be forged)</span></h3>
+
+  <div class="warning-box">
+    <p><strong>⚠️ الترويسات يمكن تزويرها (Forged)!</strong></p>
+    <ul class="bullets">
+      <li>ترويسة <code dir="ltr">HTTP_REFERER</code> يمكن أن تكذب بشأن مصدر الإحالة.</li>
+      <li><code dir="ltr">USER_AGENT</code> يمكن أن يكذب بشأن نظام التشغيل والمتصفح الذي يستخدمه العميل.</li>
+    </ul>
+    <p><strong>الخلاصة:</strong> لا تعتمد على ترويسات HTTP في اتخاذ قرارات أمنية حساسة.</p>
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 4: $_FILES -->
+<!-- ============================================= -->
+<section id="section-4" class="section">
+  <h2 class="section-title">4. مصفوفة <span dir="ltr">$_FILES</span> — رفع الملفات</h2>
+
+  <h3 id="s4-1">4.1 مصفوفة الملفات المرفوعة</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">$_FILES is a superglobal associative array of items uploaded to the current script via the HTTP POST method using multipart/form-data. It stores descriptive information and properties of files uploaded from the client to the server.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> <code dir="ltr">$_FILES</code> مصفوفة ترابطية فائقة تحتوي على العناصر المرفوعة إلى السكريبت الحالي عبر طريقة HTTP POST باستخدام <code dir="ltr">multipart/form-data</code>. تخزّن معلومات وصفية وخصائص الملفات المرفوعة من العميل إلى الخادم.</p>
+
+  <h4>شروط رفع الملفات في HTML</h4>
+
+  <p>لرفع الملفات بنجاح من متصفح العميل إلى الخادم، يجب توفر شرطين حاسمين في نموذج HTML:</p>
+  <ol class="steps-list">
+    <li>تحديد طريقة الإرسال برمجيًا لتكون <code dir="ltr">method="POST"</code>.</li>
+    <li>إضافة الخاصية <code dir="ltr">enctype="multipart/form-data"</code> في وسم النموذج <code dir="ltr">&lt;form&gt;</code>.</li>
+  </ol>
+
+  <div class="example-box">
+    <p class="example-label">نموذج رفع ملفات كامل</p>
+<pre class="code-block"><code dir="ltr">&lt;form action="upload.php" method="POST" enctype="multipart/form-data"&gt;
+    &lt;input type="file" name="userfile" /&gt;
+    &lt;input type="submit" value="رفع الملف" /&gt;
+&lt;/form&gt;</code></pre>
+  </div>
+
+  <h4>مكونات <code dir="ltr">$_FILES['userfile']</code> الخمسة</h4>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>العنصر</th>
+          <th>الوظيفة</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td dir="ltr"><strong>$_FILES['userfile']['name']</strong></td>
+          <td>الاسم الأصلي للملف على جهاز العميل.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>$_FILES['userfile']['type']</strong></td>
+          <td>نوع MIME للملف المرفوع كما أرسله المتصفح (مثل <code>"image/gif"</code>).</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>$_FILES['userfile']['size']</strong></td>
+          <td>حجم الملف المرفوع بالبايت (Bytes).</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>$_FILES['userfile']['tmp_name']</strong></td>
+          <td>المسار المؤقت للملف على الخادم.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>$_FILES['userfile']['error']</strong></td>
+          <td>رمز الخطأ المرتبط برفع الملف (0 عند النجاح).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>رموز أخطاء الرفع <span dir="ltr">(UPLOAD_ERR_*)</span></h4>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>الرمز</th>
+          <th>القيمة</th>
+          <th>المعنى</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td dir="ltr"><strong>UPLOAD_ERR_OK</strong></td><td>0</td><td>تم رفع الملف بنجاح دون أخطاء.</td></tr>
+        <tr><td dir="ltr"><strong>UPLOAD_ERR_INI_SIZE</strong></td><td>1</td><td>حجم الملف يتجاوز الحد المسموح في <code>php.ini</code>.</td></tr>
+        <tr><td dir="ltr"><strong>UPLOAD_ERR_FORM_SIZE</strong></td><td>2</td><td>حجم الملف يتجاوز الحد المنسوب في النموذج عبر <code>MAX_FILE_SIZE</code>.</td></tr>
+        <tr><td dir="ltr"><strong>UPLOAD_ERR_NO_FILE</strong></td><td>4</td><td>لم يتم اختيار أو رفع أي ملف.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>تأمين رفع الملفات</h4>
+
+  <ol class="steps-list">
+    <li><strong>التحقق قبل النقل:</strong> التحقق من الحجم والأخطاء ودالة <code dir="ltr">is_uploaded_file()</code>.</li>
+    <li><strong>نقل الملف المؤقت:</strong> باستخدام الدالة المعيارية <code dir="ltr">move_uploaded_file()</code>.</li>
+    <li>
+      <strong>المخاطر والتحذيرات الأمنية:</strong>
+      <ul class="bullets">
+        <li><strong>عدم الوثوق بـ <code dir="ltr">$_FILES['userfile']['type']</code>:</strong> قيمته قابلة للتعديل والتزييف من قبل العميل.</li>
+        <li><strong>فحص امتداد الملف:</strong> منع رفع ملفات قد تُنفذ أكوادًا خبيثة (مثل <code dir="ltr">.php</code>).</li>
+        <li><strong>تغيير اسم الملف:</strong> إعادة تسمية الملفات لمنع إتلاف ملفات النظام أو File Overwrite.</li>
+      </ul>
+    </li>
+  </ol>
+
+  <div class="example-box">
+    <p class="example-label">مثال معالجة رفع ملف</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+$targetDir  = "/var/www/uploads/";
+$targetFile = $targetDir . basename($_FILES['userfile']['name']);
+
+if (move_uploaded_file($_FILES['userfile']['tmp_name'], $targetFile)) {
+    echo "تم رفع الملف ونقله بنجاح!";
+} else {
+    echo "خطأ في عملية الرفع!";
+}
+?&gt;</code></pre>
+  </div>
+    <!-- ===== 4.2 Detailed Keys ===== -->
+  <h3 id="s4-2">4.2 مفاتيح مصفوفة <code dir="ltr">$_FILES</code> بالتفصيل</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">The $_FILES array contains a key=value pair for each file uploaded in the POST. The key is the name attribute from the HTML form. The value is an array containing: name, type, tmp_name, error, size.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> مصفوفة <code dir="ltr">$_FILES</code> تحتوي على زوج مفتاح=قيمة لكل ملف مرفوع في POST. المفتاح هو خاصية <code dir="ltr">name</code> من نموذج HTML. القيمة هي مصفوفة تحتوي على: <code dir="ltr">name</code>، <code dir="ltr">type</code>، <code dir="ltr">tmp_name</code>، <code dir="ltr">error</code>، <code dir="ltr">size</code>.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Concrete values</p>
+<pre class="code-block"><code dir="ltr">echo $_FILES["file1"]["name"];     // "Sample1.png"
+echo $_FILES["file1"]["type"];     // "image/png"
+echo $_FILES["file1"]["tmp_name"]; // "/tmp/phpJ08pVh"
+echo $_FILES["file1"]["error"];    // 0
+echo $_FILES["file1"]["size"];     // 1219038</code></pre>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>المفتاح</th>
+          <th>الوصف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td dir="ltr"><strong>name</strong></td><td>الاسم الكامل للملف على جهاز العميل، بما في ذلك الامتداد.</td></tr>
+        <tr><td dir="ltr"><strong>type</strong></td><td>نوع الملف.</td></tr>
+        <tr><td dir="ltr"><strong>tmp_name</strong></td><td>المسار الكامل لموقع التخزين المؤقت على الخادم.</td></tr>
+        <tr><td dir="ltr"><strong>error</strong></td><td>عدد صحيح يُشفّر الأخطاء الممكنة، ويُضبط على <code>UPLOAD_ERR_OK</code> (القيمة 0) إذا نجح الرفع.</td></tr>
+        <tr><td dir="ltr"><strong>size</strong></td><td>عدد صحيح يمثل حجم الملف المرفوع بالبايت.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== 4.3 Checking for Errors ===== -->
+  <h3 id="s4-3">4.3 التحقق من الأخطاء <span dir="ltr" class="en">(Check for Errors)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 9.13 — Checking each file uploaded for errors</p>
+<pre class="code-block"><code dir="ltr">foreach ($_FILES as $fileKey =&gt; $fileArray) {
+    if ($fileArray["error"] != UPLOAD_ERR_OK) {
+        // error
+        echo "Error: " . $fileKey . " has error " . $fileArray["error"] . "&lt;br&gt;";
+    } else {
+        // no error
+        echo $fileKey . " Uploaded successfully";
+    }
+}</code></pre>
+    <p><strong>الترجمة:</strong> لكل ملف مرفوع، هناك قيمة خطأ في <code dir="ltr">$_FILES</code>. القيمة <code dir="ltr">UPLOAD_ERR_OK</code> تعني النجاح، ويجب البحث عنها قبل المتابعة.</p>
+  </div>
+
+  <!-- ===== 4.4 File Size Restrictions ===== -->
+  <h3 id="s4-4">4.4 قيود حجم الملف <span dir="ltr" class="en">(File Size Restrictions)</span></h3>
+
+  <p>هناك ثلاث آليات رئيسية للحفاظ على قيود حجم الملف المرفوع:</p>
+
+  <h4>1. HTML in the input form</h4>
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 9.14</p>
+<pre class="code-block"><code dir="ltr">&lt;form enctype='multipart/form-data' method='post'&gt;
+    &lt;input type="hidden" name="MAX_FILE_SIZE" value="1000000" /&gt;
+    &lt;input type='file' name='file1' /&gt;
+    &lt;input type='submit' /&gt;
+&lt;/form&gt;</code></pre>
+    <p><strong>الترجمة:</strong> إضافة حقل مخفي باسم <code dir="ltr">MAX_FILE_SIZE</code> بقيمة بالبايت قبل حقول الإدخال. (يمكن تجاوزها بسهولة — لا تعتمد عليها وحدها).</p>
+  </div>
+
+  <h4>2. Via JavaScript</h4>
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 9.15</p>
+<pre class="code-block"><code dir="ltr">&lt;script&gt;
+var file = document.getElementById('file1');
+var max_size = document.getElementById("max_file_size").value;
+if (file.files &amp;&amp; file.files.length == 1) {
+    if (file.files[0].size &gt; max_size) {
+        alert("The file must be less than " + (max_size/1024) + "KB");
+        e.preventDefault();
+    }
+}
+&lt;/script&gt;</code></pre>
+    <p><strong>الترجمة:</strong> يسمح بفحص من جانب العميل قبل إرسال البيانات. (يمكن تجاوزه بسهولة).</p>
+  </div>
+
+  <h4>3. Via PHP (الأساسي)</h4>
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 9.16 — The only one you HAVE to do</p>
+<pre class="code-block"><code dir="ltr">$max_file_size = 10000000;
+foreach ($_FILES as $fileKey =&gt; $fileArray) {
+    if ($fileArray["size"] &gt; $max_file_size) {
+        echo "Error: " . $fileKey . " is too big";
+    }
+    printf("%s is %.2f KB", $fileKey, $fileArray["size"]/1024);
+}</code></pre>
+    <p><strong>الترجمة:</strong> هذا هو الفحص <strong>الواجب</strong> على جانب الخادم — لا يمكن تجاوزه من العميل.</p>
+  </div>
+
+  <!-- ===== 4.5 Limiting File Type ===== -->
+  <h3 id="s4-5">4.5 تحديد نوع الملف <span dir="ltr" class="en">(Limiting the Type of File Upload)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">What if you wanted the user to upload an image and they uploaded a Microsoft Word document? You might want to limit the uploaded image to certain image types, such as jpg and png, while disallowing bmp and others. You should examine: (1) the file extension, and (2) the type field.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> ماذا لو أردت من المستخدم رفع صورة فرفع مستند Word؟ قد ترغب في تقييد الصورة المرفوعة بأنواع معينة (jpg و png) ومنع bmp وغيرها. يجب أن تفحص: (1) امتداد الملف، و(2) حقل النوع.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 9.17 — PHP code to look for valid mime types and extensions</p>
+<pre class="code-block"><code dir="ltr">$validExt  = array("jpg", "png");
+$validMime = array("image/jpeg", "image/png");
+
+foreach ($_FILES as $fileKey =&gt; $fileArray) {
+    $extension = end(explode(".", $fileArray["name"]));
+    if (in_array($fileArray["type"], $validMime) &amp;&amp;
+        in_array($extension, $validExt)) {
+        echo "all is well. Extension and mime types valid";
+    } else {
+        echo $fileKey . " Has an invalid mime type or extension";
+    }
+}</code></pre>
+  </div>
+
+  <!-- ===== 4.6 Moving the File ===== -->
+  <h3 id="s4-6">4.6 نقل الملف <span dir="ltr" class="en">(Moving the File)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 9.18 — Using move_uploaded_file()</p>
+<pre class="code-block"><code dir="ltr">$fileToMove  = $_FILES['file1']['tmp_name'];
+$destination = "/upload/" . $_FILES["file1"]["name"];
+
+if (move_uploaded_file($fileToMove, $destination)) {
+    echo "The file was uploaded and moved successfully!";
+} else {
+    echo "there was a problem moving the file";
+}</code></pre>
+    <p><strong>الترجمة:</strong> يجب نقل الملف المؤقت إلى موقع دائم على الخادم. <code dir="ltr">move_uploaded_file()</code> تأخذ موقع الملف المؤقت والوجهة النهائية.</p>
+  </div>
+
+  <!-- ===== 4.7 Assignment ===== -->
+  <h3 id="s4-7">4.7 Assignment</h3>
+
+  <div class="note-box">
+    <p class="note-label" dir="ltr">Assignment</p>
+    <ul class="bullets">
+      <li>Create page to read a file that your entered and send the content into the second page.</li>
+      <li>Restrict the file with specific size and type.</li>
+      <li>Keep all selected files in a specific place in your pc or laptop.</li>
+    </ul>
+    <p><strong>الترجمة:</strong> أنشئ صفحة لقراءة ملف تُدخله، ثم أرسل المحتوى إلى صفحة ثانية. قيّد الملف بحجم ونوع محددين. احفظ جميع الملفات المختارة في مكان محدد على جهازك.</p>
+  </div>
+</section>
+<!-- ============================================= -->
+<!-- Section 5: Reading/Writing Files -->
+<!-- ============================================= -->
+<section id="section-5" class="section">
+  <h2 class="section-title">5. قراءة وكتابة الملفات <span dir="ltr" class="en">(Reading/Writing Files)</span></h2>
+
+  <h3 id="s5-1">5.1 إدارة الملفات في PHP</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">File management in PHP involves opening channels of communication with files to read content or write new data into them. PHP provides many built-in functions for this purpose.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> تتضمن إدارة الملفات في PHP فتح قنوات اتصال مع الملفات لقراءة المحتوى أو كتابة بيانات جديدة فيها. يوفر PHP العديد من الدوال المدمجة لهذا الغرض.</p>
+
+  <h3>5.2 الدالة <code dir="ltr">fopen()</code></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Opens a file or URL and binds it to a stream resource. Syntax: <code>$handle = fopen(filename, mode);</code></p>
+  </div>
+
+  <p><strong>الترجمة:</strong> دالة فتح الملفات؛ تفتح الملف بالمسار المحدد وتجهّز ممر البيانات (Resource) بالنمط المختار. الصيغة: <code dir="ltr">$handle = fopen(filename, mode);</code></p>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>النمط</th>
+          <th>الوصف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td dir="ltr"><code>'r'</code></td><td>للقراءة فقط (يبدأ من بداية الملف).</td></tr>
+        <tr><td dir="ltr"><code>'w'</code></td><td>للكتابة (يمسح المحتوى القديم أو ينشئ ملفًا جديدًا).</td></tr>
+        <tr><td dir="ltr"><code>'a'</code></td><td>للإلحاق في نهاية الملف (لا يمسح المحتوى).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+<pre class="code-block"><code dir="ltr">$fp = fopen("store.txt", "w"); // فتح الملف لغرض الكتابة</code></pre>
+
+  <h3>5.3 الدالة <code dir="ltr">fwrite()</code></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Writes the contents of a string to the file stream referenced by the file handle. Syntax: <code>fwrite($handle, $string);</code></p>
+  </div>
+
+  <p><strong>الترجمة:</strong> دالة كتابة البيانات؛ تكتب السلسلة النصية في مؤشر الملف المفتوح. الصيغة: <code dir="ltr">fwrite($handle, $string);</code></p>
+
+<pre class="code-block"><code dir="ltr">fwrite($fp, "Hello World"); // يكتب النص داخل الملف المفتوح $fp</code></pre>
+
+  <h3>5.4 الدالة <code dir="ltr">fread()</code></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Reads up to a specified number of bytes from the open file handle. Syntax: <code>$data = fread($handle, length);</code></p>
+  </div>
+
+  <p><strong>الترجمة:</strong> دالة قراءة حجم محدد من الملف المفتوح. الصيغة: <code dir="ltr">$data = fread($handle, length);</code></p>
+
+<pre class="code-block"><code dir="ltr">$data = fread($fp, 1024); // قراءة 1024 بايت من الملف</code></pre>
+
+  <h3>5.5 الدالة <code dir="ltr">fclose()</code></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Closes an open file pointer stream. Syntax: <code>fclose($handle);</code></p>
+  </div>
+
+  <p><strong>الترجمة:</strong> إغلاق ممر الملف المفتوح وتحرير موارد النظام. الصيغة: <code dir="ltr">fclose($handle);</code></p>
+
+  <h3>5.6 الدالة <code dir="ltr">file_get_contents()</code></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Reads an entire file into a string. Syntax: <code>$content = file_get_contents(filename);</code></p>
+  </div>
+
+  <p><strong>الترجمة:</strong> دالة مساعدة لقراءة كامل محتوى الملف أو الرابط دفعة واحدة وإرجاعه كسلسلة نصية بدون الحاجة لاستخدام <code dir="ltr">fopen</code> أو <code dir="ltr">fclose</code> الصريحة. الصيغة: <code dir="ltr">$content = file_get_contents(filename);</code></p>
+
+  <div class="note-box">
+    <p class="note-label">📌 الخلاصة:</p>
+    <ul class="bullets">
+      <li><strong>قراءة/كتابة يدوية:</strong> <code dir="ltr">fopen()</code> → <code dir="ltr">fread()</code>/<code dir="ltr">fwrite()</code> → <code dir="ltr">fclose()</code>.</li>
+      <li><strong>قراءة كاملة سريعة:</strong> <code dir="ltr">file_get_contents()</code> (بدون فتح/إغلاق صريح).</li>
+      <li><strong>كتابة كاملة سريعة:</strong> <code dir="ltr">file_put_contents()</code> (غير مذكور صراحة لكن شائع).</li>
+    </ul>
+  </div>
+    <!-- ===== 5.7 Stream vs In-Memory Access ===== -->
+  <h3 id="s5-7">5.7 Stream Access vs All-In-Memory Access</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">There are two basic techniques for reading/writing files in PHP:</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> هناك تقنيتان أساسيتان لقراءة/كتابة الملفات في PHP:</p>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>التقنية</th>
+          <th>الوصف</th>
+          <th>متى تُستخدم</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td dir="ltr"><strong>Stream Access</strong></td>
+          <td>يقرأ الكود جزءًا صغيرًا فقط من الملف في كل مرة. يتطلب برمجة أكثر حرصًا، لكنه الأكثر كفاءة في الذاكرة للملفات الكبيرة جدًا.</td>
+          <td>الملفات الكبيرة جدًا.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>All-In-Memory Access</strong></td>
+          <td>يقرأ الملف بأكمله في الذاكرة. غير مناسب للملفات الكبيرة، لكنه يجعل معالجة الملف سهلة للغاية.</td>
+          <td>الملفات الصغيرة والمتوسطة.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== 5.8 Stream Access ===== -->
+  <h3 id="s5-8">5.8 Stream Access — الدوال الأساسية</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">fopen() takes a file location or URL and access mode as parameters. It allows opening, reading and writing a file even if it doesn't exist. Use fread() or fgets() to read ahead in the file. fclose() is invoked when you are done. Writing is done much the same with fwrite().</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> تأخذ <code dir="ltr">fopen()</code> موقع الملف أو URL ونمط الوصول كمعاملات. تسمح بفتح وقراءة وكتابة ملف حتى لو لم يكن موجودًا. استخدم <code dir="ltr">fread()</code> أو <code dir="ltr">fgets()</code> للقراءة من الملف. تُستدعى <code dir="ltr">fclose()</code> عند الانتهاء. الكتابة تتم بنفس الطريقة باستخدام <code dir="ltr">fwrite()</code>.</p>
+
+  <div class="note-box">
+    <p class="note-label">📌 أنماط fopen() بالتفصيل:</p>
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>النمط</th>
+            <th>الوصف</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td dir="ltr"><code>'r'</code></td><td>قراءة فقط. يبدأ من بداية الملف. لا يمكن الكتابة.</td></tr>
+          <tr><td dir="ltr"><code>'r+'</code></td><td>قراءة وكتابة. يبدأ من بداية الملف.</td></tr>
+          <tr><td dir="ltr"><code>'w'</code></td><td>كتابة فقط. يمسح المحتوى القديم أو ينشئ ملفًا جديدًا.</td></tr>
+          <tr><td dir="ltr"><code>'w+'</code></td><td>قراءة وكتابة. يمسح المحتوى القديم أو ينشئ ملفًا جديدًا.</td></tr>
+          <tr><td dir="ltr"><code>'a'</code></td><td>إلحاق فقط. يفتح الملف للإلحاق في نهايته (لا يمسح المحتوى).</td></tr>
+          <tr><td dir="ltr"><code>'a+'</code></td><td>قراءة وإلحاق. يفتح الملف للقراءة والإلحاق.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 9.19 — Opening, reading lines, and closing a file</p>
+<pre class="code-block"><code dir="ltr">$f = fopen("sample.txt", "r");
+$ln = 0;
+while ($line = fgets($f)) {
+    $ln++;
+    printf("%2d: ", $ln);
+    echo $line . "&lt;br&gt;";
+}
+fclose($f);</code></pre>
+    <p><strong>الترجمة:</strong> يفتح الملف للقراءة <code dir="ltr">'r'</code>، ثم يستخدم <code dir="ltr">fgets()</code> لقراءة سطر واحد في كل مرة حتى نهاية الملف، وأخيرًا يغلق الملف بـ <code dir="ltr">fclose()</code>.</p>
+  </div>
+
+  <!-- ===== 5.9 In-Memory Access ===== -->
+  <h3 id="s5-9">5.9 In-Memory File Access — الدوال المساعدة</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Three helper functions make in-memory file access easy:</p>
+    <ul class="bullets" dir="ltr">
+      <li><code>file()</code> — reads the entire file into an array, with each array element corresponding to one line in the file.</li>
+      <li><code>file_get_contents()</code> — reads the entire file into a string variable.</li>
+      <li><code>file_put_contents()</code> — writes the contents of a string variable out to a file.</li>
+    </ul>
+  </div>
+
+  <p><strong>الترجمة:</strong> ثلاث دوال مساعدة تجعل الوصول إلى الملفات في الذاكرة أمرًا سهلًا:</p>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>الدالة</th>
+          <th>الوظيفة</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td dir="ltr"><code>file()</code></td><td>تقرأ الملف بالكامل إلى مصفوفة، بحيث يقابل كل عنصر سطرًا واحدًا في الملف.</td></tr>
+        <tr><td dir="ltr"><code>file_get_contents()</code></td><td>تقرأ الملف بالكامل إلى متغير نصي.</td></tr>
+        <tr><td dir="ltr"><code>file_put_contents()</code></td><td>تكتب محتوى متغير نصي إلى ملف.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label">أمثلة</p>
+<pre class="code-block"><code dir="ltr">// read entire file into a variable
+$fileAsString = file_get_contents(FILENAME);
+
+// write the contents of $writeme to a file
+file_put_contents(FILENAME, $writeme);</code></pre>
+  </div>
+
+  <!-- ===== 5.10 Parsing CSV ===== -->
+  <h3 id="s5-10">5.10 تحليل ملف CSV بفواصل <span dir="ltr" class="en">(Parsing a Comma-Delimited File)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original — Sample paintings.txt</p>
+<pre class="code-block"><code dir="ltr">01070, Picasso, The Actor, 1904
+01080, Picasso, Family of Saltimbanques, 1905
+02070, Matisse, The Red Madras Headdress, 1907
+05010, David, The Oath of the Horatii, 1784</code></pre>
+  </div>
+
+  <p><strong>الترجمة:</strong> تخيل ملفًا نصيًا مفصولًا بفواصل يحتوي على معلومات عن لوحات فنية، حيث يقابل كل سطر لوحة مختلفة.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 9.20 — Processing a comma-delimited file</p>
+<pre class="code-block"><code dir="ltr">// read the file into memory; if there is an error then stop processing
+$paintings = file($filename) or die('ERROR: Cannot find file');
+
+// our data is comma-delimited
+$delimiter = ',';
+
+// loop through each line of the file
+foreach ($paintings as $painting) {
+
+    // returns an array of strings where each element
+    // corresponds to each substring between the delimiters
+    $paintingFields = explode($delimiter, $painting);
+
+    $id     = $paintingFields[0];
+    $artist = $paintingFields[1];
+    $title  = $paintingFields[2];
+    $year   = $paintingFields[3];
+
+    // do something with this data
+}</code></pre>
+    <p><strong>الترجمة:</strong> تقرأ <code dir="ltr">file()</code> الملف بالكامل إلى مصفوفة (كل سطر عنصر). يمر <code dir="ltr">foreach</code> على كل سطر، ويستخدم <code dir="ltr">explode()</code> لتقسيم السطر إلى حقول مفصولة بفاصلة.</p>
+  </div>
+
+  <!-- ===== 5.11 Assignment ===== -->
+  <h3 id="s5-11">5.11 Assignment</h3>
+
+  <div class="note-box">
+    <p class="note-label" dir="ltr">Assignment</p>
+    <p dir="ltr">Create a file that receives this HTML page and saves it in a txt file called "personal information" using a PHP file.</p>
+    <p><strong>الترجمة:</strong> أنشئ صفحة HTML تحتوي على حقل "المعلومات الشخصية" (الاسم الأول، الاسم الأخير، الدولة، المدينة، العمر)، ثم استخدم ملف PHP لاستقبال هذه البيانات وحفظها في ملف نصي باسم <code dir="ltr">personal_information.txt</code>.</p>
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 6: Definitions -->
+<!-- ============================================= -->
+<section id="section-6" class="section">
+  <h2 class="section-title">6. التعاريف الأساسية <span dir="ltr" class="en">(Definitions)</span></h2>
+
+  <nav class="definitions-nav" aria-label="التنقل بين التعاريف">
+    <p class="definitions-nav-title">⚡ تنقل سريع:</p>
+    <a href="#def-1">1. Array</a>
+    <a href="#def-2">2. Indexed Array</a>
+    <a href="#def-3">3. Associative Array</a>
+    <a href="#def-4">4. Multidimensional</a>
+    <a href="#def-5">5. Superglobal</a>
+    <a href="#def-6">6. $_GET</a>
+    <a href="#def-7">7. $_POST</a>
+    <a href="#def-8">8. $_SERVER</a>
+    <a href="#def-9">9. $_FILES</a>
+    <a href="#def-10">10. multipart/form-data</a>
+    <a href="#def-11">11. move_uploaded_file()</a>
+    <a href="#def-12">12. file_get_contents()</a>
+  </nav>
+
+  <div class="definitions-grid">
+
+    <div class="term-card" id="def-1">
+      <h3 class="term-name">1. Array</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Array</dd>
+        <dt>النطق بالعربية</dt><dd>أَرِيه</dd>
+        <dt>Definition in English</dt><dd dir="ltr">An ordered map in PHP that associates values to integer or string keys.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أن أُورْدَرْد ماب إن بي إتش بي ذَت أسُوشِيَيتْس فَالْيُوز تو إنْتِجَر أُور سْتْرِنْغ كِيز.</dd>
+        <dt>الترجمة العربية</dt><dd>المصفوفة.</dd>
+        <dt>الشرح المبسط</dt><dd>خريطة مرتبة تخزن عناصر متعددة تحت اسم متغير واحد، وتربط كل قيمة بمفتاح رقمي أو نصي.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-2">
+      <h3 class="term-name">2. Indexed Array</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Indexed Array</dd>
+        <dt>النطق بالعربية</dt><dd>إِنْدِكْسْت أَرِيه</dd>
+        <dt>Definition in English</dt><dd dir="ltr">An array that uses integer keys to identify and access its elements.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أن أَرِيه ذَت يُوزِز إنْتِجَر كِيز تو آيْدِنْتِفَاي آند أكْسِس إِتْس إِلِيمِنْتْس.</dd>
+        <dt>الترجمة العربية</dt><dd>مصفوفة مفهرسة.</dd>
+        <dt>الشرح المبسط</dt><dd>مصفوفة تعتمد أرقامًا صحيحة متسلسلة كمفاتيح لعناصرها.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-3">
+      <h3 class="term-name">3. Associative Array</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Associative Array</dd>
+        <dt>النطق بالعربية</dt><dd>أَسُوشِيَاتِيف أَرِيه</dd>
+        <dt>Definition in English</dt><dd dir="ltr">An array that uses custom string keys to associate and retrieve values.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أن أَرِيه ذَت يُوزِز كَاسْتُم سْتْرِنْغ كِيز تو أسُوشِيَيت آند رِيتْرِيف فَالْيُوز.</dd>
+        <dt>الترجمة العربية</dt><dd>مصفوفة ترابطية.</dd>
+        <dt>الشرح المبسط</dt><dd>مصفوفة تستخدم أسماء نصية مخصصة كمفاتيح لربط القيم واسترجاعها.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-4">
+      <h3 class="term-name">4. Multidimensional Array</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Multidimensional Array</dd>
+        <dt>النطق بالعربية</dt><dd>مَلْتِي دَايْمِنْشَنَال أَرِيه</dd>
+        <dt>Definition in English</dt><dd dir="ltr">An array that contains one or more arrays as its internal elements.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أن أَرِيه ذَت كُونْتَيْنْز وَن أُور مُور أَرِيز آز إِتْس إِنْتِرْنَال إِلِيمِنْتْس.</dd>
+        <dt>الترجمة العربية</dt><dd>مصفوفة متعددة الأبعاد.</dd>
+        <dt>الشرح المبسط</dt><dd>مصفوفة عناصرها مصفوفات فرعية، تُستخدم لتمثيل البيانات المركبة.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-5">
+      <h3 class="term-name">5. Superglobal Variable</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Superglobal Variable</dd>
+        <dt>النطق بالعربية</dt><dd>سُوبَرْ جْلُوبَال فَارْيَابْل</dd>
+        <dt>Definition in English</dt><dd dir="ltr">An automatic built-in array accessible in all script scopes without global declaration.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أن أوتُومَاتِك بِيلْت-إن أَرِيه أكْسِسِبِل إن أول سْكْرِبْت سْكُوبْس وِيذَاوتْ جْلُوبَال دِكْلَرِيشِن.</dd>
+        <dt>الترجمة العربية</dt><dd>متغير (أو مصفوفة) فائق عام.</dd>
+        <dt>الشرح المبسط</dt><dd>مصفوفة معرفة مسبقًا متاحة في جميع نطاقات السكريبت دون استخدام الإعلان global.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-6">
+      <h3 class="term-name">6. $_GET</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">$_GET</dd>
+        <dt>النطق بالعربية</dt><dd>دُولَار أَنْدَرْسْكُور جِيت</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A superglobal associative array containing variables passed via HTTP GET query string.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ سُوبَرْجْلُوبَال أسُوشِيَاتِيف أَرِيه كُونْتَيْنِنْغ فَارْيَابِلْز بَاسْت فِيَا إتش تي تي بي جِيت كْوِيرِي سْتْرِنْغ.</dd>
+        <dt>الترجمة العربية</dt><dd>مصفوفة الجلب الفائقة.</dd>
+        <dt>الشرح المبسط</dt><dd>مصفوفة ترابطية فائقة تستقبل البيانات المرفقة في رابط URL بعد علامة الاستفهام.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-7">
+      <h3 class="term-name">7. $_POST</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">$_POST</dd>
+        <dt>النطق بالعربية</dt><dd>دُولَار أَنْدَرْسْكُور بَوسْت</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A superglobal associative array containing variables passed via HTTP POST request body.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ سُوبَرْجْلُوبَال أسُوشِيَاتِيف أَرِيه كُونْتَيْنِنْغ فَارْيَابِلْز بَاسْت فِيَا إتش تي تي بي بَوسْت رِيكْوِيسْت بُودِي.</dd>
+        <dt>الترجمة العربية</dt><dd>مصفوفة الإرسال الفائقة.</dd>
+        <dt>الشرح المبسط</dt><dd>مصفوفة ترابطية فائقة تستقبل البيانات المرسلة من نماذج HTML داخل جسم طلب HTTP.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-8">
+      <h3 class="term-name">8. $_SERVER</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">$_SERVER</dd>
+        <dt>النطق بالعربية</dt><dd>دُولَار أَنْدَرْسْكُور سِيرْفَر</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A superglobal array containing web server and execution environment information.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ سُوبَرْجْلُوبَال أَرِيه كُونْتَيْنِنْغ وِب سِرْفَر آند إِكْسِكْيُوشِن إنْفَايْرُونْمِنْت إنْفُورْمِيشِن.</dd>
+        <dt>الترجمة العربية</dt><dd>مصفوفة معلومات الخادم.</dd>
+        <dt>الشرح المبسط</dt><dd>مصفوفة فائقة توفر معطيات حيوية عن خادم الويب والبيئة التشغيلية ومسار السكريبت.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-9">
+      <h3 class="term-name">9. $_FILES</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">$_FILES</dd>
+        <dt>النطق بالعربية</dt><dd>دُولَار أَنْدَرْسْكُور فَايِلْز</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A superglobal associative array containing details of items uploaded via HTTP POST.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ سُوبَرْجْلُوبَال أسُوشِيَاتِيف أَرِيه كُونْتَيْنِنْغ دِيتَايِلْز أوف آيْتِمْز أبْلُودِد فِيَا إتش تي تي بي بَوسْت.</dd>
+        <dt>الترجمة العربية</dt><dd>مصفوفة الملفات المرفوعة.</dd>
+        <dt>الشرح المبسط</dt><dd>مصفوفة ترابطية فائقة تفصّل خصائص الملف المرفوع من العميل إلى الخادم.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-10">
+      <h3 class="term-name">10. multipart/form-data</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">multipart/form-data</dd>
+        <dt>النطق بالعربية</dt><dd>مَلْتِي بَارْت / فُورْم دَاتَا</dd>
+        <dt>Definition in English</dt><dd dir="ltr">The mandatory HTML form encoding attribute required for file uploads in PHP.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>ذا مَانْدَتُورِي إتش تي إم إل فُورْم إنْكُودِنْغ أَتْرِبْيُوت رِيكْوَايَرْد فُور فَايِل أبْلُودْز إن بي إتش بي.</dd>
+        <dt>الترجمة العربية</dt><dd>ترميز النموذج متعدد الأجزاء.</dd>
+        <dt>الشرح المبسط</dt><dd>خاصية يجب إضافتها لوسم النموذج لتمكين رفع الملفات.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-11">
+      <h3 class="term-name">11. move_uploaded_file()</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">move_uploaded_file()</dd>
+        <dt>النطق بالعربية</dt><dd>مُوفْ أَبْلُودِدْ فَايِل</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A PHP function that moves an uploaded file from temporary storage to a permanent location.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ بي إتش بي فَانْكْشِن ذَت مُوفْز أن أبْلُودِد فَايِل فروم تِمْبُرَارِي سْتُورِج تو أ بِرْمَانِنْت لُوكِيشِن.</dd>
+        <dt>الترجمة العربية</dt><dd>دالة نقل الملف المرفوع.</dd>
+        <dt>الشرح المبسط</dt><dd>دالة آمنة لنقل الملف المرفوع من المجلد المؤقت إلى مجلد الحفظ.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-12">
+      <h3 class="term-name">12. file_get_contents()</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">file_get_contents()</dd>
+        <dt>النطق بالعربية</dt><dd>فَايِل جِتْ كُونْتِنْتْس</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A helper function that reads an entire file or URL into a single string.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ هِلْبَر فَانْكْشِن ذَت رِيدْز أن إنْتَايَر فَايِل أُور يو آر إل إنْتو أ سِنْغِل سْتْرِنْغ.</dd>
+        <dt>الترجمة العربية</dt><dd>دالة جلب محتوى الملف.</dd>
+        <dt>الشرح المبسط</dt><dd>دالة سريعة تقرأ كامل محتوى الملف وترجعه كسلسلة نصية واحدة.</dd>
+      </dl>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 7: Comparison Tables -->
+<!-- ============================================= -->
+<section id="section-7" class="section">
+  <h2 class="section-title">7. جداول المقارنة <span dir="ltr" class="en">(Comparison Tables)</span></h2>
+
+  <h3 id="s7-1">7.1 Indexed Array vs Associative Array</h3>
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>وجه المقارنة</th>
+          <th>Indexed Array</th>
+          <th>Associative Array</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>نوع المفتاح</strong></td>
+          <td>أعداد صحيحة (0, 1, 2...)</td>
+          <td>سلاسل نصية (مثل 'name')</td>
+        </tr>
+        <tr>
+          <td><strong>الإنشاء التلقائي</strong></td>
+          <td>PHP تُرقّم تلقائيًا إن أُهمل المفتاح</td>
+          <td>يلزم تحديد المفاتيح صراحة</td>
+        </tr>
+        <tr>
+          <td><strong>الاستخدام الشائع</strong></td>
+          <td>القوائم المتسلسلة</td>
+          <td>سجلات البيانات ذات المسميات</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="s7-2">7.2 $_GET vs $_POST</h3>
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>وجه المقارنة</th>
+          <th>$_GET</th>
+          <th>$_POST</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>مكان نقل البيانات</strong></td>
+          <td>في رابط URL بعد علامة ?</td>
+          <td>داخل جسم الطلب (Request Body)</td>
+        </tr>
+        <tr>
+          <td><strong>الحجم</strong></td>
+          <td>محدود بحجم URL</td>
+          <td>يسمح بأحجام كبيرة</td>
+        </tr>
+        <tr>
+          <td><strong>الاستخدام الملائم</strong></td>
+          <td>القراءة والبحث</td>
+          <td>إرسال كلمات المرور ورفع الملفات</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="s7-3">7.3 $_SERVER vs $_FILES</h3>
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>وجه المقارنة</th>
+          <th>$_SERVER</th>
+          <th>$_FILES</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>مصدر البيانات</strong></td>
+          <td>خادم الويب والبيئة التشغيلية</td>
+          <td>ملفات العميل المرفوعة عبر POST</td>
+        </tr>
+        <tr>
+          <td><strong>المحتوى</strong></td>
+          <td>المسارات، طريقة الطلب، اسم المضيف</td>
+          <td>أسماء الملفات، الحجم، النوع، الأخطاء</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="s7-4">7.4 Superglobal vs Normal Variable</h3>
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>وجه المقارنة</th>
+          <th>Normal Variable</th>
+          <th>Superglobal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>النطاق (Scope)</strong></td>
+          <td>محلي — يتطلب global للوصول داخل الدوال</td>
+          <td>عام تلقائي — متاح في كل مكان</td>
+        </tr>
+        <tr>
+          <td><strong>التسمية</strong></td>
+          <td>ينشئه المطور ($var)</td>
+          <td>مسميات مبنية مسبقًا ($_POST, $_GET...)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 8: Interactive Quiz (30 Questions) -->
+<!-- ============================================= -->
+<section id="section-8" class="section">
+  <h2 class="section-title">8. اختبار تفاعلي <span dir="ltr" class="en">(Interactive Quiz — 30 Questions)</span></h2>
+
+  <div class="note-box">
+    <p class="note-label">📝 تعليمات:</p>
+    <ul class="bullets">
+      <li>عدد الأسئلة: <strong>30</strong> (15 اختيار من متعدد + 15 صح/خطأ).</li>
+      <li>أجب عن جميع الأسئلة ثم اضغط زر «إظهار النتيجة».</li>
+      <li>صح/خطأ: اختر صح أو خطأ لكل سؤال.</li>
+      <li>اختيار من متعدد: اختر إجابة واحدة فقط.</li>
+      <li>ستظهر الدرجة النهائية تلقائيًا (من 30).</li>
+    </ul>
+  </div>
+
+  <div id="quiz-container">
+
+    <!-- ========== MCQ 1–10 (القديمة) ========== -->
+    <article class="quiz-question" data-question="mcq-1" data-correct="c">
+      <p class="quiz-prompt"><strong>س1.</strong> <span dir="ltr">In PHP, an array is best described as:</span></p>
+      <p class="quiz-ar">في PHP، أفضل وصف للمصفوفة هو:</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q1" value="a"> <span dir="ltr">A) A fixed-size list of integers</span></label></li>
+        <li><label><input type="radio" name="q1" value="b"> <span dir="ltr">B) A string-only container</span></label></li>
+        <li><label><input type="radio" name="q1" value="c"> <span dir="ltr">C) An ordered map of keys to values</span></label></li>
+        <li><label><input type="radio" name="q1" value="d"> <span dir="ltr">D) A database table</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — مصفوفة PHP هي خريطة مرتبة." data-wrong-feedback="❌ خطأ — الصحيح: C."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-2" data-correct="b">
+      <p class="quiz-prompt"><strong>س2.</strong> <span dir="ltr">Array keys in PHP must be:</span></p>
+      <p class="quiz-ar">مفاتيح المصفوفة في PHP يجب أن تكون:</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q2" value="a"> <span dir="ltr">A) Sequential integers only</span></label></li>
+        <li><label><input type="radio" name="q2" value="b"> <span dir="ltr">B) Integers or strings</span></label></li>
+        <li><label><input type="radio" name="q2" value="c"> <span dir="ltr">C) Strings only</span></label></li>
+        <li><label><input type="radio" name="q2" value="d"> <span dir="ltr">D) Booleans or floats</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — أعداد صحيحة أو نصوص." data-wrong-feedback="❌ خطأ — الصحيح: B."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-3" data-correct="a">
+      <p class="quiz-prompt"><strong>س3.</strong> <span dir="ltr">Which function reindexes an array numerically after deletions?</span></p>
+      <p class="quiz-ar">أي دالة تعيد ترقيم المصفوفة بعد الحذف؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q3" value="a"> <span dir="ltr">A) array_values()</span></label></li>
+        <li><label><input type="radio" name="q3" value="b"> <span dir="ltr">B) unset()</span></label></li>
+        <li><label><input type="radio" name="q3" value="c"> <span dir="ltr">C) sort()</span></label></li>
+        <li><label><input type="radio" name="q3" value="d"> <span dir="ltr">D) array_keys()</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — array_values()." data-wrong-feedback="❌ خطأ — الصحيح: A."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-4" data-correct="d">
+      <p class="quiz-prompt"><strong>س4.</strong> <span dir="ltr">Which sort function preserves key–value association?</span></p>
+      <p class="quiz-ar">أي دالة ترتيب تحافظ على ارتباط المفتاح بالقيمة؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q4" value="a"> <span dir="ltr">A) sort()</span></label></li>
+        <li><label><input type="radio" name="q4" value="b"> <span dir="ltr">B) rsort()</span></label></li>
+        <li><label><input type="radio" name="q4" value="c"> <span dir="ltr">C) ksort()</span></label></li>
+        <li><label><input type="radio" name="q4" value="d"> <span dir="ltr">D) asort()</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — asort()." data-wrong-feedback="❌ خطأ — الصحيح: D."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-5" data-correct="b">
+      <p class="quiz-prompt"><strong>س5.</strong> <span dir="ltr">Which superglobal contains data sent via the URL query string?</span></p>
+      <p class="quiz-ar">أي مصفوفة فائقة تحتوي على البيانات المرسلة عبر رابط URL؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q5" value="a"> <span dir="ltr">A) $_POST</span></label></li>
+        <li><label><input type="radio" name="q5" value="b"> <span dir="ltr">B) $_GET</span></label></li>
+        <li><label><input type="radio" name="q5" value="c"> <span dir="ltr">C) $_FILES</span></label></li>
+        <li><label><input type="radio" name="q5" value="d"> <span dir="ltr">D) $_SESSION</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — $_GET." data-wrong-feedback="❌ خطأ — الصحيح: B."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-6" data-correct="c">
+      <p class="quiz-prompt"><strong>س6.</strong> <span dir="ltr">What is required in the &lt;form&gt; tag for file uploads?</span></p>
+      <p class="quiz-ar">ما المطلوب في وسم form لرفع الملفات؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q6" value="a"> <span dir="ltr">A) method="GET"</span></label></li>
+        <li><label><input type="radio" name="q6" value="b"> <span dir="ltr">B) method="POST" only</span></label></li>
+        <li><label><input type="radio" name="q6" value="c"> <span dir="ltr">C) method="POST" + enctype="multipart/form-data"</span></label></li>
+        <li><label><input type="radio" name="q6" value="d"> <span dir="ltr">D) enctype="text/plain"</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — POST + multipart/form-data." data-wrong-feedback="❌ خطأ — الصحيح: C."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-7" data-correct="a">
+      <p class="quiz-prompt"><strong>س7.</strong> <span dir="ltr">Which element in $_FILES['userfile'] stores the temporary path?</span></p>
+      <p class="quiz-ar">أي عنصر في $_FILES['userfile'] يخزّن المسار المؤقت؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q7" value="a"> <span dir="ltr">A) tmp_name</span></label></li>
+        <li><label><input type="radio" name="q7" value="b"> <span dir="ltr">B) name</span></label></li>
+        <li><label><input type="radio" name="q7" value="c"> <span dir="ltr">C) size</span></label></li>
+        <li><label><input type="radio" name="q7" value="d"> <span dir="ltr">D) error</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — tmp_name." data-wrong-feedback="❌ خطأ — الصحيح: A."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-8" data-correct="b">
+      <p class="quiz-prompt"><strong>س8.</strong> <span dir="ltr">Which function moves an uploaded file to a permanent location?</span></p>
+      <p class="quiz-ar">أي دالة تنقل الملف المرفوع إلى موقع دائم؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q8" value="a"> <span dir="ltr">A) copy()</span></label></li>
+        <li><label><input type="radio" name="q8" value="b"> <span dir="ltr">B) move_uploaded_file()</span></label></li>
+        <li><label><input type="radio" name="q8" value="c"> <span dir="ltr">C) rename()</span></label></li>
+        <li><label><input type="radio" name="q8" value="d"> <span dir="ltr">D) file_put_contents()</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — move_uploaded_file()." data-wrong-feedback="❌ خطأ — الصحيح: B."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-9" data-correct="d">
+      <p class="quiz-prompt"><strong>س9.</strong> <span dir="ltr">Which function reads an entire file into a string?</span></p>
+      <p class="quiz-ar">أي دالة تقرأ كامل الملف في نص واحد؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q9" value="a"> <span dir="ltr">A) fread()</span></label></li>
+        <li><label><input type="radio" name="q9" value="b"> <span dir="ltr">B) fwrite()</span></label></li>
+        <li><label><input type="radio" name="q9" value="c"> <span dir="ltr">C) fopen()</span></label></li>
+        <li><label><input type="radio" name="q9" value="d"> <span dir="ltr">D) file_get_contents()</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — file_get_contents()." data-wrong-feedback="❌ خطأ — الصحيح: D."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-10" data-correct="c">
+      <p class="quiz-prompt"><strong>س10.</strong> <span dir="ltr">What does $_SERVER['REQUEST_METHOD'] return?</span></p>
+      <p class="quiz-ar">ماذا تعيد $_SERVER['REQUEST_METHOD']؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q10" value="a"> <span dir="ltr">A) Server IP address</span></label></li>
+        <li><label><input type="radio" name="q10" value="b"> <span dir="ltr">B) The path to the script</span></label></li>
+        <li><label><input type="radio" name="q10" value="c"> <span dir="ltr">C) The HTTP method (GET / POST)</span></label></li>
+        <li><label><input type="radio" name="q10" value="d"> <span dir="ltr">D) The browser name</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — طريقة الطلب (GET/POST)." data-wrong-feedback="❌ خطأ — الصحيح: C."></p>
+    </article>
+
+    <!-- ========== MCQ 11–15 (الجديدة) ========== -->
+    <article class="quiz-question" data-question="mcq-11" data-correct="b">
+      <p class="quiz-prompt"><strong>س11.</strong> <span dir="ltr">To send multiple values under the same name in an HTML form, you should use:</span></p>
+      <p class="quiz-ar">لإرسال قيم متعددة تحت نفس الاسم في نموذج HTML، يجب أن تستخدم:</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q11" value="a"> <span dir="ltr">A) name="day"</span></label></li>
+        <li><label><input type="radio" name="q11" value="b"> <span dir="ltr">B) name="day[]"</span></label></li>
+        <li><label><input type="radio" name="q11" value="c"> <span dir="ltr">C) name="day(1)"</span></label></li>
+        <li><label><input type="radio" name="q11" value="d"> <span dir="ltr">D) type="multi"</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — name='day[]' يجعل القيم مصفوفة." data-wrong-feedback="❌ خطأ — الصحيح: B (name='day[]')."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-12" data-correct="c">
+      <p class="quiz-prompt"><strong>س12.</strong> <span dir="ltr">Why is it better to use one PHP page with a query string rather than a separate page for each book?</span></p>
+      <p class="quiz-ar">لماذا يفضّل استخدام صفحة PHP واحدة مع query string بدلًا من صفحة منفصلة لكل كتاب؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q12" value="a"> <span dir="ltr">A) It runs faster on the server</span></label></li>
+        <li><label><input type="radio" name="q12" value="b"> <span dir="ltr">B) It uses more database storage</span></label></li>
+        <li><label><input type="radio" name="q12" value="c"> <span dir="ltr">C) It reduces code duplication</span></label></li>
+        <li><label><input type="radio" name="q12" value="d"> <span dir="ltr">D) It avoids using POST</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — يقلل تكرار الكود." data-wrong-feedback="❌ خطأ — الصحيح: C."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-13" data-correct="a">
+      <p class="quiz-prompt"><strong>س13.</strong> <span dir="ltr">What is the process of checking user input for SQL injection called?</span></p>
+      <p class="quiz-ar">ما اسم عملية التحقق من مدخلات المستخدم بحثًا عن SQL injection؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q13" value="a"> <span dir="ltr">A) Sanitization</span></label></li>
+        <li><label><input type="radio" name="q13" value="b"> <span dir="ltr">B) Encryption</span></label></li>
+        <li><label><input type="radio" name="q13" value="c"> <span dir="ltr">C) Compression</span></label></li>
+        <li><label><input type="radio" name="q13" value="d"> <span dir="ltr">D) Validation only</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — Sanitization." data-wrong-feedback="❌ خطأ — الصحيح: A."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-14" data-correct="d">
+      <p class="quiz-prompt"><strong>س14.</strong> <span dir="ltr">Which file-size restriction is the ONLY one you MUST implement on the server?</span></p>
+      <p class="quiz-ar">أي آلية لتقييد حجم الملف هي الوحيدة التي يجب تنفيذها على الخادم؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q14" value="a"> <span dir="ltr">A) HTML MAX_FILE_SIZE</span></label></li>
+        <li><label><input type="radio" name="q14" value="b"> <span dir="ltr">B) JavaScript check</span></label></li>
+        <li><label><input type="radio" name="q14" value="c"> <span dir="ltr">C) Browser built-in limit</span></label></li>
+        <li><label><input type="radio" name="q14" value="d"> <span dir="ltr">D) PHP code (server-side)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — PHP هو الفحص الإلزامي." data-wrong-feedback="❌ خطأ — الصحيح: D."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-15" data-correct="c">
+      <p class="quiz-prompt"><strong>س15.</strong> <span dir="ltr">Which functions correctly check both file type and extension?</span></p>
+      <p class="quiz-ar">أي دالتين تتحققان بشكل صحيح من نوع الملف وامتداده معًا؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q15" value="a"> <span dir="ltr">A) in_array() only</span></label></li>
+        <li><label><input type="radio" name="q15" value="b"> <span dir="ltr">B) strlen() + count()</span></label></li>
+        <li><label><input type="radio" name="q15" value="c"> <span dir="ltr">C) in_array() for both type &amp; extension</span></label></li>
+        <li><label><input type="radio" name="q15" value="d"> <span dir="ltr">D) is_int() + in_array()</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — in_array() للنوع والامتداد." data-wrong-feedback="❌ خطأ — الصحيح: C."></p>
+    </article>
+
+    <!-- ========== TF 1–10 (القديمة) ========== -->
+    <article class="quiz-question" data-question="tf-1" data-correct="false">
+      <p class="quiz-prompt"><strong>س16.</strong> <span dir="ltr">In PHP, array keys must be sequential integers starting from 0.</span></p>
+      <p class="quiz-ar">في PHP، يجب أن تكون مفاتيح المصفوفة أعدادًا صحيحة متسلسلة تبدأ من 0.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q16" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q16" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، يمكن أن تكون نصية وغير متسلسلة." data-wrong-feedback="❌ خطأ — الصحيح: خطأ."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-2" data-correct="false">
+      <p class="quiz-prompt"><strong>س17.</strong> <span dir="ltr">Array values in PHP must be only integers or strings.</span></p>
+      <p class="quiz-ar">قيم المصفوفة في PHP يجب أن تكون أعدادًا صحيحة أو نصوصًا فقط.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q17" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q17" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، القيم قد تكون أي نوع." data-wrong-feedback="❌ خطأ — الصحيح: خطأ."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-3" data-correct="true">
+      <p class="quiz-prompt"><strong>س18.</strong> <span dir="ltr">$_POST data is passed inside the HTTP request body, not in the URL.</span></p>
+      <p class="quiz-ar">بيانات $_POST تُمرَّر داخل جسم طلب HTTP، وليس في URL.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q18" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q18" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-4" data-correct="true">
+      <p class="quiz-prompt"><strong>س19.</strong> <span dir="ltr">The $_FILES array requires enctype="multipart/form-data" on the form.</span></p>
+      <p class="quiz-ar">مصفوفة $_FILES تتطلب enctype="multipart/form-data" على النموذج.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q19" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q19" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-5" data-correct="false">
+      <p class="quiz-prompt"><strong>س20.</strong> <span dir="ltr">Superglobal variables require the global keyword to be used inside functions.</span></p>
+      <p class="quiz-ar">المتغيرات الفائقة تتطلب استخدام الكلمة المفتاحية global داخل الدوال.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q20" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q20" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، لا تحتاج global." data-wrong-feedback="❌ خطأ — الصحيح: خطأ."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-6" data-correct="true">
+      <p class="quiz-prompt"><strong>س21.</strong> <span dir="ltr">unset($arr[2]) removes the element but does not reindex the array.</span></p>
+      <p class="quiz-ar">unset($arr[2]) تحذف العنصر لكنها لا تعيد ترقيم المصفوفة.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q21" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q21" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-7" data-correct="false">
+      <p class="quiz-prompt"><strong>س22.</strong> <span dir="ltr">sort() preserves the key-value association when sorting.</span></p>
+      <p class="quiz-ar">دالة sort() تحافظ على ارتباط المفتاح بالقيمة عند الترتيب.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q22" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q22" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، asort() هي التي تحافظ." data-wrong-feedback="❌ خطأ — الصحيح: خطأ."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-8" data-correct="true">
+      <p class="quiz-prompt"><strong>س23.</strong> <span dir="ltr">$_SERVER['PHP_SELF'] returns the current script's path relative to document root.</span></p>
+      <p class="quiz-ar">$_SERVER['PHP_SELF'] تعيد مسار السكريبت الحالي بالنسبة لجذر المستند.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q23" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q23" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-9" data-correct="false">
+      <p class="quiz-prompt"><strong>س24.</strong> <span dir="ltr">The 'w' mode in fopen() appends to the end of the file without erasing its content.</span></p>
+      <p class="quiz-ar">النمط 'w' في fopen() يُلحق في نهاية الملف دون مسح محتواه.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q24" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q24" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، 'w' يمسح، و'a' هو الذي يُلحق." data-wrong-feedback="❌ خطأ — الصحيح: خطأ."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-10" data-correct="true">
+      <p class="quiz-prompt"><strong>س25.</strong> <span dir="ltr">file_get_contents() can read an entire file or URL without explicit fopen/fclose.</span></p>
+      <p class="quiz-ar">file_get_contents() تستطيع قراءة كامل محتوى ملف أو URL دون فتح/إغلاق صريح.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q25" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q25" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <!-- ========== TF 11–15 (الجديدة) ========== -->
+    <article class="quiz-question" data-question="tf-11" data-correct="false">
+      <p class="quiz-prompt"><strong>س26.</strong> <span dir="ltr">If a user submits multiple checkboxes named "day", $_GET['day'] will contain all selected values.</span></p>
+      <p class="quiz-ar">إذا أرسل المستخدم عدة مربعات اختيار باسم "day"، فإن $_GET['day'] ستحتوي على جميع القيم المختارة.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q26" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q26" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، تحتوي آخر قيمة فقط إن لم تستخدم day[]." data-wrong-feedback="❌ خطأ — الصحيح: خطأ (تحتاج name='day[]')."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-12" data-correct="true">
+      <p class="quiz-prompt"><strong>س27.</strong> <span dir="ltr">HTTP headers like REFERER and USER_AGENT can be forged by the client.</span></p>
+      <p class="quiz-ar">ترويسات HTTP مثل REFERER و USER_AGENT يمكن للعميل تزويرها.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q27" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q27" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — الترويسات قابلة للتزوير." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-13" data-correct="true">
+      <p class="quiz-prompt"><strong>س28.</strong> <span dir="ltr">file() reads the entire file into an array, with each element being one line.</span></p>
+      <p class="quiz-ar">file() تقرأ كامل الملف في مصفوفة، كل عنصر فيها يمثل سطرًا واحدًا.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q28" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q28" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-14" data-correct="false">
+      <p class="quiz-prompt"><strong>س29.</strong> <span dir="ltr">Stream access loads the entire file into memory at once.</span></p>
+      <p class="quiz-ar">Stream access تُحمّل الملف كاملًا في الذاكرة مرة واحدة.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q29" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q29" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، Stream يقرأ جزءًا في كل مرة." data-wrong-feedback="❌ خطأ — الصحيح: خطأ."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-15" data-correct="true">
+      <p class="quiz-prompt"><strong>س30.</strong> <span dir="ltr">The 'a' mode in fopen() opens the file for appending without erasing its content.</span></p>
+      <p class="quiz-ar">النمط 'a' في fopen() يفتح الملف للإلحاق دون مسح محتواه.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q30" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q30" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — 'a' يحافظ على المحتوى ويلحق في النهاية." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+  </div>
+
+  <div class="quiz-actions">
+    <button id="quizSubmitBtn" class="btn btn-primary" type="button">إظهار النتيجة</button>
+    <button id="quizResetBtn" class="btn" type="button">إعادة المحاولة</button>
+  </div>
+
+  <div id="quizResult" class="quiz-result" aria-live="polite"></div>
+
+</section>
+</main>
+
+<footer class="page-footer">
+  <div class="container">
+    <p> المذاكرة الشاملة — <span dir="ltr">osmh</span></p>
+    <p style="font-size:.85rem;color:var(--text-muted);margin-top:6px;">إعداد: osamh almtyl</p>
+  </div>
+</footer>
+
+<button id="backToTop" class="back-to-top" type="button" aria-label="العودة إلى الأعلى" title="العودة إلى الأعلى">↑</button>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="الفهرس الرئيسي — مذكرات مذاكرة مقرر برمجة الخادم وتطوير الويب">
+<title>الفهرس الرئيسي — Server-Side Web Development</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* =========================================================
+   أنماط خاصة بالصفحة الرئيسية (يمكن حذفها إن أردت لاحقًا)
+   ========================================================= */
+
+.home-hero {
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-alt) 100%);
+  padding: 60px 0 50px;
+  border-bottom: 3px solid var(--heading);
+  margin-bottom: 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-hero::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: var(--accent-soft);
+  border-radius: 50%;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.home-hero > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.home-hero .badge {
+  display: inline-block;
+  padding: 6px 18px;
+  background: var(--accent-soft);
+  color: var(--heading);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  border: 1px solid var(--accent);
+}
+
+.home-hero h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--heading);
+  margin: 0 0 12px;
+  line-height: 1.4;
+}
+
+.home-hero .subtitle {
+  font-size: 1.15rem;
+  color: var(--text-soft);
+  margin: 0;
+  font-family: var(--font-code);
+}
+
+.home-hero .subtitle-ar {
+  font-size: 1.1rem;
+  color: var(--text-soft);
+  margin-top: 8px;
+}
+
+/* شريط الأدوات */
+.home-toolbar {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+/* شبكة الشابترات */
+.chapters-grid {
+  display: grid;
+  gap: 24px;
+  margin-bottom: 50px;
+}
+
+@media (min-width: 700px) {
+  .chapters-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .chapters-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* بطاقة الشابتر */
+.chapter-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 26px 24px 22px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+}
+
+.chapter-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+
+.chapter-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.chapter-card::after {
+  content: "←";
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 1.5rem;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.2s ease, left 0.2s ease;
+  font-weight: 700;
+}
+
+.chapter-card:hover::after {
+  opacity: 1;
+  left: 16px;
+}
+
+.chapter-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: var(--heading);
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-family: var(--font-code);
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(31, 58, 95, 0.25);
+}
+
+.chapter-card .chapter-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--heading);
+  margin: 0 0 6px;
+  line-height: 1.4;
+}
+
+.chapter-card .chapter-title-en {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-family: var(--font-code);
+  margin: 0 0 12px;
+  direction: ltr;
+  text-align: right;
+}
+
+.chapter-card .chapter-desc {
+  font-size: 0.95rem;
+  color: var(--text-soft);
+  margin: 0 0 16px;
+  line-height: 1.7;
+  flex-grow: 1;
+}
+
+.chapter-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border);
+}
+
+.topic-tag {
+  display: inline-block;
+  padding: 4px 10px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 0.72rem;
+  color: var(--text-soft);
+  font-family: var(--font-code);
+  direction: ltr;
+}
+
+/* حالة الشابتر (مكتمل / قادم) */
+.chapter-status {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.status-ready {
+  background: var(--output-bg);
+  color: var(--output-label);
+  border: 1px solid var(--output-border);
+}
+
+.status-coming {
+  background: var(--warning-bg);
+  color: var(--warning-wrong);
+  border: 1px solid var(--warning-border);
+}
+
+/* قسم الإحصائيات */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 30px 0 50px;
+}
+
+@media (min-width: 700px) {
+  .stats-bar {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stat-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 16px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--heading);
+  font-family: var(--font-code);
+  margin: 0 0 4px;
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  margin: 0;
+}
+
+/* قسم الفوتر المخصص */
+.home-footer {
+  background: var(--surface-alt);
+  border-top: 1px solid var(--border);
+  padding: 30px 0;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.home-footer p {
+  margin: 4px 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.home-footer .eng-name {
+  font-weight: 700;
+  color: var(--heading);
+}
+
+/* استجابة الهاتف */
+@media (max-width: 600px) {
+  .home-hero {
+    padding: 40px 0 35px;
+  }
+
+  .home-hero h1 {
+    font-size: 1.7rem;
+  }
+
+  .home-hero .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .chapter-card {
+    padding: 20px 18px;
+  }
+
+  .chapter-number {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+
+  .chapter-card::after {
+    display: none;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+}
+</style>
+
+</head>
+<body>
+
+<!-- ============================================= -->
+<!-- Hero — الترحيب الرئيسي -->
+<!-- ============================================= -->
+<header class="home-hero">
+
+    
+  <div class="container">
+    <span class="badge">📚 مقرر برمجة الخادم وتطوير الويب</span>
+    <h1>الفهرس الرئيسي للمذكرات</h1>
+    <p class="subtitle">Server-Side Web Development with PHP</p>
+   <!-- شريط التنقل العلوي -->
+<nav class="top-nav" aria-label="التنقل بين الشابترات">
+  <div class="top-nav-inner">
+    <a href="index.html" class="top-nav-brand">
+      <span class="brand-icon">📚</span>
+      <span>الفهرس</span>
+    </a>
+
+    <button id="topNavToggle" class="top-nav-toggle" type="button" aria-expanded="false" aria-controls="topNavLinks">
+      <span>☰</span> <span>الشابترات</span>
+    </button>
+
+    <ul class="top-nav-links" id="topNavLinks">
+      <li><a href="index.html" class="active"><span class="nav-icon">🏠</span> الرئيسية</a></li>
+      <li><a href="ch1.html"><span class="nav-icon">📘</span> الشابتر 1</a></li>
+      <li><a href="ch2.html"><span class="nav-icon">📗</span> الشابتر 2</a></li>
+      <li><a href="ch3.html"><span class="nav-icon">📙</span> الشابتر 3</a></li>
+      <li><a href="ch4.html"><span class="nav-icon">📕</span> الشابتر 4</a></li>
+      <li><a href="ch5.html"><span class="nav-icon">📓</span> الشابتر 5</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <div class="home-toolbar">
+      <button id="themeToggle" class="btn" type="button" aria-label="تبديل الوضع">
+        <span class="icon">🌙</span> <span class="label">الوضع الداكن</span>
+      </button>
+    
+    </div>
+ 
+</header>
+
+<main class="container">
+
+  <!-- ============================================= -->
+  <!-- الإحصائيات -->
+  <!-- ============================================= -->
+  <section class="stats-bar" aria-label="إحصائيات المقرر">
+    <div class="stat-item">
+      <p class="stat-number">5</p>
+      <p class="stat-label">شابترات</p>
+    </div>
+    <div class="stat-item">
+      <p class="stat-number">7+</p>
+      <p class="stat-label">مواضيع رئيسية</p>
+    </div>
+    <div class="stat-item">
+      <p class="stat-number">100+</p>
+      <p class="stat-label">تعريف ومصطلح</p>
+    </div>
+    <div class="stat-item">
+      <p class="stat-number">100+</p>
+      <p class="stat-label">سؤال تفاعلي</p>
+    </div>
+  </section>
+
+  <!-- ============================================= -->
+  <!-- شبكة الشابترات -->
+  <!-- ============================================= -->
+  <section aria-label="الشابترات">
+    <h2 class="section-title">📖 الشابترات</h2>
+
+    <div class="chapters-grid">
+
+      <!-- Chapter 1 -->
+      <a href="ch1.html" class="chapter-card">
+        <span class="chapter-status status-ready">✅ جاهز</span>
+        <span class="chapter-number">01</span>
+        <h3 class="chapter-title">مقدمة في تطوير جانب الخادم بلغة PHP</h3>
+        <p class="chapter-title-en">Introduction to Server-Side Development with PHP</p>
+        <p class="chapter-desc">
+          تعريف تطوير جانب الخادم، خادم الويب ومسؤولياته، LAMP Stack، جولة سريعة في PHP (الوسوم، المتغيرات، أنواع البيانات، الثوابت، echo، PrintF)، تراكيب التحكم، والدوال.
+        </p>
+        <div class="chapter-topics">
+          <span class="topic-tag">Server-Side</span>
+          <span class="topic-tag">LAMP</span>
+          <span class="topic-tag">PHP Basics</span>
+          <span class="topic-tag">Control</span>
+          <span class="topic-tag">Functions</span>
+        </div>
+      </a>
+
+      <!-- Chapter 2 -->
+      <a href="ch2.html" class="chapter-card">
+        <span class="chapter-status status-ready">✅ جاهز</span>
+        <span class="chapter-number">02</span>
+        <h3 class="chapter-title">المصفوفات والمتغيرات الفائقة</h3>
+        <p class="chapter-title-en">PHP Arrays and Superglobals</p>
+        <p class="chapter-desc">
+          المصفوفات (Indexed / Associative / Multidimensional)، إنشاء وتعديل وحذف وترتيب المصفوفات، مقدمة في Superglobals، $_GET و $_POST و $_SERVER و $_FILES، وقراءة/كتابة الملفات.
+        </p>
+        <div class="chapter-topics">
+          <span class="topic-tag">Arrays</span>
+          <span class="topic-tag">$_GET</span>
+          <span class="topic-tag">$_POST</span>
+          <span class="topic-tag">$_FILES</span>
+          <span class="topic-tag">File I/O</span>
+        </div>
+      </a>
+
+      <!-- Chapter 3 -->
+      <a href="ch3.html" class="chapter-card">
+        <span class="chapter-status status-ready">✅ جاهز</span>
+        <span class="chapter-number">03</span>
+        <h3 class="chapter-title">الأصناف والكائنات في PHP</h3>
+        <p class="chapter-title-en">PHP Classes and Objects</p>
+        <p class="chapter-desc">
+          نظرة عامة على OOP، UML، Classes & Objects، Constructors، Methods، Visibility، Static Members، Encapsulation، Getters/Setters، Inheritance، Polymorphism، Interfaces، وAbstract Classes.
+        </p>
+        <div class="chapter-topics">
+          <span class="topic-tag">OOP</span>
+          <span class="topic-tag">UML</span>
+          <span class="topic-tag">Inheritance</span>
+          <span class="topic-tag">Polymorphism</span>
+          <span class="topic-tag">Interfaces</span>
+        </div>
+      </a>
+
+      <!-- Chapter 4 -->
+      <a href="ch4.html" class="chapter-card">
+        <span class="chapter-status status-ready">✅ جاهز</span>
+        <span class="chapter-number">04</span>
+        <h3 class="chapter-title">العمل مع قواعد البيانات</h3>
+        <p class="chapter-title-en">Working with Databases</p>
+        <p class="chapter-desc">
+          مبادئ DBMS، ERD والعلاقات (1:N، M:N)، SQL (SELECT، ORDER BY، WHERE، JOIN، GROUP BY، INSERT، UPDATE، DELETE)، Transactions، Indexes، Database APIs، PDO Connection، CRUD Pattern، وتأمين SQL Injection.
+        </p>
+        <div class="chapter-topics">
+          <span class="topic-tag">DBMS</span>
+          <span class="topic-tag">SQL</span>
+          <span class="topic-tag">JOIN</span>
+          <span class="topic-tag">PDO</span>
+          <span class="topic-tag">CRUD</span>
+        </div>
+      </a>
+
+      <!-- Chapter 5 -->
+      <a href="ch5.html" class="chapter-card">
+        <span class="chapter-status status-ready">✅ جاهز</span>
+        <span class="chapter-number">05</span>
+        <h3 class="chapter-title">تطوير الويب وقواعد بيانات MySQL</h3>
+        <p class="chapter-title-en">Web Development + MySQL Database</p>
+        <p class="chapter-desc">
+          تصميم ERD، إنشاء قاعدة بيانات بثلاث طرق، Connection (mysqli + PDO)، CRUD Pattern مع 5 ملفات منفصلة، SQL Injection وPrepared Statements، Error Modes، وتنظيم ملفات الموقع (Relative/Absolute Paths + MVC).
+        </p>
+        <div class="chapter-topics">
+          <span class="topic-tag">ERD</span>
+          <span class="topic-tag">Connection</span>
+          <span class="topic-tag">CRUD</span>
+          <span class="topic-tag">MVC</span>
+          <span class="topic-tag">Paths</span>
+        </div>
+      </a>
+
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================= -->
+<!-- Footer -->
+<!-- ============================================= -->
+
+<footer class="page-footer">
+  <div class="container">
+    <p> المذاكرة الشاملة — <span dir="ltr">osmah</span></p>
+    <p style="font-size:.85rem;color:var(--text-muted);margin-top:6px;">إعداد: osamh almtyl</p>
+  </div>
+</footer>
+
+<button id="backToTop" class="back-to-top" type="button" aria-label="العودة إلى الأعلى" title="العودة إلى الأعلى">↑</button>
+
+<script src="script.js"></script>
+</body>
+</html>

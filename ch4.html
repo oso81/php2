@@ -1,0 +1,2694 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="مذكرة شاملة — Working with Databases">
+<title>مذكرة شاملة: Working with Databases-kata</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================= -->
+<!-- الشريط الجانبي -->
+<!-- ============================================= -->
+<nav class="side-nav" aria-label="تنقل جانبي بين الفقرات">
+
+  <div class="side-nav-title">📑 الفقرات</div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">1. Databases & Web Dev</div>
+    <a href="#s1-1"><span class="nav-num">1.1</span> مقدمة</a>
+    <a href="#s1-2"><span class="nav-num">1.2</span> دور قواعد البيانات</a>
+    <a href="#s1-3"><span class="nav-num">1.3</span> Database Design</a>
+    <a href="#s1-4"><span class="nav-num">1.4</span> Data Types</a>
+    <a href="#s1-5"><span class="nav-num">1.5</span> Relationships</a>
+    <a href="#s1-6"><span class="nav-num">1.6</span> DB Options</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">2. SQL</div>
+    <a href="#s2-1"><span class="nav-num">2.1</span> SELECT</a>
+    <a href="#s2-2"><span class="nav-num">2.2</span> ORDER BY</a>
+    <a href="#s2-3"><span class="nav-num">2.3</span> WHERE</a>
+    <a href="#s2-4"><span class="nav-num">2.4</span> INNER JOIN</a>
+    <a href="#s2-5"><span class="nav-num">2.5</span> GROUP BY</a>
+    <a href="#s2-6"><span class="nav-num">2.6</span> INSERT</a>
+    <a href="#s2-7"><span class="nav-num">2.7</span> UPDATE</a>
+    <a href="#s2-8"><span class="nav-num">2.8</span> DELETE</a>
+    <a href="#s2-9"><span class="nav-num">2.9</span> Transactions</a>
+    <a href="#s2-10"><span class="nav-num">2.10</span> Indexes</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">3. Database APIs</div>
+    <a href="#section-3"><span class="nav-num">3</span> APIs</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">4. Managing MySQL</div>
+    <a href="#section-4"><span class="nav-num">4</span> أدوات الإدارة</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">5. Accessing MySQL in PHP</div>
+    <a href="#s5-1"><span class="nav-num">5.1</span> Connection Algorithm</a>
+    <a href="#s5-2"><span class="nav-num">5.2</span> Storing Credentials</a>
+    <a href="#s5-3"><span class="nav-num">5.3</span> Handling Errors</a>
+    <a href="#s5-4"><span class="nav-num">5.4</span> Execute Query</a>
+    <a href="#s5-5"><span class="nav-num">5.5</span> SQL Injection</a>
+    <a href="#s5-6"><span class="nav-num">5.6</span> Sanitization</a>
+    <a href="#s5-7"><span class="nav-num">5.7</span> Prepared Statements</a>
+    <a href="#s5-8"><span class="nav-num">5.8</span> Fetch Results</a>
+    <a href="#s5-9"><span class="nav-num">5.9</span> Free Resources</a>
+    <a href="#s5-10"><span class="nav-num">5.10</span> Transactions</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">6. Case Study Schemas</div>
+    <a href="#section-6"><span class="nav-num">6</span> المخططات</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">7. Sample Techniques</div>
+    <a href="#section-7"><span class="nav-num">7</span> تقنيات</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">8. التعاريف</div>
+    <a href="#section-8"><span class="nav-num">8</span> Definitions</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">9. الاختبار</div>
+    <a href="#section-9"><span class="nav-num">9</span> Quiz</a>
+  </div>
+
+</nav>
+
+<header class="page-header">
+   <!-- شريط التنقل العلوي -->
+<nav class="top-nav" aria-label="التنقل بين الشابترات">
+  <div class="top-nav-inner">
+    <a href="index.html" class="top-nav-brand">
+      <span class="brand-icon">📚</span>
+      <span>الفهرس</span>
+    </a>
+
+    <button id="topNavToggle" class="top-nav-toggle" type="button" aria-expanded="false" aria-controls="topNavLinks">
+      <span>☰</span> <span>الشابترات</span>
+    </button>
+
+    <ul class="top-nav-links" id="topNavLinks">
+      <li><a href="index.html"><span class="nav-icon">🏠</span> الرئيسية</a></li>
+      <li><a href="ch1.html"><span class="nav-icon">📘</span> الشابتر 1</a></li>
+      <li><a href="ch2.html" ><span class="nav-icon">📗</span> الشابتر 2</a></li>
+      <li><a href="ch3.html" ><span class="nav-icon">📙</span> الشابتر 3</a></li>
+      <li><a href="ch4.html" class="active"><span class="nav-icon">📕</span> الشابتر 4</a></li>
+      <li><a href="ch5.html"><span class="nav-icon">📓</span> الشابتر 5</a></li>
+    </ul>
+  </div>
+</nav>
+  <div class="container">
+    <h1 class="page-title"> المذاكرة الشاملة — Chapter 6 & 7</h1>
+    <p class="page-subtitle">Working with Databases</p>
+   
+    <div class="toolbar">
+      <button id="themeToggle" class="btn" type="button" aria-label="تبديل الوضع">
+        <span class="icon">🌙</span> <span class="label">الوضع الداكن</span>
+      </button>
+      <button id="printBtn" class="btn" type="button" aria-label="طباعة أو حفظ PDF">
+        <span class="icon">🖨️</span> <span class="label">طباعة / PDF</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="فهرس المحتويات">
+  <div class="container">
+    <h2 class="toc-title">فهرس المحتويات</h2>
+    <ol class="toc-list">
+      <li><a href="#section-1">1. قواعد البيانات وتطوير الويب (Databases & Web Development)</a></li>
+      <li><a href="#section-2">2. لغة الاستعلام الهيكلية (SQL)</a></li>
+      <li><a href="#section-3">3. واجهات برمجة قواعد البيانات (Database APIs)</a></li>
+      <li><a href="#section-4">4. إدارة قاعدة بيانات MySQL (Managing a MySQL Database)</a></li>
+      <li><a href="#section-5">5. الوصول إلى MySQL من PHP</a></li>
+      <li><a href="#section-6">6. مخططات قواعد البيانات (Case Study Schemas)</a></li>
+      <li><a href="#section-7">7. تقنيات قواعد بيانات نموذجية (Sample Techniques)</a></li>
+      <li><a href="#section-8">8. التعاريف الأساسية (Definitions)</a></li>
+      <li><a href="#section-9">9. اختبار تفاعلي (Interactive Quiz)</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="container">
+
+<!-- ============================================= -->
+<!-- Section 1: Databases & Web Development -->
+<!-- ============================================= -->
+<section id="section-1" class="section">
+  <h2 class="section-title">1. قواعد البيانات وتطوير الويب <span dir="ltr" class="en">(Databases and Web Development)</span></h2>
+
+  <h3 id="s1-1">1.1 مقدمة <span dir="ltr" class="en">(Introduction)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">This chapter covers the core principles of relational Database Management Systems (DBMSs). All database management systems are capable of: (1) managing large amounts of data, (2) maintaining data integrity, (3) responding to many queries, (4) creating indexes and triggers, and more. The term database can refer to both the software (i.e., to the DBMS) and to the data that is managed by the DBMS.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> يغطي هذا الشابتر المبادئ الأساسية لأنظمة إدارة قواعد البيانات العلائقية (DBMSs). جميع أنظمة إدارة قواعد البيانات قادرة على: (1) إدارة كميات كبيرة من البيانات، (2) الحفاظ على سلامة البيانات، (3) الاستجابة للعديد من الاستعلامات، (4) إنشاء الفهارس والمحفزات، والمزيد. مصطلح "قاعدة بيانات" يمكن أن يشير إلى كل من البرمجيات (أي DBMS) والبيانات التي يديرها DBMS.</p>
+
+  <p><strong>أنظمة إدارة قواعد البيانات العلائقية الشائعة:</strong></p>
+  <ul class="bullets">
+    <li dir="ltr">PostgreSQL</li>
+    <li dir="ltr">Oracle Database</li>
+    <li dir="ltr">IBM DB2</li>
+    <li dir="ltr">Microsoft SQL Server</li>
+    <li dir="ltr">MySQL</li>
+  </ul>
+
+  <h3 id="s1-2">1.2 دور قواعد البيانات في تطوير الويب <span dir="ltr" class="en">(The Role of Databases in Web Development)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Databases provide a way to implement one of the most important software design principles: <strong>Content (data) varies but the markup (design) stays the same</strong>.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> توفر قواعد البيانات طريقة لتطبيق أحد أهم مبادئ تصميم البرمجيات: <strong>المحتوى (البيانات) يتغير لكن الهيكل (التصميم) يبقى كما هو</strong>.</p>
+
+  <div class="note-box">
+    <p class="note-label">📌 الفكرة الجوهرية:</p>
+    <p>استخدم قاعدة بيانات لتخزين محتوى الصفحات. البرنامج (PHP) يحدد البيانات التي سيعرضها، غالبًا من معلومات في <code dir="ltr">GET</code> أو <code dir="ltr">POST</code> query string، ثم يستخدم Database API للتفاعل مع قاعدة البيانات. على الرغم من أن الفصل نفسه يمكن تحقيقه بتخزين المحتوى في ملفات على الخادم، فإن قواعد البيانات تقدم أنظمة مُحسّنة تفعل أكثر بكثير من التصميم القائم على الملفات الذي يتطلب دوال قراءة وتحليل وكتابة مخصصة.</p>
+  </div>
+
+  <h4>مسار طلب PHP مع قاعدة البيانات</h4>
+
+  <div class="request-flow">
+
+    <div class="flow-step">
+      <span class="step-num">1</span>
+      <div class="step-body">
+        <h4>Browser → Request</h4>
+        <p>المتصفح يرسل طلب HTTP مع query string (مثل <code dir="ltr">DisplayImage.php?id=19</code>).</p>
+        <span class="step-en">HTTP Request →</span>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <span class="step-num">2</span>
+      <div class="step-body">
+        <h4>PHP Execute Script</h4>
+        <p>خادم الويب يمرر الطلب لمفسر PHP الذي يبني استعلام SQL.</p>
+        <span class="step-en">SQL Query Built</span>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <span class="step-num">3</span>
+      <div class="step-body">
+        <h4>API → DBMS</h4>
+        <p>يُمرر استعلام SQL إلى DBMS عبر Database API.</p>
+        <span class="step-en">SQL Query →</span>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <span class="step-num">4</span>
+      <div class="step-body">
+        <h4>DBMS Retrieve Data</h4>
+        <p>DBMS يسترجع البيانات من قاعدة البيانات ويُرجع result set إلى API.</p>
+        <span class="step-en">Result Set ←</span>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <span class="step-num">5</span>
+      <div class="step-body">
+        <h4>PHP Output</h4>
+        <p>PHP يستلم النتائج ويصوغها داخل HTML.</p>
+        <span class="step-en">Dynamic HTML</span>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <span class="step-num">6</span>
+      <div class="step-body">
+        <h4>Display in Browser</h4>
+        <p>المتصفح يعرض الصفحة النهائية للمستخدم.</p>
+        <span class="step-en">HTTP Response ←</span>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 id="s1-3">1.3 تصميم قاعدة البيانات — الجداول <span dir="ltr" class="en">(Database Design — Tables)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">A database in a Relational DBMS is composed of one or more tables. A table is a two-dimensional container for data that consists of records (rows). Each record has the same number of columns, which are called fields, which contain the actual data. Each table will have one special field called a primary key that is used to uniquely identify each record in a table.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> قاعدة البيانات في DBMS العلائقي تتكون من جدول واحد أو أكثر. الجدول هو حاوية ثنائية الأبعاد للبيانات تتكون من <strong>سجلات (Records / Rows)</strong>. كل سجل له نفس عدد الأعمدة، والتي تُسمى <strong>حقول (Fields)</strong>، وتحتوي البيانات الفعلية. كل جدول سيكون له حقل خاص واحد يُسمى <strong>المفتاح الأساسي (Primary Key)</strong> يُستخدم لتمييز كل سجل في الجدول بشكل فريد.</p>
+
+  <h4>مثال مرئي — جدول ArtWorks</h4>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">ArtWorks</code> — مثال على جدول قاعدة بيانات</h4>
+      <table class="schema-table">
+        <thead>
+          <tr><th>ArtWorkID (PK)</th><th>Title</th><th>Artist</th><th>YearOfWork</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="key-primary">345</td><td>The Death of Marat</td><td>David</td><td>1793</td></tr>
+          <tr><td class="key-primary">400</td><td>The School of Athens</td><td>Raphael</td><td>1510</td></tr>
+          <tr><td class="key-primary">408</td><td>Bacchus and Ariadne</td><td>Titian</td><td>1520</td></tr>
+          <tr><td class="key-primary">425</td><td>Girl with a Pearl Earring</td><td>Vermeer</td><td>1665</td></tr>
+          <tr><td class="key-primary">438</td><td>Starry Night</td><td>Van Gogh</td><td>1889</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.85rem;color:var(--text-muted);margin-top:10px;">
+        <strong>Fields:</strong> ArtWorkID, Title, Artist, YearOfWork<br>
+        <strong>Primary Key:</strong> ArtWorkID (مفتاح أساسي — الأحمر)<br>
+        <strong>Records:</strong> 5 سجلات (صفوف)
+      </p>
+    </div>
+  </div>
+
+  <h4>التدوين المختصر <span dir="ltr">(Condensed Notation)</span></h4>
+
+  <p>لتمثيل الجدول بصريًا بشكل مختصر، نستخدم الشكل التالي:</p>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>ArtWorks</h4>
+      <table class="schema-table">
+        <thead>
+          <tr><th>PK</th><th>Field</th><th>Type</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="key-primary">🔑</td><td class="key-primary">ArtWorkID</td><td>INT</td></tr>
+          <tr><td></td><td>Title</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>Artist</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>YearOfWork</td><td>INT</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3 id="s1-4">1.4 فوائد DBMS — أنواع البيانات <span dir="ltr" class="en">(DBMS Benefits — Data Types)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">A database can enforce rules about what can be stored. This provides data integrity and potentially can reduce the amount of data duplication. This is partly achieved through the use of data types that are like those in a programming language to avoid data duplication and full integrity.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> يمكن لقاعدة البيانات فرض قواعد حول ما يمكن تخزينه. هذا يوفر <strong>سلامة البيانات (Data Integrity)</strong> وربما يقلل من كمية تكرار البيانات. يتحقق ذلك جزئيًا من خلال استخدام أنواع البيانات المشابهة لتلك الموجودة في لغة البرمجة لتجنب تكرار البيانات والسلامة الكاملة.</p>
+
+  <h4>أنواع البيانات الشائعة في جداول قواعد البيانات</h4>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>النوع</th>
+          <th>الوصف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td dir="ltr"><strong>BIT</strong></td>
+          <td>يمثل بتًا واحدًا للقيم المنطقية (Boolean). يُسمى أيضًا <code dir="ltr">BOOLEAN</code> أو <code dir="ltr">BOOL</code>.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>BLOB</strong></td>
+          <td>يمثل كائنًا ثنائيًا كبيرًا <span dir="ltr">(Binary Large Object)</span> — يمكن استخدامه لتخزين الصور مثلًا.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>CHAR(n)</strong></td>
+          <td>عدد ثابت من الأحرف (n) مع حشو بمسافات لملء الحقل.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>DATE</strong></td>
+          <td>يمثل تاريخًا. هناك أيضًا أنواع <code dir="ltr">TIME</code> و <code dir="ltr">DATETIME</code>.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>FLOAT</strong></td>
+          <td>يمثل عددًا عشريًا. هناك أيضًا <code dir="ltr">DOUBLE</code> و <code dir="ltr">DECIMAL</code>.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>INT</strong></td>
+          <td>يمثل عددًا صحيحًا. هناك أيضًا <code dir="ltr">SMALLINT</code>.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>VARCHAR(n)</strong></td>
+          <td>عدد متغير من الأحرف (n = الحد الأقصى) بدون حشو بمسافات.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="s1-5">1.5 العلاقات بين الجداول <span dir="ltr" class="en">(Relationships between Tables)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">One of the most important ways that data integrity is achieved in a database is by separating information about different things into different tables. Two tables can be related together via foreign keys, which is a field that is the same as the primary key of another table.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> واحدة من أهم طرق تحقيق سلامة البيانات في قاعدة البيانات هي فصل المعلومات عن الأشياء المختلفة في جداول مختلفة. يمكن ربط جدولين معًا عبر <strong>المفاتيح الأجنبية (Foreign Keys)</strong>، وهو حقل مطابق للمفتاح الأساسي لجدول آخر.</p>
+
+  <h4>مثال المفاتيح الأساسية والأجنبية</h4>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">ArtWorks</code> — Foreign Key</h4>
+      <table class="schema-table">
+        <thead>
+          <tr><th>ArtWorkID</th><th>Title</th><th>ArtistID (FK)</th><th>YearOfWork</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="key-primary">345</td><td>The Death of Marat</td><td class="key-foreign">15</td><td>1793</td></tr>
+          <tr><td class="key-primary">400</td><td>The School of Athens</td><td class="key-foreign">37</td><td>1510</td></tr>
+          <tr><td class="key-primary">408</td><td>Bacchus and Ariadne</td><td class="key-foreign">25</td><td>1520</td></tr>
+          <tr><td class="key-primary">425</td><td>Girl with a Pearl Earring</td><td class="key-foreign">22</td><td>1665</td></tr>
+          <tr><td class="key-primary">438</td><td>Starry Night</td><td class="key-foreign">43</td><td>1889</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">Artists</code> — Primary Key</h4>
+      <table class="schema-table">
+        <thead>
+          <tr><th>ArtistID (PK)</th><th>Artist</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="key-primary">15</td><td>David</td></tr>
+          <tr><td class="key-primary">22</td><td>Vermeer</td></tr>
+          <tr><td class="key-primary">25</td><td>Titian</td></tr>
+          <tr><td class="key-primary">37</td><td>Raphael</td></tr>
+          <tr><td class="key-primary">43</td><td>Van Gogh</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="relation-diagram">
+    <div class="relation-entity">
+      <strong>ArtWorks</strong>
+      ArtistID (FK)
+    </div>
+    <div class="relation-arrow">
+      ◀<span style="font-size:.7rem;">N</span>
+      <span class="relation-label">ArtWorks.ArtistID = Artists.ArtistID</span>
+      <span style="font-size:.7rem;">1</span>▶
+    </div>
+    <div class="relation-entity">
+      <strong>Artists</strong>
+      ArtistID (PK)
+    </div>
+  </div>
+
+  <h4>أنواع العلاقات <span dir="ltr">(Types of Relationships)</span></h4>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>النوع</th>
+          <th>الوصف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td dir="ltr"><strong>One-to-Many (1:N)</strong></td>
+          <td>سجل واحد في الجدول A قد يكون له سجل واحد أو أكثر مطابق في الجدول B.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>Many-to-Many (M:N)</strong></td>
+          <td>تُنفذ عادةً باستخدام جدول وسيط (Intermediate Table) يحتوي على علاقتين One-to-Many.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>One-to-One (1:1)</strong></td>
+          <td>تُستخدم عادةً لأسباب أمنية أو متعلقة بالأداء (قد تكون جدولًا واحدًا).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>مثال Many-to-Many (Books ↔ Authors)</h4>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>Books</h4>
+      <table class="schema-table">
+        <thead><tr><th>PK</th><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑</td><td class="key-primary">ID</td><td>INT</td></tr>
+          <tr><td></td><td>Title</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>CopyrightYear</td><td>INT</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-card">
+      <h4>BookAuthors (Intermediate)</h4>
+      <table class="schema-table">
+        <thead><tr><th>FK</th><th>FK</th></tr></thead>
+        <tbody>
+          <tr><td class="key-foreign">BookID</td><td class="key-foreign">AuthorID</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.8rem;color:var(--text-muted);margin-top:8px;">Composite Key: (BookID, AuthorID)</p>
+    </div>
+
+    <div class="schema-card">
+      <h4>Authors</h4>
+      <table class="schema-table">
+        <thead><tr><th>PK</th><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑</td><td class="key-primary">ID</td><td>INT</td></tr>
+          <tr><td></td><td>Name</td><td>VARCHAR</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="relation-diagram">
+    <div class="relation-entity">
+      <strong>Books</strong>
+      ID (PK)
+    </div>
+    <div class="relation-arrow">
+      ◀<span style="font-size:.7rem;">1</span>
+      <span class="relation-label">BookAuthors.BookID</span>
+      <span style="font-size:.7rem;">N</span>▶
+    </div>
+    <div class="relation-entity">
+      <strong>BookAuthors</strong>
+      BookID + AuthorID
+    </div>
+  </div>
+
+  <div class="relation-diagram">
+    <div class="relation-entity">
+      <strong>BookAuthors</strong>
+      BookID + AuthorID
+    </div>
+    <div class="relation-arrow">
+      ◀<span style="font-size:.7rem;">N</span>
+      <span class="relation-label">BookAuthors.AuthorID</span>
+      <span style="font-size:.7rem;">1</span>▶
+    </div>
+    <div class="relation-entity">
+      <strong>Authors</strong>
+      ID (PK)
+    </div>
+  </div>
+
+  <h3 id="s1-6">1.6 خيارات قواعد البيانات <span dir="ltr" class="en">(Database Options)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr"><strong>SQLite:</strong> A software library or a relational database management system contained in C that typically is integrated directly within an application rather than running as a separate process like most DBMS. Approach for web developers. <strong>NoSQL databases:</strong> Do not make use of SQL, are not relational in how they store data, and are optimized to retrieve data using simple key-value syntax similar to that used with associative arrays in PHP (CouchDB, MongoDB, Hypertable, Cassandra, ...).</p>
+  </div>
+
+  <p><strong>الترجمة:</strong></p>
+  <ul class="bullets">
+    <li><strong>SQLite:</strong> مكتبة برمجية أو نظام إدارة قواعد بيانات علائقية مكتوب بلغة C، يُدمج عادةً مباشرة داخل التطبيق بدلًا من العمل كعملية منفصلة مثل معظم أنظمة DBMS. نهج مطورو الويب.</li>
+    <li><strong>قواعد بيانات NoSQL:</strong> لا تستخدم SQL، وليست علائقية في طريقة تخزينها للبيانات، ومُحسّنة لاسترداد البيانات باستخدام صيغة بسيطة key-value مشابهة لتلك المستخدمة مع المصفوفات الترابطية في PHP (CouchDB، MongoDB، Hypertable، Cassandra، ...).</li>
+  </ul>
+</section>
+<!-- ============================================= -->
+<!-- Section 2: SQL -->
+<!-- ============================================= -->
+<section id="section-2" class="section">
+  <h2 class="section-title">2. لغة الاستعلام الهيكلية <span dir="ltr" class="en">(Structured Query Language — SQL)</span></h2>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">The Four Core SQL Statements</p>
+    <ol class="steps-list" dir="ltr">
+      <li>SELECT — retrieve data</li>
+      <li>INSERT — add data</li>
+      <li>UPDATE — modify data</li>
+      <li>DELETE — remove data</li>
+    </ol>
+  </div>
+
+  <p><strong>الترجمة:</strong> أربعة أوامر SQL الأساسية:</p>
+  <ol class="steps-list">
+    <li><strong>SELECT</strong> — استرجاع البيانات.</li>
+    <li><strong>INSERT</strong> — إضافة البيانات.</li>
+    <li><strong>UPDATE</strong> — تعديل البيانات.</li>
+    <li><strong>DELETE</strong> — حذف البيانات.</li>
+  </ol>
+
+  <!-- ===== SELECT ===== -->
+  <h3 id="s2-1">2.1 SELECT — استرجاع البيانات</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">The SELECT statement is used to retrieve data from the database. The result of a SELECT statement is a block of data typically called a <strong>result set</strong>. You must specify what fields to retrieve and what table to retrieve from.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> يُستخدم أمر <code dir="ltr">SELECT</code> لاسترجاع البيانات من قاعدة البيانات. نتيجة أمر <code dir="ltr">SELECT</code> هي كتلة بيانات تُسمى عادةً <strong>مجموعة النتائج (Result Set)</strong>. يجب تحديد الحقول التي تريد استرجاعها والجدول الذي تريد الاسترجاع منه.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Basic SELECT</p>
+<pre class="code-block"><code dir="ltr">SELECT ISBN10, Title FROM Books;</code></pre>
+    <ul class="bullets">
+      <li><code dir="ltr">SELECT</code> — SQL keyword يشير إلى نوع الاستعلام (استرجاع البيانات).</li>
+      <li><code dir="ltr">ISBN10, Title</code> — الحقول المطلوب استرجاعها.</li>
+      <li><code dir="ltr">FROM</code> — SQL keyword لتحديد الجدول.</li>
+      <li><code dir="ltr">Books</code> — الجدول الذي نستعلم منه.</li>
+    </ul>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Wildcard — SELECT *</p>
+<pre class="code-block"><code dir="ltr">SELECT * FROM Books;</code></pre>
+    <p><strong>Wildcard (الرمز *)</strong> — يختار جميع الحقول.</p>
+  </div>
+
+  <div class="warning-box">
+    <p><span class="badge-wrong">تنبيه مهم:</span> على الرغم من أن الرمز <code dir="ltr">*</code> مريح — خاصةً أثناء الاختبار — إلا أنه في كود الإنتاج عادةً يتم تجنبه. بدلًا من تحديد كل حقل، يجب تحديد الحقول التي تحتاجها فقط.</p>
+  </div>
+
+  <!-- ===== ORDER BY ===== -->
+  <h3 id="s2-2">2.2 ORDER BY — ترتيب النتائج</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">To specify a certain order to the result set use the ORDER BY clause. You specify: the field to sort on (or several), and whether to sort in ascending or descending order.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> لتحديد ترتيب معين لمجموعة النتائج، استخدم جملة <code dir="ltr">ORDER BY</code>. تحدد: الحقل الذي تريد الترتيب عليه (أو عدة حقول)، وما إذا كنت تريد الترتيب تصاعديًا (ASC) أو تنازليًا (DESC).</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">ORDER BY Example</p>
+<pre class="code-block"><code dir="ltr">SELECT ISBN10, Title
+FROM Books
+ORDER BY Title;</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Multiple Sort Orders</p>
+<pre class="code-block"><code dir="ltr">SELECT ISBN10, Title
+FROM Books
+ORDER BY CopyrightYear DESC, Title ASC;</code></pre>
+    <p><strong>الترجمة:</strong> في هذا المثال، يتم ترتيب البيانات أولًا حسب <code dir="ltr">CopyrightYear</code> تنازليًا، ثم حسب <code dir="ltr">Title</code> تصاعديًا.</p>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملاحظة مهمة:</p>
+    <p>SQL لا يهتم إذا كان الأمر في سطر واحد أو عدة أسطر، ولا يهتم بحالة الأحرف (الكبيرة/الصغيرة) للكلمات المفتاحية أو أسماء الجداول والحقول. فواصل الأسطر وكتابة الكلمات المفتاحية بأحرف كبيرة تُستخدم غالبًا للمساعدة في القراءة.</p>
+  </div>
+
+  <!-- ===== WHERE ===== -->
+  <h3 id="s2-3">2.3 WHERE — تصفية النتائج</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">The simple SELECT queries used so far retrieve all the records in the specified table. Often we are not interested in retrieving all the records in a table but only a subset of the records. This is accomplished via the WHERE clause, which can be added to any SELECT statement.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> استعلامات SELECT البسيطة التي استخدمناها حتى الآن تسترجع جميع السجلات في الجدول المحدد. غالبًا لا نهتم باسترجاع جميع السجلات في جدول، بل فقط مجموعة فرعية منها. يتحقق ذلك عبر جملة <code dir="ltr">WHERE</code>، والتي يمكن إضافتها إلى أي أمر <code dir="ltr">SELECT</code>.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">WHERE with numeric comparison</p>
+<pre class="code-block"><code dir="ltr">SELECT isbn10, title
+FROM books
+WHERE copyrightYear &gt; 2010;</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">WHERE with multiple conditions</p>
+<pre class="code-block"><code dir="ltr">SELECT isbn10, title
+FROM books
+WHERE category = 'Math' AND copyrightYear = 2014;</code></pre>
+    <p><strong>ملاحظة:</strong> المقارنات مع النصوص تتطلب <strong>string literals</strong> (علامات تنصيص مفردة أو مزدوجة).</p>
+  </div>
+
+  <!-- ===== INNER JOIN ===== -->
+  <h3 id="s2-4">2.4 INNER JOIN — دمج جداول</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Often we want to retrieve data from multiple tables. While we could do one query, and then do a second query using the data from the 1st query, that would be inefficient. Instead we can use the JOIN clause (we will discuss INNER JOIN).</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> غالبًا ما نريد استرجاع بيانات من جداول متعددة. على الرغم من أننا نستطيع تنفيذ استعلام واحد، ثم استعلام آخر باستخدام بيانات الاستعلام الأول، إلا أن ذلك سيكون غير فعّال. بدلًا من ذلك، يمكننا استخدام جملة <code dir="ltr">JOIN</code> (سنتناول <code dir="ltr">INNER JOIN</code>).</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">INNER JOIN — ArtWorks + Artists</p>
+<pre class="code-block"><code dir="ltr">SELECT Artists.ArtistID, Title, YearOfWork, Name
+FROM Artists
+INNER JOIN ArtWorks ON Artists.ArtistID = ArtWorks.ArtistID</code></pre>
+    <ul class="bullets">
+      <li><code dir="ltr">INNER JOIN</code> — SQL keywords تشير إلى نوع الدمج.</li>
+      <li><code dir="ltr">ArtWorks</code> — الجدول الثاني.</li>
+      <li><code dir="ltr">Artists.ArtistID</code> — المفتاح الأساسي في الجدول الأول.</li>
+      <li><code dir="ltr">ArtWorks.ArtistID</code> — المفتاح الأجنبي في الجدول الثاني.</li>
+    </ul>
+    <p><strong>ملاحظة:</strong> لأن اسم الحقل <code dir="ltr">ArtistID</code> غامض (موجود في جدولي)، يجب تسبيقه باسم الجدول.</p>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">INNER JOIN — Books + Authors (via intermediate table)</p>
+<pre class="code-block"><code dir="ltr">SELECT Books.BookID, Books.Title, Authors.Name, Books.CopyrightYear
+FROM Books
+INNER JOIN BookAuthors ON Books.BookID = BookAuthors.BookID
+INNER JOIN Authors     ON Authors.AuthorID = BookAuthors.AuthorID</code></pre>
+    <p><strong>الترجمة:</strong> هذا المثال يدمج جدولين عبر جدول وسيط (BookAuthors) لتنفيذ علاقة Many-to-Many بين Books و Authors.</p>
+  </div>
+
+  <!-- ===== GROUP BY ===== -->
+  <h3 id="s2-5">2.5 GROUP BY — التجميع مع دوال التجميع</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">When you don't want every record in your table but instead want to perform some type of calculation on multiple records and then return the results. This requires using one or more aggregate functions such as SUM() or COUNT(); these are often used in conjunction with the GROUP BY keywords.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> عندما لا تريد كل سجل في الجدول، بل تريد تنفيذ نوع من الحساب على سجلات متعددة ثم إرجاع النتائج. هذا يتطلب استخدام دالة تجميع واحدة أو أكثر مثل <code dir="ltr">SUM()</code> أو <code dir="ltr">COUNT()</code>؛ غالبًا ما تُستخدم هذه مع الكلمات المفتاحية <code dir="ltr">GROUP BY</code>.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Aggregate without GROUP BY — single result</p>
+<pre class="code-block"><code dir="ltr">SELECT COUNT(ArtWorkID) AS NumPaintings
+FROM ArtWorks
+WHERE YearOfWork &gt; 1900;</code></pre>
+    <div class="output-box">
+      <p class="output-label">الناتج:</p>
+      <table class="schema-table" style="max-width:200px;">
+        <thead><tr><th>NumPaintings</th></tr></thead>
+        <tbody><tr><td>745</td></tr></tbody>
+      </table>
+    </div>
+    <p><strong>الترجمة:</strong> هذه الجملة ترجع سجلًا واحدًا بقيمة واحدة (عدد اللوحات بعد عام 1900).</p>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">GROUP BY with COUNT — multiple results</p>
+<pre class="code-block"><code dir="ltr">SELECT Nationality, COUNT(ArtistID) AS NumArtists
+FROM Artists
+GROUP BY Nationality;</code></pre>
+    <div class="output-box">
+      <p class="output-label">الناتج:</p>
+      <table class="schema-table" style="max-width:300px;">
+        <thead><tr><th>Nationality</th><th>NumArtists</th></tr></thead>
+        <tbody>
+          <tr><td>Belgium</td><td>4</td></tr>
+          <tr><td>England</td><td>15</td></tr>
+          <tr><td>France</td><td>36</td></tr>
+          <tr><td>Germany</td><td>27</td></tr>
+          <tr><td>Italy</td><td>53</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>الترجمة:</strong> هذه الجملة ترجع عدد سجلات مساوٍ لعدد القيم الفريدة في الحقل المُجمَّع عليه (Nationality).</p>
+  </div>
+
+  <!-- ===== INSERT ===== -->
+  <h3 id="s2-6">2.6 INSERT — إضافة البيانات</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+<pre class="code-block"><code dir="ltr">INSERT INTO ArtWorks (Title, YearOfWork, ArtistID)
+VALUES ('Night Watch', 1642, 105)</code></pre>
+  </div>
+
+  <p><strong>الترجمة:</strong> جملة <code dir="ltr">INSERT</code> تُضيف سجلًا جديدًا (صفًا) إلى الجدول.</p>
+
+  <ul class="bullets">
+    <li><code dir="ltr">INSERT INTO</code> — SQL keywords للإدراج (إضافة) سجل جديد.</li>
+    <li><code dir="ltr">ArtWorks</code> — اسم الجدول.</li>
+    <li><code dir="ltr">(Title, YearOfWork, ArtistID)</code> — الحقول التي ستستقبل القيم.</li>
+    <li><code dir="ltr">VALUES ('Night Watch', 1642, 105)</code> — القيم المطلوب إدراجها.</li>
+  </ul>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملاحظات مهمة:</p>
+    <ul class="bullets">
+      <li>قيم النصوص يجب أن تكون داخل علامات تنصيص (مفردة أو مزدوجة).</li>
+      <li>حقول المفتاح الأساسي غالبًا ما تكون <code dir="ltr">AUTO_INCREMENT</code> — أي سيقوم DBMS بتعيين قيمة فريدة تلقائيًا عند إدراج سجل جديد.</li>
+    </ul>
+  </div>
+
+  <!-- ===== UPDATE ===== -->
+  <h3 id="s2-7">2.7 UPDATE — تعديل البيانات</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+<pre class="code-block"><code dir="ltr">UPDATE ArtWorks
+SET Title='Night Watch', YearOfWork=1642, ArtistID=105
+WHERE ArtWorkID=54</code></pre>
+  </div>
+
+  <p><strong>الترجمة:</strong> جملة <code dir="ltr">UPDATE</code> تُعدّل بيانات سجل موجود.</p>
+
+  <div class="warning-box">
+    <p><span class="badge-wrong">⚠️ تنبيه خطير:</span> من الضروري تحديد أي سجل تريد تعديله (عبر <code dir="ltr">WHERE</code>)، وإلا فسيتم تحديث <strong>جميع السجلات</strong> في الجدول!</p>
+    <p><span class="badge-right">ملاحظة:</span> الحقول التي تكون <code dir="ltr">AUTO_INCREMENT</code> لا يمكن تعديل قيمها.</p>
+  </div>
+
+  <!-- ===== DELETE ===== -->
+  <h3 id="s2-8">2.8 DELETE — حذف البيانات</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+<pre class="code-block"><code dir="ltr">DELETE FROM ArtWorks WHERE ArtWorkID=54</code></pre>
+  </div>
+
+  <p><strong>الترجمة:</strong> جملة <code dir="ltr">DELETE</code> تحذف صفوفًا من الجدول.</p>
+
+  <div class="warning-box">
+    <p><span class="badge-wrong">⚠️ تنبيه خطير:</span> من الضروري تحديد أي سجل تريد حذفه (عبر <code dir="ltr">WHERE</code>)، وإلا فسيتم حذف <strong>جميع السجلات</strong>!</p>
+  </div>
+
+  <!-- ===== Transactions ===== -->
+  <h3 id="s2-9">2.9 المعاملات <span dir="ltr" class="en">(Transactions)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Anytime one of your PHP pages makes changes to the database via an UPDATE, INSERT, or DELETE statement, you also need to be concerned with the possibility of failure. A transaction refers to a sequence of steps that are treated as a single unit, and provide a way to gracefully handle errors and keep your data properly consistent when errors do occur.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> في أي وقت يقوم فيه أحد صفحات PHP بإجراء تغييرات على قاعدة البيانات عبر <code dir="ltr">UPDATE</code> أو <code dir="ltr">INSERT</code> أو <code dir="ltr">DELETE</code>، يجب أن تكون قلقًا أيضًا بشأن احتمال الفشل. تشير <strong>المعاملة (Transaction)</strong> إلى تسلسل من الخطوات تُعامَل كوحدة واحدة، وتوفر طريقة للتعامل مع الأخطاء بأناقة والحفاظ على اتساق البيانات بشكل صحيح عند حدوث الأخطاء.</p>
+
+  <h4>المعاملات المحلية <span dir="ltr">(Local Transactions)</span></h4>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 11.1 — SQL commands for transaction processing</p>
+<pre class="code-block"><code dir="ltr">/* By starting the transaction, all database modifications within the
+   transaction will only be permanently saved in the database if they
+   all work */
+START TRANSACTION
+
+INSERT INTO orders ...
+INSERT INTO orderDetails ...
+UPDATE inventory ...
+
+/* if we have made it here everything has worked so commit changes */
+COMMIT
+
+/* if we replace COMMIT with ROLLBACK then the three database changes
+   would be "undone" */</code></pre>
+  </div>
+
+  <p><strong>الترجمة:</strong> أوامر SQL للمعاملات:</p>
+  <ul class="bullets">
+    <li><code dir="ltr">START TRANSACTION</code> — بدء المعاملة.</li>
+    <li><code dir="ltr">COMMIT</code> — تأكيد التغييرات وجعلها دائمة.</li>
+    <li><code dir="ltr">ROLLBACK</code> — التراجع عن التغييرات وإلغاؤها.</li>
+  </ul>
+
+  <h4>المعاملات الموزعة <span dir="ltr">(Distributed Transactions)</span></h4>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملاحظة:</p>
+    <p>المعاملات الموزعة تضمن أن جميع الأنظمة تعمل معًا كوحدة مفاهيمية واحدة بغض النظر عن مكان كل نظام. تتضمن عادةً <strong>Transaction Manager</strong> و <strong>Resource Managers</strong> متعددين مع بروتوكول 2-Phase Commit (Prepare ثم Commit).</p>
+  </div>
+
+  <!-- ===== Indexes ===== -->
+  <h3 id="s2-10">2.10 فهارس قاعدة البيانات <span dir="ltr" class="en">(Database Indexes)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">In large sets of data, searching for a particular record can take a long time. Consider the worst-case scenario for searching where we compare our query against every single record. If there are n elements we say it takes O(n) time to do a search (we would say "Order of n"). In comparison, a balanced binary tree data structure can be searched in O(log₂ n) time.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> في مجموعات البيانات الكبيرة، يمكن أن يستغرق البحث عن سجل معين وقتًا طويلًا. اعتبر السيناريو الأسوأ للبحث حيث نقارن استعلامنا مع كل سجل. إذا كانت هناك n من العناصر، نقول إن البحث يستغرق وقتًا <code dir="ltr">O(n)</code>. في المقابل، يمكن البحث في بنية شجرة ثنائية متوازنة في وقت <code dir="ltr">O(log₂ n)</code>.</p>
+
+  <div class="note-box">
+    <p class="note-label">📊 مقارنة سريعة:</p>
+    <table class="schema-table" style="margin-top:8px;">
+      <thead><tr><th>Number of Records</th><th>O(n)</th><th>O(log₂ n)</th></tr></thead>
+      <tbody>
+        <tr><td>1,000</td><td>1,000</td><td>~10</td></tr>
+        <tr><td>1,000,000</td><td>1,000,000</td><td>~20</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:8px;">عند N = 1,000,000: <code dir="ltr">log₂(1,000,000) = 20</code> ← أسرع بكثير.</p>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Index on Title</p>
+<pre class="code-block"><code dir="ltr">CREATE INDEX title_index ON Books (Title);</code></pre>
+    <p><strong>الترجمة:</strong> يمكن استخدام الفهارس لتسريع البحث. كل عقدة في الفهرس تحتوي على الحقل فقط، مع مؤشر للسجل الكامل (على القرص).</p>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملاحظة:</p>
+    <p>معظم أدوات إدارة قواعد البيانات تسمح بإنشاء الفهارس بسهولة عبر <span dir="ltr">GUI</span> دون استخدام أوامر SQL.</p>
+  </div>
+
+  <!-- ===== DDL ===== -->
+  <h4>عبارات تعريف البيانات <span dir="ltr">(Data Definition Language — DDL)</span></h4>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Data Manipulation Language features of SQL are what we typically describe in web development and include the SELECT, UPDATE, INSERT, and DELETE. There is also a Data Definition Language (DDL) in SQL, which is used for creating tables, modifying the structure of a table, deleting tables, and creating and deleting databases.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> ميزات <strong>لغة معالجة البيانات (DML)</strong> في SQL هي ما نصفه عادةً في تطوير الويب وتشمل <code dir="ltr">SELECT</code> و <code dir="ltr">UPDATE</code> و <code dir="ltr">INSERT</code> و <code dir="ltr">DELETE</code>. هناك أيضًا <strong>لغة تعريف البيانات (DDL)</strong> في SQL، تُستخدم لإنشاء الجداول وتعديل هيكل الجدول وحذف الجداول وإنشاء وحذف قواعد البيانات.</p>
+</section>
+<!-- ============================================= -->
+<!-- Section 3: Database APIs -->
+<!-- ============================================= -->
+<section id="section-3" class="section">
+  <h2 class="section-title">3. واجهات برمجة قواعد البيانات <span dir="ltr" class="en">(Database APIs)</span></h2>
+
+  <h3>3.1 ما هي API؟ <span dir="ltr" class="en">(What is an API?)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">API stands for <strong>Application Programming Interface</strong> and in general refers to the classes, methods, functions, and variables that your application uses to perform some task. Some database APIs work only with a specific type of database; others are cross-platform and can work with multiple databases.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> API تعني <strong>واجهة برمجة التطبيقات (Application Programming Interface)</strong>، وتشير عمومًا إلى الفئات والطرق والدوال والمتغيرات التي يستخدمها تطبيقك لأداء مهمة معينة. بعض واجهات برمجة قواعد البيانات تعمل فقط مع نوع معين من قواعد البيانات؛ والبعض الآخر متعدد المنصات ويمكنه العمل مع قواعد بيانات متعددة.</p>
+
+  <h3>3.2 واجهات MySQL في PHP <span dir="ltr" class="en">(PHP MySQL APIs)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">There is more than one way to interact with MySQL from PHP. The three main APIs are:</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> هناك أكثر من طريقة للتفاعل مع MySQL من PHP. واجهات API الثلاث الرئيسية هي:</p>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4><code dir="ltr">mysql</code> Extension (القديم)</h4>
+      <p>الامتداد الأصلي لـ PHP للعمل مع MySQL. <strong>تم استبداله</strong> بامتداد <code dir="ltr">mysqli</code> الأحدث.</p>
+      <p><strong>النمط:</strong> إجرائي (Procedural) فقط.</p>
+      <p><strong>الاستخدام:</strong> يجب استخدامه فقط مع إصدارات MySQL الأقدم من <code dir="ltr">4.1.3</code>.</p>
+      <p style="color:var(--warning-wrong);"><strong>⚠️ مهمل (Deprecated) — لا يُستخدم في المشاريع الجديدة.</strong></p>
+    </div>
+
+    <div class="schema-card">
+      <h4><code dir="ltr">mysqli</code> Extension (MySQL Improved)</h4>
+      <p>يستفيد من ميزات إصدارات MySQL الأحدث من <code dir="ltr">4.1.3</code>.</p>
+      <p><strong>النمط:</strong> إجرائي + كائني التوجه (Object-Oriented).</p>
+      <p><strong>المزايا:</strong> يدعم معظم ميزات MySQL الحديثة، ويدعم Prepared Statements.</p>
+    </div>
+
+    <div class="schema-card">
+      <h4><code dir="ltr">PDO</code> — PHP Data Objects</h4>
+      <p>واجهة كائنية التوجه متاحة منذ PHP 5.1.</p>
+      <p><strong>النمط:</strong> كائني التوجه (Object-Oriented) فقط.</p>
+      <p><strong>المزايا:</strong> يوفر <strong>طبقة تجريد (Abstraction Layer)</strong> يمكن استخدامها مع أي قاعدة بيانات (باستخدام برامج التشغيل المناسبة)، وليس فقط MySQL.</p>
+      <p><strong>القيود:</strong> لا يمكنه استخدام كل أحدث ميزات MySQL.</p>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>وجه المقارنة</th>
+          <th><code dir="ltr">mysql</code></th>
+          <th><code dir="ltr">mysqli</code></th>
+          <th><code dir="ltr">PDO</code></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>النمط</strong></td>
+          <td>إجرائي</td>
+          <td>إجرائي + OO</td>
+          <td>OO فقط</td>
+        </tr>
+        <tr>
+          <td><strong>الحالة</strong></td>
+          <td>مهمل</td>
+          <td>نشط</td>
+          <td>نشط</td>
+        </tr>
+        <tr>
+          <td><strong>قواعد بيانات متعددة</strong></td>
+          <td>❌</td>
+          <td>❌</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td><strong>Prepared Statements</strong></td>
+          <td>❌</td>
+          <td>✅</td>
+          <td>✅</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 4: Managing a MySQL Database -->
+<!-- ============================================= -->
+<section id="section-4" class="section">
+  <h2 class="section-title">4. إدارة قاعدة بيانات MySQL <span dir="ltr" class="en">(Managing a MySQL Database)</span></h2>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">You will eventually be able to manipulate the database from your PHP code, but there are some routine maintenance operations. Tools include: (1) Command Line Interface, (2) phpMyAdmin, (3) MySQLWorkbench.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> ستتمكن في النهاية من التعامل مع قاعدة البيانات من كود PHP، لكن هناك بعض عمليات الصيانة الروتينية. الأدوات تشمل: (1) واجهة سطر الأوامر، (2) phpMyAdmin، (3) MySQL Workbench.</p>
+
+  <h3>4.1 واجهة سطر الأوامر <span dir="ltr" class="en">(Command Line Interface — CLI)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">The MySQL command-line interface is the most difficult to master. The value of this particular management tool is its low bandwidth and near ubiquitous presence on Linux machines. To launch an interactive MySQL command-line session, you must specify the host, username, and database name to connect to.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> واجهة سطر أوامر MySQL هي الأصعب في الإتقان. قيمة هذه الأداة الإدارية تكمن في انخفاض استهلاك النطاق الترددي وحضورها شبه الشامل على أجهزة Linux. لبدء جلسة تفاعلية من سطر أوامر MySQL، يجب تحديد المضيف واسم المستخدم واسم قاعدة البيانات.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Command Line</p>
+<pre class="code-block"><code dir="ltr">mysql -h 192.168.1.14 -u bookUser -p</code></pre>
+    <p><strong>الخيارات:</strong></p>
+    <ul class="bullets">
+      <li><code dir="ltr">-h</code> — المضيف (host).</li>
+      <li><code dir="ltr">-u</code> — اسم المستخدم.</li>
+      <li><code dir="ltr">-p</code> — طلب إدخال كلمة المرور تفاعليًا.</li>
+    </ul>
+  </div>
+
+  <h4>أوامر CLI شائعة</h4>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>الأمر</th>
+          <th>الوصف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td dir="ltr"><code>SHOW TABLES;</code></td><td>عرض الجداول داخل قاعدة البيانات النشطة.</td></tr>
+        <tr><td dir="ltr"><code>SHOW COLUMNS IN authors;</code></td><td>عرض أعمدة جدول معين.</td></tr>
+        <tr><td dir="ltr"><code>SELECT * FROM authors WHERE FirstName LIKE 'A%';</code></td><td>تنفيذ استعلام للبحث.</td></tr>
+        <tr><td dir="ltr"><code>EXIT;</code></td><td>الخروج من الجلسة.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 استخدام إضافي:</p>
+    <p>يمكن استخدام سطر الأوامر لـ <strong>import</strong> و <strong>export</strong> و <strong>backup</strong> و <strong>recovery</strong> لقواعد بيانات كاملة، أو تشغيل دفعة من أوامر SQL من ملف.</p>
+  </div>
+
+  <h3>4.2 phpMyAdmin</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">A popular web-based front-end (written in PHP) called phpMyAdmin allows developers to access management tools through a web portal.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> واجهة أمامية شهيرة قائمة على الويب (مكتوبة بلغة PHP) تُسمى <strong>phpMyAdmin</strong> تسمح للمطورين بالوصول إلى أدوات الإدارة عبر بوابة ويب.</p>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>phpMyAdmin — المزايا</h4>
+      <ul class="bullets">
+        <li>✅ واجهة رسومية سهلة الاستخدام.</li>
+        <li>✅ إدارة كاملة لقواعد البيانات (إنشاء، تعديل، حذف).</li>
+        <li>✅ عرض وتعديل أي جدول في قاعدة البيانات.</li>
+        <li>✅ توليد كود PHP تلقائيًا.</li>
+        <li>✅ إدارة المستخدمين والصلاحيات.</li>
+      </ul>
+    </div>
+
+    <div class="schema-card">
+      <h4>phpMyAdmin — الملاحظات</h4>
+      <ul class="bullets">
+        <li>📌 MySQL لديها عدد من قواعد البيانات المعرفة مسبقًا تستخدمها لتشغيلها الخاص (information_schema، mysql، performance_schema، sys).</li>
+        <li>📌 phpMyAdmin يسمح بعرض ومعالجة أي جدول في قاعدة البيانات.</li>
+        <li>📌 يدعم استيراد وتصدير البيانات بصيغ متعددة (SQL، CSV، Excel).</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>4.3 MySQL Workbench</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">The MySQL Workbench is a free tool from Oracle to work with MySQL databases. It offers powerful design tools including EER diagrams, SQL editor, and database administration.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> <strong>MySQL Workbench</strong> هي أداة مجانية من Oracle للعمل مع قواعد بيانات MySQL. تقدم أدوات تصميم قوية تشمل مخططات EER ومحرر SQL وإدارة قاعدة البيانات.</p>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>المزايا الرئيسية</h4>
+      <ul class="bullets">
+        <li>✅ محرر SQL متقدم مع إكمال تلقائي.</li>
+        <li>✅ محرر مخططات EER (Enhanced Entity-Relationship) لتصميم قواعد البيانات بصريًا.</li>
+        <li>✅ إدارة اتصالات متعددة في وقت واحد.</li>
+        <li>✅ إنشاء وتعديل الجداول بصريًا.</li>
+        <li>✅ أدوات الهجرة (Migration) من قواعد بيانات أخرى.</li>
+        <li>✅ تصور العلاقات بين الجداول (Relationship Diagram).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 مقارنة سريعة بين الأدوات:</p>
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>الأداة</th>
+            <th>النوع</th>
+            <th>المستوى</th>
+            <th>الاستخدام الرئيسي</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>CLI</strong></td>
+            <td>سطر أوامر</td>
+            <td>متقدم</td>
+            <td>السكربتات الآلية والصيانة</td>
+          </tr>
+          <tr>
+            <td><strong>phpMyAdmin</strong></td>
+            <td>واجهة ويب</td>
+            <td>سهل</td>
+            <td>الإدارة اليومية السريعة</td>
+          </tr>
+          <tr>
+            <td><strong>MySQL Workbench</strong></td>
+            <td>تطبيق سطح مكتب</td>
+            <td>متوسط–متقدم</td>
+            <td>تصميم قواعد البيانات والتطوير</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<!-- ============================================= -->
+<!-- Section 5: Accessing MySQL in PHP -->
+<!-- ============================================= -->
+<section id="section-5" class="section">
+  <h2 class="section-title">5. الوصول إلى MySQL من PHP <span dir="ltr" class="en">(Accessing MySQL in PHP)</span></h2>
+
+  <h3 id="s5-1">5.1 خوارزمية الاتصال بقاعدة البيانات <span dir="ltr" class="en">(Database Connection Algorithm)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">No matter what API you use, the basic database connection algorithm is the same: (1) Connect to the database, (2) Handle connection errors, (3) Execute the SQL query, (4) Process the results, (5) Free resources and close connection.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> بصرف النظر عن أي API تستخدم، فإن خوارزمية الاتصال الأساسية بقاعدة البيانات هي نفسها:</p>
+
+  <div class="request-flow">
+    <div class="flow-step">
+      <span class="step-num">1</span>
+      <div class="step-body">
+        <h4>Connect to the database</h4>
+        <p>الاتصال بقاعدة البيانات.</p>
+        <span class="step-en">PDO / mysqli</span>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="step-num">2</span>
+      <div class="step-body">
+        <h4>Handle connection errors</h4>
+        <p>معالجة أخطاء الاتصال.</p>
+        <span class="step-en">try/catch</span>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="step-num">3</span>
+      <div class="step-body">
+        <h4>Execute the SQL query</h4>
+        <p>تنفيذ استعلام SQL.</p>
+        <span class="step-en">query() / exec()</span>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="step-num">4</span>
+      <div class="step-body">
+        <h4>Process the results</h4>
+        <p>معالجة النتائج وعرضها.</p>
+        <span class="step-en">fetch()</span>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="step-num">5</span>
+      <div class="step-body">
+        <h4>Free resources &amp; close</h4>
+        <p>تحرير الموارد وإغلاق الاتصال.</p>
+        <span class="step-en">$pdo = null</span>
+      </div>
+    </div>
+  </div>
+
+  <h4>مثال عملي متكامل مع PDO</h4>
+
+<pre class="code-block"><code dir="ltr">&lt;?php
+// 1. Connect to the database
+try {
+    $connString = "mysql:host=localhost;dbname=bookcrm";
+    $user = "testuser";
+    $pass = "mypassword";
+
+    $pdo = new PDO($connString, $user, $pass);
+
+    // 2. Handle errors
+    $pdo-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // 3. Execute the SQL query
+    $sql = "SELECT * FROM Categories ORDER BY CategoryName";
+    $result = $pdo-&gt;query($sql);
+
+    // 4. Process the results
+    while ($row = $result-&gt;fetch()) {
+        echo $row['ID'] . " - " . $row['CategoryName'] . "&lt;br/&gt;";
+    }
+
+    // 5. Free resources &amp; close
+    $pdo = null;
+}
+catch (PDOException $e) {
+    // 2 (again) Handle errors
+    die($e-&gt;getMessage());
+}
+?&gt;</code></pre>
+
+  <h3 id="s5-2">5.2 تخزين تفاصيل الاتصال <span dir="ltr" class="en">(Storing Connection Details)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Hard-coding the database connection details in your code is not ideal. We should move these connection details out of our connection code and place it in some central location.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> تضمين تفاصيل الاتصال بقاعدة البيانات داخل الكود مباشرة ليس مثاليًا. يجب نقل تفاصيل الاتصال هذه خارج كود الاتصال ووضعها في مكان مركزي.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Connection in a separated file</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+define('DBHOST', 'localhost');
+define('DBNAME', 'bookcrm');
+define('DBUSER', 'testuser');
+define('DBPASS', 'mypassword');
+?&gt;</code></pre>
+    <p><strong>الترجمة:</strong> ضع ثوابت الاتصال في ملف منفصل، ثم استوردها في الملفات التي تحتاجها عبر <code dir="ltr">require</code> أو <code dir="ltr">include</code>.</p>
+  </div>
+
+  <h3 id="s5-3">5.3 معالجة أخطاء الاتصال <span dir="ltr" class="en">(Handling Connection Errors)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">We need to handle potential connection errors in our code. Procedural mysqli techniques use conditional (if...else) statements on the returned object from the connection attempt. The PDO technique uses try-catch which relies on thrown exceptions when an error occurs.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> نحتاج إلى معالجة أخطاء الاتصال المحتملة في الكود. تقنيات <code dir="ltr">mysqli</code> الإجرائية تستخدم عبارات شرطية (<code dir="ltr">if...else</code>) على الكائن المرتجع من محاولة الاتصال. تقنية <code dir="ltr">PDO</code> تستخدم <code dir="ltr">try-catch</code> الذي يعتمد على الاستثناءات (Exceptions) التي تُرمى عند حدوث خطأ.</p>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>mysqli — Procedural (v1)</h4>
+<pre class="code-block"><code dir="ltr">$connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
+
+// mysqli_connect_error returns string description of the last connect error
+$error = mysqli_connect_error();
+if ($error != null) {
+    $output = "&lt;p&gt;Unable to connect to database&lt;p&gt;" . $error;
+    exit($output);
+}</code></pre>
+    </div>
+
+    <div class="schema-card">
+      <h4>mysqli — Procedural (v2)</h4>
+<pre class="code-block"><code dir="ltr">$connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
+
+// mysqli_connect_errno returns the last error code
+if (mysqli_connect_errno()) {
+    die(mysqli_connect_errno()); // die() = exit()
+}</code></pre>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">PDO — with try/catch</p>
+<pre class="code-block"><code dir="ltr">try {
+    $connString = "mysql:host=localhost;dbname=bookcrm";
+    $user = "DBUSER";
+    $pass = "DBPASS";
+
+    $pdo = new PDO($connString, $user, $pass);
+}
+catch (PDOException $e) {
+    die($e-&gt;getMessage());
+}</code></pre>
+  </div>
+
+  <h3 id="s5-4">5.4 تنفيذ الاستعلام <span dir="ltr" class="en">(Execute the Query)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original — SELECT queries (return results)</p>
+  </div>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>mysqli — SELECT</h4>
+<pre class="code-block"><code dir="ltr">$sql = "SELECT * FROM Categories ORDER BY CategoryName";
+
+// returns a mysqli_result object
+$result = mysqli_query($connection, $sql);</code></pre>
+    </div>
+
+    <div class="schema-card">
+      <h4>PDO — SELECT</h4>
+<pre class="code-block"><code dir="ltr">$sql = "SELECT * FROM Categories ORDER BY CategoryName";
+
+// returns a PDOStatement object
+$result = $pdo-&gt;query($sql);</code></pre>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original — Queries that DON'T return data (INSERT/UPDATE/DELETE)</p>
+  </div>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>mysqli</h4>
+<pre class="code-block"><code dir="ltr">$sql = "UPDATE Categories SET CategoryName='Web' WHERE CategoryName='Business'";
+
+if (mysqli_query($connection, $sql)) {
+    $count = mysqli_affected_rows($connection);
+    echo "&lt;p&gt;Updated " . $count . " rows&lt;/p&gt;";
+}</code></pre>
+    </div>
+
+    <div class="schema-card">
+      <h4>PDO</h4>
+<pre class="code-block"><code dir="ltr">$sql = "UPDATE Categories SET CategoryName='Web' WHERE CategoryName='Business'";
+
+$count = $pdo-&gt;exec($sql);
+echo "&lt;p&gt;Updated " . $count . " rows&lt;/p&gt;";</code></pre>
+    </div>
+  </div>
+
+  <h3 id="s5-5">5.5 حقن SQL <span dir="ltr" class="en">(SQL Injection)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original — A vulnerable form</p>
+<pre class="code-block"><code dir="ltr">$from = $_POST['old'];
+$to   = $_POST['new'];
+
+$sql = "UPDATE Categories SET CategoryName='$to' WHERE CategoryName='$from'";
+
+$count = $pdo-&gt;exec($sql);</code></pre>
+    <p><strong>الترجمة:</strong> على الرغم من أن هذا الكود يعمل، إلا أنه يفتح موقعك لواحد من أكثر هجمات الويب أمانًا شيوعًا: <strong>هجوم حقن SQL (SQL Injection Attack)</strong>.</p>
+  </div>
+
+  <h4>كيف يعمل هجوم حقن SQL؟</h4>
+
+  <div class="request-flow">
+    <div class="flow-step">
+      <span class="step-num">1</span>
+      <div class="step-body">
+        <h4>Vulnerable Form</h4>
+        <p>نموذج ضعيف يمرر مدخلات غير معقمة مباشرة إلى استعلامات SQL.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="step-num">2</span>
+      <div class="step-body">
+        <h4>Hacker Inputs SQL</h4>
+        <p>المخترق يُدخل كود SQL في حقل نصي ويُرسل النموذج (مثل: <code dir="ltr">'; TRUNCATE TABLE Users; #</code>).</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="step-num">3</span>
+      <div class="step-body">
+        <h4>PHP Builds Query</h4>
+        <p>سكريبت PHP يضع الحقول الخام مباشرة في استعلام SQL.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="step-num">4</span>
+      <div class="step-body">
+        <h4>Malicious Query Executes</h4>
+        <p>الاستعلام الناتج هو في الواقع استعلامان: الأول عادي والثاني خبيث.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="step-num">5</span>
+      <div class="step-body">
+        <h4>Data Destroyed</h4>
+        <p>حذف جميع السجلات من الجدول (TRUNCATE أو DROP).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <p><span class="badge-wrong">⚠️ خطير:</span> مثال على هجوم حقن SQL — إذا أدخل المهاجم في حقل اسم المستخدم: <code dir="ltr">'; TRUNCATE TABLE Users; #</code> — فإن الاستعلام النهائي يصبح:</p>
+<pre class="code-block"><code dir="ltr">SELECT * FROM Users WHERE uname='' ;
+TRUNCATE TABLE Users;
+# ' AND passwd=MD5('pass')</code></pre>
+    <p>الجزء بعد <code dir="ltr">#</code> هو تعليق، فيُنفَّذ الاستعلامان: الأول لا يُرجع شيئًا، والثاني يحذف كل السجلات.</p>
+  </div>
+
+  <h3 id="s5-6">5.6 الدفاع ضد الهجوم — تنقية المدخلات <span dir="ltr" class="en">(Sanitizing User Input)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">The SQL injection class of attack can be protected against by: (1) Sanitizing user input, (2) Using Prepared Statements. The process of checking user input for incorrect or missing information and examining SQL injection attacks is sometimes referred to as the process of sanitizing user inputs. <strong>Distrust all user inputs</strong>.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> يمكن الحماية ضد فئة هجوم حقن SQL عبر: (1) <strong>تنقية مدخلات المستخدم</strong>، (2) <strong>استخدام الاستعلامات المحضرة</strong>. عملية التحقق من مدخلات المستخدم بحثًا عن معلومات غير صحيحة أو مفقودة وفحص هجمات حقن SQL تُسمى أحيانًا عملية تنقية مدخلات المستخدم. <strong>لا تثق بأي مدخلات من المستخدم.</strong></p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">In MySQL — mysqli_real_escape_string() or PDO's quote()</p>
+<pre class="code-block"><code dir="ltr">// Using PDO's quote() method
+$from = $pdo-&gt;quote($from);
+$to   = $pdo-&gt;quote($to);
+
+$sql = "UPDATE Categories SET CategoryName=$to WHERE CategoryName=$from";
+
+$count = $pdo-&gt;exec($sql);</code></pre>
+    <p><strong>الترجمة:</strong> في MySQL، يمكن تنقية مدخلات المستخدم في PHP باستخدام: (1) الدالة <code dir="ltr">mysqli_real_escape_string()</code>، أو (2) إذا كنت تستخدم PDO — الدالة <code dir="ltr">quote()</code>. الدالة <code dir="ltr">quote()</code> تضع علامات تنصيص حول النص المُدخل إذا لزم الأمر وتُهرّب الأحرف الخاصة داخله.</p>
+  </div>
+
+  <h3 id="s5-7">5.7 الاستعلامات المحضرة <span dir="ltr" class="en">(Prepared Statements)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">A prepared statement is actually a way to improve performance for queries that need to be executed multiple times. When MySQL creates a prepared statement, it does something akin to a compiler in that: (1) it optimizes it so that it has superior performance for multiple requests, (2) It also integrates sanitization into each user input automatically, thereby protecting us from SQL injection.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> الاستعلام المحضر (Prepared Statement) هو في الواقع وسيلة لتحسين الأداء للاستعلامات التي تحتاج إلى تنفيذها عدة مرات. عندما ينشئ MySQL استعلامًا محضرًا، فإنه يفعل شيئًا مشابهًا للمترجم حيث: (1) يُحسّنه بحيث يكون له أداء فائق للطلبات المتعددة، (2) يدمج أيضًا التنقية في كل إدخال من المستخدم تلقائيًا، مما يحمينا من حقن SQL.</p>
+
+  <h4>mysqli — Prepared Statements</h4>
+
+<pre class="code-block"><code dir="ltr">&lt;?php
+// retrieve parameter value from query string
+$id = $_GET['id'];
+
+// construct parameterized query - notice the ? parameter
+$sql = "SELECT Title, CopyrightYear FROM Books WHERE ID=?";
+
+// create a prepared statement
+if ($statement = mysqli_prepare($connection, $sql)) {
+
+    // Bind parameters: s - string, b - blob, i - int, etc
+    mysqli_stmt_bind_param($statement, 'i', $id);
+
+    // execute query
+    mysqli_stmt_execute($statement);
+
+    // learn in next section how to access the returned data
+}
+?&gt;</code></pre>
+
+  <h4>PDO — Prepared Statements (طريقتان)</h4>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>Method 1 — Question marks (?)</h4>
+<pre class="code-block"><code dir="ltr">&lt;?php
+$id = $_GET['id'];
+
+$sql = "SELECT Title, CopyrightYear FROM Books WHERE ID = ?";
+$statement = $pdo-&gt;prepare($sql);
+$statement-&gt;bindValue(1, $id);
+$statement-&gt;execute();
+?&gt;</code></pre>
+    </div>
+
+    <div class="schema-card">
+      <h4>Method 2 — Named parameters (:id)</h4>
+<pre class="code-block"><code dir="ltr">&lt;?php
+$id = $_GET['id'];
+
+$sql = "SELECT Title, CopyrightYear FROM Books WHERE ID = :id";
+$statement = $pdo-&gt;prepare($sql);
+$statement-&gt;bindValue(':id', $id);
+$statement-&gt;execute();
+?&gt;</code></pre>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 11.19 — Multiple parameters with named parameters</p>
+<pre class="code-block"><code dir="ltr">$sql = "INSERT INTO books (ISBN10, Title, CopyrightYear, ImprintId, ProductionStatusId, TrimSize, Description)
+VALUES (:isbn, :title, :year, :imprint, :status, :size, :desc)";
+
+$statement = $pdo-&gt;prepare($sql);
+$statement-&gt;bindValue(':isbn',   $_POST['isbn']);
+$statement-&gt;bindValue(':title',  $_POST['title']);
+$statement-&gt;bindValue(':year',   $_POST['year']);
+$statement-&gt;bindValue(':imprint',$_POST['imprint']);
+$statement-&gt;bindValue(':status', $_POST['status']);
+$statement-&gt;bindValue(':size',   $_POST['size']);
+$statement-&gt;bindValue(':desc',   $_POST['desc']);
+$statement-&gt;execute();</code></pre>
+  </div>
+
+  <h3 id="s5-8">5.8 معالجة نتائج الاستعلام <span dir="ltr" class="en">(Process Query Results)</span></h3>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>mysqli — Loop through result set</h4>
+<pre class="code-block"><code dir="ltr">$sql = "SELECT * FROM Categories ORDER BY CategoryName";
+
+if ($result = mysqli_query($connection, $sql)) {
+    // fetch a record from result set into an associative array
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo $row['ID'] . " - " . $row['CategoryName'] . "&lt;br/&gt;";
+    }
+}</code></pre>
+    </div>
+
+    <div class="schema-card">
+      <h4>PDO — Loop through result set</h4>
+<pre class="code-block"><code dir="ltr">$sql = "SELECT * FROM Categories ORDER BY CategoryName";
+$result = $pdo-&gt;query($sql);
+
+while ($row = $result-&gt;fetch()) {
+    echo $row['ID'] . " - " . $row['CategoryName'] . "&lt;br/&gt;";
+}</code></pre>
+    </div>
+  </div>
+
+  <h4>Fetch into an Object بدلًا من Array</h4>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 11.23 — Populating an object from a result set (PDO)</p>
+<pre class="code-block"><code dir="ltr">class Book {
+    public $id;
+    public $title;
+    public $copyrightYear;
+    public $description;
+}
+
+$id = $_GET['id'];
+$sql = "SELECT id, title, copyrightYear, description FROM Books WHERE id = ?";
+$statement = $pdo-&gt;prepare($sql);
+$statement-&gt;bindValue(1, $id);
+$statement-&gt;execute();
+
+$b = $statement-&gt;fetchObject('Book');
+echo 'ID: ' . $b-&gt;id . '&lt;br/&gt;';
+echo 'Title: ' . $b-&gt;title . '&lt;br/&gt;';
+echo 'Year: ' . $b-&gt;copyrightYear . '&lt;br/&gt;';
+echo 'Description: ' . $b-&gt;description . '&lt;br/&gt;';</code></pre>
+    <p><strong>الترجمة:</strong> بدلًا من استرجاع النتائج في مصفوفة، يمكن استخدام <code dir="ltr">fetchObject('Book')</code> لتعبئة كائن من الصنف <code dir="ltr">Book</code>.</p>
+  </div>
+
+  <h3 id="s5-9">5.9 تحرير الموارد وإغلاق الاتصال <span dir="ltr" class="en">(Freeing Resources &amp; Closing Connection)</span></h3>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>mysqli</h4>
+<pre class="code-block"><code dir="ltr">$connection = mysqli_connect($host, $user, $pass, $database);
+
+// release the memory used by the result set
+mysqli_free_result($result);
+
+// close the database connection
+mysqli_close($connection);</code></pre>
+    </div>
+
+    <div class="schema-card">
+      <h4>PDO</h4>
+<pre class="code-block"><code dir="ltr">// closes connection and frees the resources
+// used by the PDO object
+$pdo = null;</code></pre>
+    </div>
+  </div>
+
+  <h3 id="s5-10">5.10 استخدام المعاملات في PHP <span dir="ltr" class="en">(Using Transactions in PHP)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">PDO — Transactions</p>
+<pre class="code-block"><code dir="ltr">$pdo = new PDO($connString, $user, $pass);
+
+// turn on exceptions so that exception is thrown
+$pdo-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+try {
+    // begin a transaction
+    $pdo-&gt;beginTransaction();
+
+    // a set of queries: if one fails, an exception will be thrown
+    $pdo-&gt;query("INSERT INTO Categories (CategoryName) VALUES ('Philosophy')");
+    $pdo-&gt;query("INSERT INTO Categories (CategoryName) VALUES ('Art')");
+
+    // if we arrive here, it means that no exception was thrown
+    // which means no query has failed, so we can commit the transaction
+    $pdo-&gt;commit();
+}
+catch (Exception $e) {
+    // we must rollback the transaction since an error occurred
+    $pdo-&gt;rollback();
+}</code></pre>
+    <p><strong>الترجمة:</strong> يمكن استخدام المعاملات في PDO عبر: <code dir="ltr">beginTransaction()</code> و <code dir="ltr">commit()</code> و <code dir="ltr">rollback()</code>.</p>
+  </div>
+</section>
+<!-- ============================================= -->
+<!-- Section 6: Case Study Schemas -->
+<!-- ============================================= -->
+<section id="section-6" class="section">
+  <h2 class="section-title">6. مخططات قواعد البيانات <span dir="ltr" class="en">(Case Study Schemas)</span></h2>
+
+  <div class="note-box">
+    <p class="note-label">📌 مقدمة:</p>
+    <p>هذا القسم يعرض مخططات قواعد بيانات واقعية كاملة، تُظهر كيفية تنظيم الجداول والعلاقات بينها باستخدام المفاتيح الأساسية والأجنبية.</p>
+  </div>
+
+  <!-- ===== ArtWorks / Artists Schema ===== -->
+  <h3>6.1 مخطط ArtWorks &amp; Artists</h3>
+
+  <p>مخطط بسيط يوضح علاقة <strong>واحد إلى متعدد (1:N)</strong> بين الفنانين والأعمال الفنية — كل فنان يمكنه أن يكون له أعمال فنية متعددة.</p>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">Artists</code></h4>
+      <table class="schema-table">
+        <thead>
+          <tr><th>Key</th><th>Field</th><th>Type</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">ArtistID</td><td>INT</td></tr>
+          <tr><td></td><td>FirstName</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>LastName</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>Nationality</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>YearOfBirth</td><td>INT</td></tr>
+          <tr><td></td><td>YearOfDeath</td><td>INT</td></tr>
+          <tr><td></td><td>Details</td><td>TEXT</td></tr>
+          <tr><td></td><td>Link</td><td>VARCHAR</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">ArtWorks</code></h4>
+      <table class="schema-table">
+        <thead>
+          <tr><th>Key</th><th>Field</th><th>Type</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">ArtWorkID</td><td>INT</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">ArtistID</td><td>INT</td></tr>
+          <tr><td></td><td>ImageFileName</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>Title</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>Description</td><td>TEXT</td></tr>
+          <tr><td></td><td>Excerpt</td><td>TEXT</td></tr>
+          <tr><td></td><td>ArtWorkType</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>YearOfWork</td><td>INT</td></tr>
+          <tr><td></td><td>Width</td><td>INT</td></tr>
+          <tr><td></td><td>Height</td><td>INT</td></tr>
+          <tr><td></td><td>Medium</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>OriginalHome</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>Cost</td><td>DECIMAL</td></tr>
+          <tr><td></td><td>MSRP</td><td>DECIMAL</td></tr>
+          <tr><td></td><td>Link</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>GoogleLink</td><td>VARCHAR</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="relation-diagram">
+    <div class="relation-entity">
+      <strong>Artists</strong>
+      ArtistID (PK)
+    </div>
+    <div class="relation-arrow">
+      ◀<span style="font-size:.7rem;">1</span>
+      <span class="relation-label">Artists.ArtistID = ArtWorks.ArtistID</span>
+      <span style="font-size:.7rem;">N</span>▶
+    </div>
+    <div class="relation-entity">
+      <strong>ArtWorks</strong>
+      ArtistID (FK)
+    </div>
+  </div>
+
+  <!-- ===== BookCRM Schema ===== -->
+  <h3>6.2 مخطط BookCRM — نظام إدارة المكتبات</h3>
+
+  <p>مخطط كامل يحتوي على جداول متعددة مرتبطة بعلاقات معقدة:</p>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">Books</code> (المركزي)</h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">ID</td><td>INT</td></tr>
+          <tr><td></td><td>ISBN10</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>ISBN13</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>Title</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>CopyrightYear</td><td>INT</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">SubcategoryID</td><td>INT</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">ImprintID</td><td>INT</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">ProductionStatusID</td><td>INT</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">BindingTypeID</td><td>INT</td></tr>
+          <tr><td></td><td>TrimSize</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>PageCountsEditorial</td><td>INT</td></tr>
+          <tr><td></td><td>LatestInStockDate</td><td>DATE</td></tr>
+          <tr><td></td><td>Description</td><td>TEXT</td></tr>
+          <tr><td></td><td>CoverImage</td><td>VARCHAR</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">Categories</code></h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">ID</td><td>INT</td></tr>
+          <tr><td></td><td>CategoryName</td><td>VARCHAR</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">Subcategories</code></h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">ID</td><td>INT</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">CategoryID</td><td>INT</td></tr>
+          <tr><td></td><td>SubcategoryName</td><td>VARCHAR</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">Authors</code></h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">ID</td><td>INT</td></tr>
+          <tr><td></td><td>FirstName</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>LastName</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>Institution</td><td>VARCHAR</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">BookAuthors</code> (جدول وسيط)</h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">ID</td><td>INT</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">BookID</td><td>INT</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">AuthorID</td><td>INT</td></tr>
+          <tr><td></td><td>Order</td><td>INT</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.8rem;color:var(--text-muted);margin-top:8px;">Composite Key: (BookID, AuthorID)</p>
+    </div>
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">Customers</code></h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">ID</td><td>INT</td></tr>
+          <tr><td></td><td>FirstName</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>LastName</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>Email</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>University</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>Address</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>City</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>Region</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>Country</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>Postal</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>Phone</td><td>VARCHAR</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">CustomerBooks</code></h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">ID</td><td>INT</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">CustomerID</td><td>INT</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">BookID</td><td>INT</td></tr>
+          <tr><td></td><td>DateRequested</td><td>DATE</td></tr>
+          <tr><td></td><td>NumberCopies</td><td>INT</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">Imprints</code></h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">ID</td><td>INT</td></tr>
+          <tr><td></td><td>Imprint</td><td>VARCHAR</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">BindingTypes</code></h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">ID</td><td>INT</td></tr>
+          <tr><td></td><td>BindingType</td><td>VARCHAR</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">ProductionStatuses</code></h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">ID</td><td>INT</td></tr>
+          <tr><td></td><td>ProductionStatus</td><td>VARCHAR</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="relation-diagram">
+    <div class="relation-entity">
+      <strong>Categories</strong>
+      ID (PK)
+    </div>
+    <div class="relation-arrow">
+      ◀<span style="font-size:.7rem;">1</span>
+      <span class="relation-label">CategoryID</span>
+      <span style="font-size:.7rem;">N</span>▶
+    </div>
+    <div class="relation-entity">
+      <strong>Subcategories</strong>
+      CategoryID (FK)
+    </div>
+  </div>
+
+  <div class="relation-diagram">
+    <div class="relation-entity">
+      <strong>Subcategories</strong>
+      ID (PK)
+    </div>
+    <div class="relation-arrow">
+      ◀<span style="font-size:.7rem;">1</span>
+      <span class="relation-label">SubcategoryID</span>
+      <span style="font-size:.7rem;">N</span>▶
+    </div>
+    <div class="relation-entity">
+      <strong>Books</strong>
+      SubcategoryID (FK)
+    </div>
+  </div>
+
+  <div class="relation-diagram">
+    <div class="relation-entity">
+      <strong>Books</strong>
+      ID (PK)
+    </div>
+    <div class="relation-arrow">
+      ◀<span style="font-size:.7rem;">1</span>
+      <span class="relation-label">BookID</span>
+      <span style="font-size:.7rem;">N</span>▶
+    </div>
+    <div class="relation-entity">
+      <strong>BookAuthors</strong>
+      BookID (FK)
+    </div>
+  </div>
+
+  <div class="relation-diagram">
+    <div class="relation-entity">
+      <strong>BookAuthors</strong>
+      AuthorID (FK)
+    </div>
+    <div class="relation-arrow">
+      ◀<span style="font-size:.7rem;">N</span>
+      <span class="relation-label">AuthorID</span>
+      <span style="font-size:.7rem;">1</span>▶
+    </div>
+    <div class="relation-entity">
+      <strong>Authors</strong>
+      ID (PK)
+    </div>
+  </div>
+
+  <div class="relation-diagram">
+    <div class="relation-entity">
+      <strong>Customers</strong>
+      ID (PK)
+    </div>
+    <div class="relation-arrow">
+      ◀<span style="font-size:.7rem;">1</span>
+      <span class="relation-label">CustomerID</span>
+      <span style="font-size:.7rem;">N</span>▶
+    </div>
+    <div class="relation-entity">
+      <strong>CustomerBooks</strong>
+      CustomerID (FK)
+    </div>
+  </div>
+
+  <div class="relation-diagram">
+    <div class="relation-entity">
+      <strong>Books</strong>
+      ID (PK)
+    </div>
+    <div class="relation-arrow">
+      ◀<span style="font-size:.7rem;">1</span>
+      <span class="relation-label">BookID</span>
+      <span style="font-size:.7rem;">N</span>▶
+    </div>
+    <div class="relation-entity">
+      <strong>CustomerBooks</strong>
+      BookID (FK)
+    </div>
+  </div>
+
+  <!-- ===== Travel Photo Sharing Database ===== -->
+  <h3>6.3 مخطط Travel Photo Sharing Database</h3>
+
+  <p>مخطط مبسط لموقع مشاركة صور السفر — يركز على تخزين الصور في قاعدة البيانات باستخدام <strong>BLOB</strong>.</p>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">TravelImage</code></h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">ImageID</td><td>INT</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">UID</td><td>INT</td></tr>
+          <tr><td></td><td>Path</td><td>VARCHAR</td></tr>
+          <tr><td></td><td>ImageContent</td><td>BLOB</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملاحظة:</p>
+    <p>هذا المخطط يُظهر خيارين لتخزين الملفات: (1) تخزين مسار الملف فقط في قاعدة البيانات والملف على نظام ملفات الخادم (أسرع)، (2) تخزين الملف نفسه كـ <strong>BLOB</strong> في قاعدة البيانات (أكثر أمانًا للنسخ الاحتياطي لكن أبطأ).</p>
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 7: Sample Database Techniques -->
+<!-- ============================================= -->
+<section id="section-7" class="section">
+  <h2 class="section-title">7. تقنيات قواعد بيانات نموذجية <span dir="ltr" class="en">(Sample Database Techniques)</span></h2>
+
+  <h3 id="s7-1">7.1 عرض قائمة روابط <span dir="ltr" class="en">(Display a List of Links)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">One of the most common database tasks in PHP is to display a list of links (i.e., a series of &lt;li&gt; elements within a &lt;ul&gt;).</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> واحدة من أكثر مهام قواعد البيانات شيوعًا في PHP هي عرض قائمة روابط (أي سلسلة من عناصر <code dir="ltr">&lt;li&gt;</code> داخل <code dir="ltr">&lt;ul&gt;</code>).</p>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>Output — HTML List</h4>
+<pre class="code-block"><code dir="ltr">&lt;ul&gt;
+  &lt;li&gt;&lt;a href="list.php?category=7"&gt;Business&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="list.php?category=2"&gt;Computer Science&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="list.php?category=3"&gt;Economics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="list.php?category=9"&gt;Engineering&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="list.php?category=4"&gt;English&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="list.php?category=6"&gt;Mathematics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="list.php?category=8"&gt;Statistics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href="list.php?category=5"&gt;Student Success&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+    </div>
+
+    <div class="schema-card">
+      <h4>PHP Code</h4>
+<pre class="code-block"><code dir="ltr">$sql = "SELECT * FROM Categories ORDER BY CategoryName";
+$result = $pdo-&gt;query($sql);
+
+echo "&lt;ul&gt;";
+while ($row = $result-&gt;fetch()) {
+    echo "&lt;li&gt;&lt;a href='list.php?category=" . $row['ID'] . "'&gt;"
+         . $row['CategoryName'] . "&lt;/a&gt;&lt;/li&gt;";
+}
+echo "&lt;/ul&gt;";</code></pre>
+    </div>
+  </div>
+
+  <h3 id="s7-2">7.2 صفحة البحث والنتائج <span dir="ltr" class="en">(Search and Results Page)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">In this example, we will assume that there is a text box with the name txtSearch in which the user enters a search string along with a Submit button. The data that we will filter is the Book table; we will display any book records that contain the user-entered text in the Title field.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> في هذا المثال، سنفترض وجود مربع نص باسم <code dir="ltr">txtSearch</code> يُدخل فيه المستخدم سلسلة البحث مع زر إرسال. البيانات التي سنُصفّيها هي جدول <code dir="ltr">Books</code>؛ سنعرض أي سجلات كتب تحتوي على النص الذي أدخله المستخدم في حقل <code dir="ltr">Title</code>.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Search Page — HTML Form</p>
+<pre class="code-block"><code dir="ltr">&lt;form method="get"&gt;
+  &lt;input type="search"
+         name="txtSearch"
+         placeholder="Enter search string"
+         value="&lt;?php echo $_GET['txtSearch']; ?&gt;" /&gt;
+  &lt;input type="submit" value="Search" /&gt;
+&lt;/form&gt;</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Search Query — with wildcards and prepared statement</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+// add SQL wildcard characters to search term
+$searchFor = '%' . $_GET['txtSearch'] . '%';
+
+$sql = "SELECT * FROM Books WHERE Title LIKE ?";
+$statement = $pdo-&gt;prepare($sql);
+$statement-&gt;bindValue(1, $searchFor);
+$statement-&gt;execute();
+
+while ($row = $statement-&gt;fetch()) {
+    echo $row['Title'] . "&lt;br/&gt;";
+}
+?&gt;</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملاحظات:</p>
+    <ul class="bullets">
+      <li>استخدام <code dir="ltr">%</code> قبل وبعد نص البحث يعني "أي نص يحتوي على السلسلة".</li>
+      <li>استخدام <code dir="ltr">LIKE</code> يجعل البحث غير حساس لحالة الأحرف في معظم أنظمة قواعد البيانات.</li>
+      <li>في حال عدم وجود نتائج مطابقة، لن يُعرض شيء. يمكن إضافة رسائل خطأ لاحقًا.</li>
+    </ul>
+  </div>
+
+  <h3 id="s7-3">7.3 تخزين الملفات في قاعدة البيانات <span dir="ltr" class="en">(Files in the Database)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">There are two ways of storing files in a database: (1) Storing file location in the database, and storing the file on the server's filesystem. (2) Storing the file itself in the database in the form of a binary BLOB.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> هناك طريقتان لتخزين الملفات في قاعدة البيانات:</p>
+  <ol class="steps-list">
+    <li><strong>تخزين مسار الملف في قاعدة البيانات</strong>، وتخزين الملف نفسه على نظام ملفات الخادم.</li>
+    <li><strong>تخزين الملف نفسه في قاعدة البيانات</strong> في صورة <strong>BLOB ثنائي (Binary Large Object)</strong>.</li>
+  </ol>
+
+  <h4>الطريقة 1 — تخزين المسار فقط</h4>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>جدول يخزن المسار</h4>
+      <table class="schema-table">
+        <thead><tr><th>ID</th><th>UID</th><th>Path</th><th>ImageContent</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">280</td><td>35</td><td>/images/983412824.jpg</td><td>...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="request-flow">
+    <div class="flow-step">
+      <span class="step-num">1</span>
+      <div class="step-body">
+        <h4>User uploads file</h4>
+        <p>المستخدم يرفع ملفًا عبر نموذج <code dir="ltr">&lt;form enctype="multipart/form-data" method="post"&gt;</code>.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="step-num">2</span>
+      <div class="step-body">
+        <h4>PHP retrieves from $_FILES</h4>
+        <p>سكريبت PHP يسترجع الملف من <code dir="ltr">$_FILES</code> ويعطيه اسمًا فريدًا وينقله إلى موقع خاص.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="step-num">3</span>
+      <div class="step-body">
+        <h4>Save path in database</h4>
+        <p>PHP يحفظ مسار الملف في جدول قاعدة البيانات.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="step-num">4</span>
+      <div class="step-body">
+        <h4>Future requests</h4>
+        <p>الطلبات المستقبلية للصورة تتم عبر مسار الملف مباشرة: <code dir="ltr">&lt;img src="/images/983412824.jpg"&gt;</code>.</p>
+      </div>
+    </div>
+  </div>
+
+  <h4>الطريقة 2 — تخزين BLOB</h4>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>جدول يخزن BLOB</h4>
+      <table class="schema-table">
+        <thead><tr><th>ID</th><th>UID</th><th>Path</th><th>ImageContent (BLOB)</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">280</td><td>35</td><td>...</td><td>[binary data...]</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="request-flow">
+    <div class="flow-step">
+      <span class="step-num">1</span>
+      <div class="step-body">
+        <h4>User uploads file</h4>
+        <p>المستخدم يرفع ملفًا.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="step-num">2</span>
+      <div class="step-body">
+        <h4>PHP saves BLOB</h4>
+        <p>PHP يسترجع الملف من <code dir="ltr">$_FILES</code> ويحفظ بيانات BLOB في قاعدة البيانات.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="step-num">3</span>
+      <div class="step-body">
+        <h4>Future requests via intermediary script</h4>
+        <p>الطلبات المستقبلية تمر عبر سكريبت وسيط باستخدام ID.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="step-num">4</span>
+      <div class="step-body">
+        <h4>Script outputs image</h4>
+        <p>السكريبت يسترجع بيانات BLOB ويعرضها كـ <code dir="ltr">Content-type: image/jpeg</code>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 11.35 — Save file contents in a BLOB field</p>
+<pre class="code-block"><code dir="ltr">$fileContent = file_get_contents("someImage.jpg");
+$sql = "INSERT INTO TravelImage (ImageContent) VALUES (:data)";
+
+$statement = $pdo-&gt;prepare($sql);
+$statement-&gt;bindParam(':data', $fileContent, PDO::PARAM_LOB);
+$statement-&gt;execute();</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 11.36 — Fetch and echo BLOB image</p>
+<pre class="code-block"><code dir="ltr">// retrieve blob content from database
+$sql = "SELECT * FROM TravelImage WHERE ImageID=:id";
+$statement = $pdo-&gt;prepare($sql);
+$statement-&gt;bindParam(':id', $_GET['id']);
+$statement-&gt;execute();
+
+$result = $statement-&gt;fetch(PDO::FETCH_ASSOC);
+if ($result) {
+    // Output the MIME header
+    header("Content-type: image/jpeg");
+
+    // Output the image
+    echo ($result["ImageContent"]);
+}</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📊 مقارنة سريعة — أيهما أسرع وأكثر أمانًا؟</p>
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>وجه المقارنة</th>
+            <th>تخزين المسار (Filesystem)</th>
+            <th>تخزين BLOB (Database)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>السرعة</strong></td>
+            <td>✅ أسرع (الخادم يقدم الملف مباشرة)</td>
+            <td>⚠️ أبطأ (يمر عبر سكريبت PHP)</td>
+          </tr>
+          <tr>
+            <td><strong>النسخ الاحتياطي</strong></td>
+            <td>⚠️ معقد (ملفات + قاعدة بيانات)</td>
+            <td>✅ بسيط (قاعدة بيانات واحدة)</td>
+          </tr>
+          <tr>
+            <td><strong>الأمان</strong></td>
+            <td>⚠️ يعتمد على إعدادات الخادم</td>
+            <td>✅ يمكن حماية الوصول عبر الصلاحيات</td>
+          </tr>
+          <tr>
+            <td><strong>الأداء مع الملفات الكبيرة</strong></td>
+            <td>✅ جيد</td>
+            <td>⚠️ قد يؤثر على قاعدة البيانات</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3 id="s7-4">7.4 Assignment — مشروعك النهائي</h3>
+
+  <div class="note-box">
+    <p class="note-label" dir="ltr">Assignment</p>
+    <p dir="ltr">Start with your lab project. Start designing your own project — all pages — and you should have specific roles. Create your own database on phpMyAdmin and review it with lab assistants:</p>
+    <ol class="steps-list">
+      <li>Database should be correct.</li>
+      <li>Relationship should be correct.</li>
+      <li>Tables should be correct and have meaningful names.</li>
+      <li>Fields should have meaningful names.</li>
+      <li>You should have a specific scenario.</li>
+    </ol>
+    <p><strong>الترجمة:</strong> ابدأ بمشروع المختبر الخاص بك. ابدأ بتصميم مشروعك الخاص — جميع الصفحات — ويجب أن تكون لديك أدوار محددة. أنشئ قاعدة بياناتك الخاصة على phpMyAdmin وراجعها مع مساعدي المختبر:</p>
+    <ol class="steps-list">
+      <li>قاعدة البيانات يجب أن تكون صحيحة.</li>
+      <li>العلاقات يجب أن تكون صحيحة.</li>
+      <li>الجداول يجب أن تكون صحيحة ولها أسماء ذات معنى.</li>
+      <li>الحقول يجب أن تكون لها أسماء ذات معنى.</li>
+      <li>يجب أن يكون لديك سيناريو محدد.</li>
+    </ol>
+  </div>
+</section>
+<!-- ============================================= -->
+<!-- Section 8: Definitions -->
+<!-- ============================================= -->
+<section id="section-8" class="section">
+  <h2 class="section-title">8. التعاريف الأساسية <span dir="ltr" class="en">(Definitions)</span></h2>
+
+  <nav class="definitions-nav" aria-label="التنقل بين التعاريف">
+    <p class="definitions-nav-title">⚡ تنقل سريع:</p>
+    <a href="#def-1">1. Database</a>
+    <a href="#def-2">2. DBMS</a>
+    <a href="#def-3">3. Table</a>
+    <a href="#def-4">4. Record</a>
+    <a href="#def-5">5. Field</a>
+    <a href="#def-6">6. Primary Key</a>
+    <a href="#def-7">7. Foreign Key</a>
+    <a href="#def-8">8. SQL</a>
+    <a href="#def-9">9. Query</a>
+    <a href="#def-10">10. Database API</a>
+    <a href="#def-11">11. Schema</a>
+    <a href="#def-12">12. MySQL</a>
+    <a href="#def-13">13. PDO</a>
+    <a href="#def-14">14. SQL Injection</a>
+    <a href="#def-15">15. Prepared Statements</a>
+    <a href="#def-16">16. Transaction</a>
+    <a href="#def-17">17. Index</a>
+    <a href="#def-18">18. BLOB</a>
+  </nav>
+
+  <div class="definitions-grid">
+
+    <div class="term-card" id="def-1">
+      <h3 class="term-name">1. Database</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Database</dd>
+        <dt>النطق بالعربية</dt><dd>دَاتَابِيس</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A structured collection of data stored and organized for efficient access and management.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ سْتْرَكْشَرْد كُولِكْشِن أوف دَاتَا سْتُورْد آند أُورْغَنَايْزْد فُور إِفِيشِنْت أكْسِس آند مَانِجْمِنْت.</dd>
+        <dt>الترجمة العربية</dt><dd>قاعدة بيانات.</dd>
+        <dt>الشرح المبسط</dt><dd>مجموعة منظمة من البيانات المخزنة رقميًا لتسهيل استرجاعها وإدارتها.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-2">
+      <h3 class="term-name">2. DBMS</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Database Management System</dd>
+        <dt>النطق بالعربية</dt><dd>دَاتَابِيس مَانِجْمِنْت سِسْتِم</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A software system required to add, access, process, and maintain data stored in a computer database.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ سُوفْتْوِير سِسْتِم رِيكْوَايَرْد تو آد، أكْسِس، بْرُوسِس، آند مِينْتَيْن دَاتَا سْتُورْد إن أ كُومْبْيُوتَر دَاتَابِيس.</dd>
+        <dt>الترجمة العربية</dt><dd>نظام إدارة قواعد البيانات.</dd>
+        <dt>الشرح المبسط</dt><dd>البرنامج الذي يدير قواعد البيانات ويتحكم في الوصول إليها.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-3">
+      <h3 class="term-name">3. Table</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Table</dd>
+        <dt>النطق بالعربية</dt><dd>تَيْبِل</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A two-dimensional container for data consisting of records (rows) and fields (columns).</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ تُو-دَايْمِنْشَنَال كُونْتَيْنَر فُور دَاتَا كُونْسِسْتِنْغ أوف رِيكُورْدْز آند فِيلْدْز.</dd>
+        <dt>الترجمة العربية</dt><dd>جدول.</dd>
+        <dt>الشرح المبسط</dt><dd>هيكل ثنائي الأبعاد من صفوف (سجلات) وأعمدة (حقول).</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-4">
+      <h3 class="term-name">4. Record</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Record (Row)</dd>
+        <dt>النطق بالعربية</dt><dd>رِيكُورْد</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A single logical row within a database table representing one instance.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ سِنْغِل لُوجِكَال رُو وِيذِن أ دَاتَابِيس تَيْبِل رِبْرِزِنْتِنْغ وَن إنْسْتَانْس.</dd>
+        <dt>الترجمة العربية</dt><dd>سجل (صف).</dd>
+        <dt>الشرح المبسط</dt><dd>الصف الأفقي الذي يمثل عنصرًا واحدًا في الجدول.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-5">
+      <h3 class="term-name">5. Field</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Field (Column)</dd>
+        <dt>النطق بالعربية</dt><dd>فِيلْد</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A column within a table that represents a specific attribute or property of the entity.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ كُولُم وِيذِن أ تَيْبِل ذَت رِبْرِزِنْتْس أ سْبِسِفِك أَتْرِيبْيُوت أُور بْرُوبَرْتِي أوف ذي إنْتِيتِي.</dd>
+        <dt>الترجمة العربية</dt><dd>حقل (عمود).</dd>
+        <dt>الشرح المبسط</dt><dd>العمود الذي يمثل خاصية معينة تشترك فيها كل السجلات.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-6">
+      <h3 class="term-name">6. Primary Key</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Primary Key</dd>
+        <dt>النطق بالعربية</dt><dd>بْرَايْمَرِي كِي</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A special field that uniquely identifies each record in a table.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ سْبِيشَال فِيلْد ذَت يُونِيكْلِي آيْدِنْتِفَايْز إِيتش رِيكُورْد إن أ تَيْبِل.</dd>
+        <dt>الترجمة العربية</dt><dd>المفتاح الأساسي.</dd>
+        <dt>الشرح المبسط</dt><dd>حقل فريد لا يتكرر لتمييز كل سجل في الجدول.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-7">
+      <h3 class="term-name">7. Foreign Key</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Foreign Key</dd>
+        <dt>النطق بالعربية</dt><dd>فُورِن كِي</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A field in a child table that references the primary key in a parent table.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ فِيلْد إن أ تشَايْلْد تَيْبِل ذَت رِيفْرِنْسِز ذا بْرَايْمَرِي كِي إن أ بَارِنْت تَيْبِل.</dd>
+        <dt>الترجمة العربية</dt><dd>المفتاح الأجنبي.</dd>
+        <dt>الشرح المبسط</dt><dd>حقل يربط جدولًا بجدول آخر لضمان صحة العلاقات.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-8">
+      <h3 class="term-name">8. SQL</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Structured Query Language</dd>
+        <dt>النطق بالعربية</dt><dd>سْتْرَكْشَرْد كْوِيرِي لَانْغْوِج</dd>
+        <dt>Definition in English</dt><dd dir="ltr">The standardized language used to access, query, and manage relational databases.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>ذا سْتَنْدَرْدَايْزْد لَانْغْوِج يُوزْد تو أكْسِس، كْوِيرِي، آند مَانِج رِيلِيشِنَال دَاتَابِيسِز.</dd>
+        <dt>الترجمة العربية</dt><dd>لغة الاستعلام الهيكلية.</dd>
+        <dt>الشرح المبسط</dt><dd>اللغة القياسية للتعامل مع قواعد البيانات العلائقية.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-9">
+      <h3 class="term-name">9. Query</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Query</dd>
+        <dt>النطق بالعربية</dt><dd>كْوِيرِي</dd>
+        <dt>Definition in English</dt><dd dir="ltr">An SQL statement issued to a database server to retrieve data or perform a database action.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أن إس كيو إل سْتَيْتْمِنْت إِيشُود تو أ دَاتَابِيس سِرْفَر تو رِيتْرِيف دَاتَا أُور بِرْفُورْم أ دَاتَابِيس أكْشِن.</dd>
+        <dt>الترجمة العربية</dt><dd>استعلام.</dd>
+        <dt>الشرح المبسط</dt><dd>أمر SQL يُرسل للخادم لتنفيذ عملية معينة.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-10">
+      <h3 class="term-name">10. Database API</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Database API</dd>
+        <dt>النطق بالعربية</dt><dd>دَاتَابِيس إِيه-بِي-آي</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A programming interface or library (such as PDO) enabling code to connect to and interact with a database.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ بْرُوجْرَامِينْغ إنْتَرْفِيس أُور لايْبْرَرِي (سَاتْش آز بي دي أو) إنِيبْلِنْغ كُود تو كُونِيكْت تو آند إنْتَرآكت وِذ أ دَاتَابِيس.</dd>
+        <dt>الترجمة العربية</dt><dd>واجهة برمجة قواعد البيانات.</dd>
+        <dt>الشرح المبسط</dt><dd>طبقة برمجية تستخدمها لغة البرمجة للتواصل مع قاعدة البيانات.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-11">
+      <h3 class="term-name">11. Schema</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Database Schema</dd>
+        <dt>النطق بالعربية</dt><dd>دَاتَابِيس سْكِيمَا</dd>
+        <dt>Definition in English</dt><dd dir="ltr">The logical structure and design that defines tables, fields, relationships, and constraints.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>ذا لُوجِكَال سْتْرَكْشَر آند دِيزَايْن ذَت دِفَايْنْز تَيْبِلْز، فِيلْدْز، رِيلِيشِنْشِبْز، آند كُونْسْتْرِنْتْس.</dd>
+        <dt>الترجمة العربية</dt><dd>مخطط / سكيما قاعدة البيانات.</dd>
+        <dt>الشرح المبسط</dt><dd>الهيكل المنطقي الذي يحدد الجداول والعلاقات.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-12">
+      <h3 class="term-name">12. MySQL</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">MySQL</dd>
+        <dt>النطق بالعربية</dt><dd>مَاي إس كْيُو إل</dd>
+        <dt>Definition in English</dt><dd dir="ltr">An open-source relational database management system (RDBMS) developed by Oracle Corporation.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أن أُوبِنْ-سُورْس رِيلِيشِنَال دَاتَابِيس مَانِجْمِنْت سِسْتِم دِفِيلُوبْد باي أُورَاكِل كُورْبُورِيشِن.</dd>
+        <dt>الترجمة العربية</dt><dd>نظام ماي إس كيو إل.</dd>
+        <dt>الشرح المبسط</dt><dd>نظام إدارة قواعد بيانات علائقي مفتوح المصدر.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-13">
+      <h3 class="term-name">13. PDO</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">PHP Data Objects</dd>
+        <dt>النطق بالعربية</dt><dd>بي-إتْش-بي دَاتَا أُوبْجِكْتْس</dd>
+        <dt>Definition in English</dt><dd dir="ltr">An object-oriented data-access abstraction layer in PHP for interacting with various database engines.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أن أُوبْجِكْت-أُورْيَنْتِد دَاتَا-أكْسِس أبْسْتْرَاكْشِن لايَر إن بي-إتْش-بي فُور إنْتَرآكْتِنْغ وِذ فِيرِيَس دَاتَابِيس إنْجِنْز.</dd>
+        <dt>الترجمة العربية</dt><dd>كائنات بيانات PHP.</dd>
+        <dt>الشرح المبسط</dt><dd>واجهة موحدة للاتصال بقواعد بيانات متعددة في PHP.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-14">
+      <h3 class="term-name">14. SQL Injection</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">SQL Injection</dd>
+        <dt>النطق بالعربية</dt><dd>إس كيو إل إنْجِكْشِن</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A security attack where malicious SQL code is inserted through user input to manipulate or destroy data.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ سِيكْيُورِيتِي أتَاك وِير مَالِيشِس إس كيو إل كُود إز إنْسِرْتِد ثرو يُوزَر إنْبُوت تو مَانِيبْيُولَايْت أُور دِسْتْرُوي دَاتَا.</dd>
+        <dt>الترجمة العربية</dt><dd>حقن SQL.</dd>
+        <dt>الشرح المبسط</dt><dd>هجوم يزرع كود SQL خبيث عبر مدخلات المستخدم.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-15">
+      <h3 class="term-name">15. Prepared Statements</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Prepared Statements</dd>
+        <dt>النطق بالعربية</dt><dd>بْرِيبِيرْد سْتَيْتْمِنْتْس</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A technique that separates SQL code from data, automatically sanitizing user input and improving performance for repeated queries.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ تِكْنِيك ذَت سِبَارِيتْس إس كيو إل كُود فروم دَاتَا، أوتُومَاتِكْلِي سَانِيتَايْزِنْغ يُوزَر إنْبُوت آند إمْبْرُوفِنْغ بِرْفُورْمَنْس فُور رِبِيتِد كْوِيرِيز.</dd>
+        <dt>الترجمة العربية</dt><dd>الاستعلامات المحضرة.</dd>
+        <dt>الشرح المبسط</dt><dd>تقنية تفصل كود SQL عن البيانات لحماية من الحقن.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-16">
+      <h3 class="term-name">16. Transaction</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Transaction</dd>
+        <dt>النطق بالعربية</dt><dd>تْرَانْزَاكْشِن</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A sequence of database operations treated as a single logical unit that either all succeed or all fail.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ سِيكْوِنْس أوف دَاتَابِيس أُوبِرِيشِنْز تْرِيتِد آز أ سِنْغِل لُوجِكَال يُونِت ذَت إِيذَر أول سَكْسِيد أُور أول فَايْل.</dd>
+        <dt>الترجمة العربية</dt><dd>معاملة.</dd>
+        <dt>الشرح المبسط</dt><dd>سلسلة عمليات إما تنجح كلها أو تفشل كلها.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-17">
+      <h3 class="term-name">17. Index</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Database Index</dd>
+        <dt>النطق بالعربية</dt><dd>دَاتَابِيس إنْدِكْس</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A data structure (often a balanced tree) that speeds up data retrieval, with search time of O(log₂ n) instead of O(n).</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ دَاتَا سْتْرَكْشَر (أُوفِن أ بَالَنْسْت تْرِي) ذَت سْبِيدْز أب دَاتَا رِيتْرِيفَال، وِذ سِيرْتش تَايْم أوف أو-لُوج-تُو-إن إنْسْتِيد أوف أو-إن.</dd>
+        <dt>الترجمة العربية</dt><dd>فهرس قاعدة البيانات.</dd>
+        <dt>الشرح المبسط</dt><dd>هيكل يسرّع البحث باستخدام شجرة متوازنة.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-18">
+      <h3 class="term-name">18. BLOB</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">BLOB (Binary Large Object)</dd>
+        <dt>النطق بالعربية</dt><dd>بْلُوب</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A data type used to store large binary data such as images or files inside a database.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ دَاتَا تَايْب يُوزْد تو سْتُور لَارْج بَايْنَرِي دَاتَا سَاتْش آز إِمِيجِز أُور فَايْلْز إنْسَايْد أ دَاتَابِيس.</dd>
+        <dt>الترجمة العربية</dt><dd>كائن ثنائي كبير.</dd>
+        <dt>الشرح المبسط</dt><dd>نوع بيانات لتخزين الملفات الكبيرة داخل قاعدة البيانات.</dd>
+      </dl>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 9: Interactive Quiz -->
+<!-- ============================================= -->
+<section id="section-9" class="section">
+  <h2 class="section-title">9. اختبار تفاعلي <span dir="ltr" class="en">(Interactive Quiz — 20 Questions)</span></h2>
+
+  <div class="note-box">
+    <p class="note-label">📝 تعليمات:</p>
+    <ul class="bullets">
+      <li>عدد الأسئلة: <strong>20</strong> (10 اختيار من متعدد + 10 صح/خطأ).</li>
+      <li>أجب عن جميع الأسئلة ثم اضغط «إظهار النتيجة».</li>
+    </ul>
+  </div>
+
+  <div id="quiz-container">
+
+    <article class="quiz-question" data-question="mcq-1" data-correct="c">
+      <p class="quiz-prompt"><strong>س1.</strong> <span dir="ltr">Which of the following is NOT a capability of a DBMS?</span></p>
+      <p class="quiz-ar">أي مما يلي ليس من قدرات نظام إدارة قواعد البيانات؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q1" value="a"> <span dir="ltr">A) Managing large amounts of data</span></label></li>
+        <li><label><input type="radio" name="q1" value="b"> <span dir="ltr">B) Maintaining data integrity</span></label></li>
+        <li><label><input type="radio" name="q1" value="c"> <span dir="ltr">C) Designing website layouts</span></label></li>
+        <li><label><input type="radio" name="q1" value="d"> <span dir="ltr">D) Creating indexes and triggers</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — تصميم الواجهات ليس من مهام DBMS." data-wrong-feedback="❌ خطأ — الصحيح: C."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-2" data-correct="b">
+      <p class="quiz-prompt"><strong>س2.</strong> <span dir="ltr">Which of the following is the primary key of a table?</span></p>
+      <p class="quiz-ar">أي مما يلي هو المفتاح الأساسي لجدول؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q2" value="a"> <span dir="ltr">A) A field that references another table</span></label></li>
+        <li><label><input type="radio" name="q2" value="b"> <span dir="ltr">B) A field that uniquely identifies each record</span></label></li>
+        <li><label><input type="radio" name="q2" value="c"> <span dir="ltr">C) A field containing text only</span></label></li>
+        <li><label><input type="radio" name="q2" value="d"> <span dir="ltr">D) A field that can be NULL</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — يميز كل سجل بشكل فريد." data-wrong-feedback="❌ خطأ — الصحيح: B."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-3" data-correct="c">
+      <p class="quiz-prompt"><strong>س3.</strong> <span dir="ltr">Which SQL statement retrieves data from a table?</span></p>
+      <p class="quiz-ar">أي أمر SQL يسترجع البيانات من جدول؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q3" value="a"> <span dir="ltr">A) INSERT</span></label></li>
+        <li><label><input type="radio" name="q3" value="b"> <span dir="ltr">B) UPDATE</span></label></li>
+        <li><label><input type="radio" name="q3" value="c"> <span dir="ltr">C) SELECT</span></label></li>
+        <li><label><input type="radio" name="q3" value="d"> <span dir="ltr">D) DELETE</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — SELECT." data-wrong-feedback="❌ خطأ — الصحيح: C."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-4" data-correct="d">
+      <p class="quiz-prompt"><strong>س4.</strong> <span dir="ltr">What happens if you forget the WHERE clause in an UPDATE statement?</span></p>
+      <p class="quiz-ar">ماذا يحدث إذا نسيت شرط WHERE في أمر UPDATE؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q4" value="a"> <span dir="ltr">A) The query fails with an error</span></label></li>
+        <li><label><input type="radio" name="q4" value="b"> <span dir="ltr">B) Nothing happens</span></label></li>
+        <li><label><input type="radio" name="q4" value="c"> <span dir="ltr">C) Only the first row is updated</span></label></li>
+        <li><label><input type="radio" name="q4" value="d"> <span dir="ltr">D) All records in the table are updated</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — يُحدّث كل السجلات." data-wrong-feedback="❌ خطأ — الصحيح: D."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-5" data-correct="b">
+      <p class="quiz-prompt"><strong>س5.</strong> <span dir="ltr">Which SQL clause is used to sort query results?</span></p>
+      <p class="quiz-ar">أي جملة SQL تُستخدم لترتيب نتائج الاستعلام؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q5" value="a"> <span dir="ltr">A) GROUP BY</span></label></li>
+        <li><label><input type="radio" name="q5" value="b"> <span dir="ltr">B) ORDER BY</span></label></li>
+        <li><label><input type="radio" name="q5" value="c"> <span dir="ltr">C) WHERE</span></label></li>
+        <li><label><input type="radio" name="q5" value="d"> <span dir="ltr">D) HAVING</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — ORDER BY." data-wrong-feedback="❌ خطأ — الصحيح: B."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-6" data-correct="a">
+      <p class="quiz-prompt"><strong>س6.</strong> <span dir="ltr">Which function returns the number of rows in a result set?</span></p>
+      <p class="quiz-ar">أي دالة تُرجع عدد الصفوف في مجموعة النتائج؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q6" value="a"> <span dir="ltr">A) COUNT()</span></label></li>
+        <li><label><input type="radio" name="q6" value="b"> <span dir="ltr">B) SUM()</span></label></li>
+        <li><label><input type="radio" name="q6" value="c"> <span dir="ltr">C) AVG()</span></label></li>
+        <li><label><input type="radio" name="q6" value="d"> <span dir="ltr">D) TOTAL()</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — COUNT()." data-wrong-feedback="❌ خطأ — الصحيح: A."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-7" data-correct="c">
+      <p class="quiz-prompt"><strong>س7.</strong> <span dir="ltr">Which PHP MySQL extension is deprecated?</span></p>
+      <p class="quiz-ar">أي امتداد MySQL في PHP أصبح مهملًا؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q7" value="a"> <span dir="ltr">A) mysqli</span></label></li>
+        <li><label><input type="radio" name="q7" value="b"> <span dir="ltr">B) PDO</span></label></li>
+        <li><label><input type="radio" name="q7" value="c"> <span dir="ltr">C) mysql</span></label></li>
+        <li><label><input type="radio" name="q7" value="d"> <span dir="ltr">D) PDO_MySQL</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — mysql (القديم)." data-wrong-feedback="❌ خطأ — الصحيح: C."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-8" data-correct="b">
+      <p class="quiz-prompt"><strong>س8.</strong> <span dir="ltr">Which PDO method executes a query that doesn't return data (INSERT/UPDATE/DELETE)?</span></p>
+      <p class="quiz-ar">أي دالة PDO تنفذ استعلامًا لا يُرجع بيانات (INSERT/UPDATE/DELETE)؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q8" value="a"> <span dir="ltr">A) query()</span></label></li>
+        <li><label><input type="radio" name="q8" value="b"> <span dir="ltr">B) exec()</span></label></li>
+        <li><label><input type="radio" name="q8" value="c"> <span dir="ltr">C) fetch()</span></label></li>
+        <li><label><input type="radio" name="q8" value="d"> <span dir="ltr">D) prepare()</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — exec()." data-wrong-feedback="❌ خطأ — الصحيح: B."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-9" data-correct="a">
+      <p class="quiz-prompt"><strong>س9.</strong> <span dir="ltr">Which technique protects against SQL injection?</span></p>
+      <p class="quiz-ar">أي تقنية تحمي من حقن SQL؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q9" value="a"> <span dir="ltr">A) Prepared Statements</span></label></li>
+        <li><label><input type="radio" name="q9" value="b"> <span dir="ltr">B) Using SELECT *</span></label></li>
+        <li><label><input type="radio" name="q9" value="c"> <span dir="ltr">C) Disabling errors</span></label></li>
+        <li><label><input type="radio" name="q9" value="d"> <span dir="ltr">D) Using AUTO_INCREMENT</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — Prepared Statements." data-wrong-feedback="❌ خطأ — الصحيح: A."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-10" data-correct="c">
+      <p class="quiz-prompt"><strong>س10.</strong> <span dir="ltr">What is the search complexity of an indexed search?</span></p>
+      <p class="quiz-ar">ما تعقيد البحث في فهرس (Index)؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q10" value="a"> <span dir="ltr">A) O(1)</span></label></li>
+        <li><label><input type="radio" name="q10" value="b"> <span dir="ltr">B) O(n)</span></label></li>
+        <li><label><input type="radio" name="q10" value="c"> <span dir="ltr">C) O(log₂ n)</span></label></li>
+        <li><label><input type="radio" name="q10" value="d"> <span dir="ltr">D) O(n²)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — O(log₂ n)." data-wrong-feedback="❌ خطأ — الصحيح: C."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-1" data-correct="true">
+      <p class="quiz-prompt"><strong>س11.</strong> <span dir="ltr">A table can have multiple primary keys.</span></p>
+      <p class="quiz-ar">يمكن أن يحتوي الجدول على عدة مفاتيح أساسية.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q11" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q11" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، مفتاح أساسي واحد فقط (مع إمكانية مفتاح مركب)." data-wrong-feedback="❌ خطأ — الصحيح: خطأ."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-2" data-correct="true">
+      <p class="quiz-prompt"><strong>س12.</strong> <span dir="ltr">Foreign keys enforce referential integrity between two tables.</span></p>
+      <p class="quiz-ar">المفاتيح الأجنبية تفرض السلامة المرجعية بين جدولين.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q12" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q12" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-3" data-correct="false">
+      <p class="quiz-prompt"><strong>س13.</strong> <span dir="ltr">DELETE without a WHERE clause deletes only the first row.</span></p>
+      <p class="quiz-ar">DELETE بدون شرط WHERE يحذف الصف الأول فقط.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q13" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q13" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، يحذف كل الصفوف." data-wrong-feedback="❌ خطأ — الصحيح: خطأ (يحذف الكل)."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-4" data-correct="true">
+      <p class="quiz-prompt"><strong>س14.</strong> <span dir="ltr">PDO provides an abstraction layer that works with multiple database engines.</span></p>
+      <p class="quiz-ar">PDO يوفر طبقة تجريد تعمل مع محركات قواعد بيانات متعددة.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q14" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q14" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-5" data-correct="true">
+      <p class="quiz-prompt"><strong>س15.</strong> <span dir="ltr">AUTO_INCREMENT fields are automatically assigned a unique value on INSERT.</span></p>
+      <p class="quiz-ar">الحقول المعرفة بـ AUTO_INCREMENT تُعطى قيمة فريدة تلقائيًا عند INSERT.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q15" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q15" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-6" data-correct="false">
+      <p class="quiz-prompt"><strong>س16.</strong> <span dir="ltr">In a Many-to-Many relationship, no intermediate table is needed.</span></p>
+      <p class="quiz-ar">في علاقة متعدد-إلى-متعدد (M:N)، لا حاجة لجدول وسيط.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q16" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q16" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، تحتاج جدول وسيط." data-wrong-feedback="❌ خطأ — الصحيح: خطأ (تحتاج جدولًا وسيطًا)."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-7" data-correct="true">
+      <p class="quiz-prompt"><strong>س17.</strong> <span dir="ltr">A transaction ensures that either all steps succeed or none do.</span></p>
+      <p class="quiz-ar">المعاملة تضمن أن جميع الخطوات تنجح أو لا شيء يحدث.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q17" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q17" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-8" data-correct="false">
+      <p class="quiz-prompt"><strong>س18.</strong> <span dir="ltr">The mysql extension is the recommended API for modern PHP projects.</span></p>
+      <p class="quiz-ar">امتداد mysql هو API الموصى به لمشاريع PHP الحديثة.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q18" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q18" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، mysql مهمل، والموصى به PDO أو mysqli." data-wrong-feedback="❌ خطأ — الصحيح: خطأ (mysql مهمل)."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-9" data-correct="true">
+      <p class="quiz-prompt"><strong>س19.</strong> <span dir="ltr">Prepared statements automatically sanitize user input, protecting against SQL injection.</span></p>
+      <p class="quiz-ar">الاستعلامات المحضرة تُنقّي مدخلات المستخدم تلقائيًا، وتحمي من حقن SQL.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q19" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q19" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-10" data-correct="true">
+      <p class="quiz-prompt"><strong>س20.</strong> <span dir="ltr">BLOB is a data type used to store binary data such as images in a database.</span></p>
+      <p class="quiz-ar">BLOB نوع بيانات يستخدم لتخزين البيانات الثنائية مثل الصور في قاعدة البيانات.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q20" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q20" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+  </div>
+
+  <div class="quiz-actions">
+    <button id="quizSubmitBtn" class="btn btn-primary" type="button">إظهار النتيجة</button>
+    <button id="quizResetBtn" class="btn" type="button">إعادة المحاولة</button>
+  </div>
+
+  <div id="quizResult" class="quiz-result" aria-live="polite"></div>
+
+</section>
+
+</main>
+
+
+<footer class="page-footer">
+  <div class="container">
+    <p> المذاكرة الشاملة — <span dir="ltr">osmah</span></p>
+    <p style="font-size:.85rem;color:var(--text-muted);margin-top:6px;">إعداد: osamh almtyl</p>
+  </div>
+</footer>
+
+<button id="backToTop" class="back-to-top" type="button" aria-label="العودة إلى الأعلى" title="العودة إلى الأعلى">↑</button>
+
+<script src="script.js"></script>
+</body>
+</html>

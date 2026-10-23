@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="مذكرة شاملة — Web Development + MySQL Database">
+<title>مذكرة شاملة: Web Development + MySQL DB</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================= -->
+<!-- الشريط الجانبي -->
+<!-- ============================================= -->
+<nav class="side-nav" aria-label="تنقل جانبي بين الفقرات">
+
+  <div class="side-nav-title">📑 الفقرات</div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">1. ERD</div>
+    <a href="#s1-1"><span class="nav-num">1.1</span> تصميم ERD</a>
+    <a href="#s1-2"><span class="nav-num">1.2</span> الجداول والعلاقات</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">2. إنشاء DB</div>
+    <a href="#s2-1"><span class="nav-num">2.1</span> phpMyAdmin</a>
+    <a href="#s2-2"><span class="nav-num">2.2</span> Console</a>
+    <a href="#s2-3"><span class="nav-num">2.3</span> Code</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">3. Connection</div>
+    <a href="#s3-1"><span class="nav-num">3.1</span> mysqli</a>
+    <a href="#s3-2"><span class="nav-num">3.2</span> PDO</a>
+    <a href="#s3-3"><span class="nav-num">3.3</span> conn.php</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">4. SQL Commands</div>
+    <a href="#s4-1"><span class="nav-num">4.1</span> DDL/DML/CL</a>
+    <a href="#s4-2"><span class="nav-num">4.2</span> INSERT</a>
+    <a href="#s4-3"><span class="nav-num">4.3</span> UPDATE</a>
+    <a href="#s4-4"><span class="nav-num">4.4</span> DELETE</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">5. Access MySQL</div>
+    <a href="#s5-1"><span class="nav-num">5.1</span> Application Structure</a>
+    <a href="#s5-2"><span class="nav-num">5.2</span> Creating Table</a>
+    <a href="#s5-3"><span class="nav-num">5.3</span> Inserting Records</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">6. CRUD Pattern</div>
+    <a href="#s6-1"><span class="nav-num">6.1</span> CRUD</a>
+    <a href="#s6-2"><span class="nav-num">6.2</span> 5 Files</a>
+    <a href="#s6-3"><span class="nav-num">6.3</span> SQL Injection</a>
+    <a href="#s6-4"><span class="nav-num">6.4</span> Error Modes</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">7. Site Organization</div>
+    <a href="#s7-1"><span class="nav-num">7.1</span> Paths</a>
+    <a href="#s7-2"><span class="nav-num">7.2</span> MVC</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">8. التعاريف</div>
+    <a href="#section-8"><span class="nav-num">8</span> Definitions</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">9. الاختبار</div>
+    <a href="#section-9"><span class="nav-num">9</span> Quiz</a>
+  </div>
+
+</nav>
+
+<header class="page-header">
+    <!-- شريط التنقل العلوي -->
+<nav class="top-nav" aria-label="التنقل بين الشابترات">
+  <div class="top-nav-inner">
+    <a href="index.html" class="top-nav-brand">
+      <span class="brand-icon">📚</span>
+      <span>الفهرس</span>
+    </a>
+
+    <button id="topNavToggle" class="top-nav-toggle" type="button" aria-expanded="false" aria-controls="topNavLinks">
+      <span>☰</span> <span>الشابترات</span>
+    </button>
+
+    <ul class="top-nav-links" id="topNavLinks">
+      <li><a href="index.html"><span class="nav-icon">🏠</span> الرئيسية</a></li>
+      <li><a href="ch1.html"><span class="nav-icon">📘</span> الشابتر 1</a></li>
+      <li><a href="ch2.html" ><span class="nav-icon">📗</span> الشابتر 2</a></li>
+      <li><a href="ch3.html" ><span class="nav-icon">📙</span> الشابتر 3</a></li>
+      <li><a href="ch4.html" ><span class="nav-icon">📕</span> الشابتر 4</a></li>
+      <li><a href="ch5.html" class="active"><span class="nav-icon">📓</span> الشابتر 5</a></li>
+    </ul>
+  </div>
+</nav>
+  <div class="container">
+    <h1 class="page-title">مذكرة المذاكرة الشاملة — Chapter 8</h1>
+    <p class="page-subtitle">Web Development + MySQL Database</p>
+    <p class="page-subtitle-ar">إعداد: Eng. Sultan Al-Maarashi</p>
+    <div class="toolbar">
+      <button id="themeToggle" class="btn" type="button" aria-label="تبديل الوضع">
+        <span class="icon">🌙</span> <span class="label">الوضع الداكن</span>
+      </button>
+      <button id="printBtn" class="btn" type="button" aria-label="طباعة أو حفظ PDF">
+        <span class="icon">🖨️</span> <span class="label">طباعة / PDF</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="فهرس المحتويات">
+  <div class="container">
+    <h2 class="toc-title">فهرس المحتويات</h2>
+    <ol class="toc-list">
+      <li><a href="#section-1">1. تصميم مخطط ERD</a></li>
+      <li><a href="#section-2">2. إنشاء قاعدة البيانات (3 طرق)</a></li>
+      <li><a href="#section-3">3. إنشاء ملف الاتصال</a></li>
+      <li><a href="#section-4">4. أنواع أوامر SQL والعمليات الأساسية</a></li>
+      <li><a href="#section-5">5. الوصول إلى MySQL باستخدام PDO</a></li>
+      <li><a href="#section-6">6. نمط CRUD وتأمين الاستعلامات</a></li>
+      <li><a href="#section-7">7. تنظيم ملفات الموقع</a></li>
+      <li><a href="#section-8">8. التعاريف الأساسية</a></li>
+      <li><a href="#section-9">9. اختبار تفاعلي</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="container">
+
+<!-- ============================================= -->
+<!-- Section 1: ERD -->
+<!-- ============================================= -->
+<section id="section-1" class="section">
+  <h2 class="section-title">1. تصميم مخطط ERD <span dir="ltr" class="en">(Entity-Relationship Diagram)</span></h2>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">As a question??!!</p>
+    <ul class="bullets" dir="ltr">
+      <li>Is your scenario ready?</li>
+      <li>Is your design ready?</li>
+      <li>Now... we should have DB creation.</li>
+    </ul>
+  </div>
+
+  <p><strong>الترجمة:</strong></p>
+  <ul class="bullets">
+    <li>هل سيناريو مشروعك جاهز؟</li>
+    <li>هل تصميمك جاهز؟</li>
+    <li>الآن، يجب أن يكون لدينا قاعدة بيانات جاهزة.</li>
+  </ul>
+
+  <h3 id="s1-1">1.1 أولًا: تصميم مخطط ERD</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">First: Design your ER diagram based on your scenario</p>
+    <p dir="ltr">An ER diagram (Entity-Relationship Diagram) is a visual representation of the database structure, showing tables, their fields, and the relationships between them.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> مخطط ERD هو تمثيل مرئي لهيكل قاعدة البيانات، يُظهر الجداول وحقولها والعلاقات بينها.</p>
+
+  <h3 id="s1-2">1.2 نموذج ERD — نظام مشاركة الصور</h3>
+
+  <p>يوضح المخطط التالي مثالًا على ERD كامل لنظام مشاركة صور ومقالات — يتضمن 6 جداول رئيسية:</p>
+
+  <div class="schema-grid">
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">users</code></h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">id</td></tr>
+          <tr><td></td><td>username</td></tr>
+          <tr><td></td><td>password</td></tr>
+          <tr><td></td><td>email</td></tr>
+          <tr><td></td><td>first_name</td></tr>
+          <tr><td></td><td>last_name</td></tr>
+          <tr><td></td><td>birthdate</td></tr>
+          <tr><td></td><td>phone</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">gender_id</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">role_id</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">photos</code></h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">id</td></tr>
+          <tr><td></td><td>url</td></tr>
+          <tr><td></td><td>physical_path</td></tr>
+          <tr><td></td><td>size_KB</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">user_id</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">comments</code></h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">id</td></tr>
+          <tr><td></td><td>content</td></tr>
+          <tr><td></td><td>publishing_date</td></tr>
+          <tr><td></td><td>parent_comment_id</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">user_id</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">post_id</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">posts</code></h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">id</td></tr>
+          <tr><td></td><td>url</td></tr>
+          <tr><td></td><td>title</td></tr>
+          <tr><td></td><td>content</td></tr>
+          <tr><td></td><td>publishing_date</td></tr>
+          <tr><td></td><td>are_comments_enabled</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">user_id</td></tr>
+          <tr><td class="key-foreign">🔗 FK</td><td class="key-foreign">category_id</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">genders</code></h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">id</td></tr>
+          <tr><td></td><td>title</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">roles</code></h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">id</td></tr>
+          <tr><td></td><td>title</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="schema-card">
+      <h4>جدول <code dir="ltr">categories</code></h4>
+      <table class="schema-table">
+        <thead><tr><th>Key</th><th>Field</th></tr></thead>
+        <tbody>
+          <tr><td class="key-primary">🔑 PK</td><td class="key-primary">id</td></tr>
+          <tr><td></td><td>title</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <h4>العلاقات بين الجداول</h4>
+
+  <div class="relation-diagram">
+    <div class="relation-entity"><strong>users</strong>id (PK)</div>
+    <div class="relation-arrow">
+      ◀<span style="font-size:.7rem;">1</span>
+      <span class="relation-label">users.id = photos.user_id</span>
+      <span style="font-size:.7rem;">N</span>▶
+    </div>
+    <div class="relation-entity"><strong>photos</strong>user_id (FK)</div>
+  </div>
+
+  <div class="relation-diagram">
+    <div class="relation-entity"><strong>users</strong>id (PK)</div>
+    <div class="relation-arrow">
+      ◀<span style="font-size:.7rem;">1</span>
+      <span class="relation-label">users.id = posts.user_id</span>
+      <span style="font-size:.7rem;">N</span>▶
+    </div>
+    <div class="relation-entity"><strong>posts</strong>user_id (FK)</div>
+  </div>
+
+  <div class="relation-diagram">
+    <div class="relation-entity"><strong>users</strong>id (PK)</div>
+    <div class="relation-arrow">
+      ◀<span style="font-size:.7rem;">1</span>
+      <span class="relation-label">users.id = comments.user_id</span>
+      <span style="font-size:.7rem;">N</span>▶
+    </div>
+    <div class="relation-entity"><strong>comments</strong>user_id (FK)</div>
+  </div>
+
+  <div class="relation-diagram">
+    <div class="relation-entity"><strong>posts</strong>id (PK)</div>
+    <div class="relation-arrow">
+      ◀<span style="font-size:.7rem;">1</span>
+      <span class="relation-label">posts.id = comments.post_id</span>
+      <span style="font-size:.7rem;">N</span>▶
+    </div>
+    <div class="relation-entity"><strong>comments</strong>post_id (FK)</div>
+  </div>
+
+  <div class="relation-diagram">
+    <div class="relation-entity"><strong>categories</strong>id (PK)</div>
+    <div class="relation-arrow">
+      ◀<span style="font-size:.7rem;">1</span>
+      <span class="relation-label">categories.id = posts.category_id</span>
+      <span style="font-size:.7rem;">N</span>▶
+    </div>
+    <div class="relation-entity"><strong>posts</strong>category_id (FK)</div>
+  </div>
+
+  <div class="relation-diagram">
+    <div class="relation-entity"><strong>genders</strong>id (PK)</div>
+    <div class="relation-arrow">
+      ◀<span style="font-size:.7rem;">1</span>
+      <span class="relation-label">genders.id = users.gender_id</span>
+      <span style="font-size:.7rem;">N</span>▶
+    </div>
+    <div class="relation-entity"><strong>users</strong>gender_id (FK)</div>
+  </div>
+
+  <div class="relation-diagram">
+    <div class="relation-entity"><strong>roles</strong>id (PK)</div>
+    <div class="relation-arrow">
+      ◀<span style="font-size:.7rem;">1</span>
+      <span class="relation-label">roles.id = users.role_id</span>
+      <span style="font-size:.7rem;">N</span>▶
+    </div>
+    <div class="relation-entity"><strong>users</strong>role_id (FK)</div>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملاحظات على ERD:</p>
+    <ul class="bullets">
+      <li>جدول <code dir="ltr">comments</code> يحتوي على <code dir="ltr">parent_comment_id</code> — وهو <strong>FK ذاتي</strong> (Self-Reference) لدعم الردود المتداخلة على التعليقات.</li>
+      <li>جدول <code dir="ltr">posts</code> يحتوي على <code dir="ltr">are_comments_enabled</code> — لتحديد ما إذا كان يمكن التعليق على المقال.</li>
+      <li>جميع الجداول لها <strong>PRIMARY KEY</strong> باسم <code dir="ltr">id</code> من نوع INT AUTO_INCREMENT (عادةً).</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 2: إنشاء Database بثلاث طرق -->
+<!-- ============================================= -->
+<section id="section-2" class="section">
+  <h2 class="section-title">2. إنشاء قاعدة البيانات بثلاث طرق <span dir="ltr" class="en">(Creating DB — 3 Ways)</span></h2>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Three ways to create your DB</p>
+    <ol class="steps-list" dir="ltr">
+      <li>Using interface (phpMyAdmin)</li>
+      <li>Using console</li>
+      <li>Using code</li>
+    </ol>
+  </div>
+
+  <p><strong>الترجمة:</strong> ثلاث طرق لإنشاء قاعدة البيانات:</p>
+  <ol class="steps-list">
+    <li>باستخدام الواجهة (phpMyAdmin).</li>
+    <li>باستخدام وحدة التحكم (Console).</li>
+    <li>باستخدام الكود.</li>
+  </ol>
+
+  <h3 id="s2-1">2.1 الطريقة الأولى: phpMyAdmin</h3>
+
+  <p>الخطوات التفصيلية:</p>
+
+  <div class="request-flow">
+
+    <div class="flow-step">
+      <span class="step-num">1</span>
+      <div class="step-body">
+        <h4>Run XAMPP / WAMP</h4>
+        <p>شغّل XAMPP أو WAMP، وتأكد أن Apache و MySQL يعملان.</p>
+        <span class="step-en">Start Services</span>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <span class="step-num">2</span>
+      <div class="step-body">
+        <h4>Open phpMyAdmin</h4>
+        <p>افتح <code dir="ltr">localhost/phpmyadmin</code> في متصفحك.</p>
+        <span class="step-en">Browser → URL</span>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <span class="step-num">3</span>
+      <div class="step-body">
+        <h4>Login</h4>
+        <p>أدخل اسم المستخدم <code dir="ltr">root</code> وكلمة المرور فارغة (في XAMPP الافتراضي).</p>
+        <span class="step-en">Sign In</span>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <span class="step-num">4</span>
+      <div class="step-body">
+        <h4>Set Server Connection Collation</h4>
+        <p>اضبط <code dir="ltr">utf8mb4_unicode_ci</code> لدعم اللغة العربية.</p>
+        <span class="step-en">Settings → Collation</span>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <span class="step-num">5</span>
+      <div class="step-body">
+        <h4>Create New Database</h4>
+        <p>اضغط <code dir="ltr">New</code> → اكتب اسم القاعدة (مثل <code dir="ltr">E-Commerce_system_DB</code>) → اضغط <code dir="ltr">Create</code>.</p>
+        <span class="step-en">Create → DB</span>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <span class="step-num">6</span>
+      <div class="step-body">
+        <h4>Create Table</h4>
+        <p>داخل القاعدة، اضغط <code dir="ltr">Create Table</code> → اكتب الاسم (مثل <code dir="ltr">Customer</code>) → عدد الأعمدة → <code dir="ltr">Go</code>.</p>
+        <span class="step-en">Create Table</span>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <span class="step-num">7</span>
+      <div class="step-body">
+        <h4>Define Fields</h4>
+        <p>اضبط كل حقل: الاسم، النوع، الطول، والـ Index (PRIMARY للـ id).</p>
+        <span class="step-en">Structure → Save</span>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <span class="step-num">8</span>
+      <div class="step-body">
+        <h4>Create Relationships</h4>
+        <p>اضغط <code dir="ltr">Relation View</code> → أضف Foreign Key يشير إلى الجدول الأب.</p>
+        <span class="step-en">Foreign Key Constraints</span>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <span class="step-num">9</span>
+      <div class="step-body">
+        <h4>View Designer</h4>
+        <p>عرض المخطط البصري للعلاقات عبر <code dir="ltr">More → Designer</code>.</p>
+        <span class="step-en">More → Designer</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملاحظة مهمة:</p>
+    <p>عند إنشاء الاتصال بـ phpMyAdmin، تأكد من ضبط <code dir="ltr">utf8mb4_unicode_ci</code> في <strong>Server connection collation</strong> — وإلا سيكون هناك مشاكل في عرض النصوص العربية.</p>
+  </div>
+
+  <h3 id="s2-2">2.2 الطريقة الثانية: وحدة التحكم <span dir="ltr" class="en">(Console)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Steps via Command Line</p>
+    <ol class="steps-list" dir="ltr">
+      <li>Run XAMPP or WAMP</li>
+      <li>Open CMD, then <code>cd xampp/mysql/bin</code></li>
+      <li>Run <code>mysql -u root</code></li>
+      <li>Execute: <code>CREATE DATABASE biodata;</code></li>
+      <li>Execute: <code>USE biodata;</code></li>
+      <li>Execute: <code>CREATE TABLE mahasiswa (...)</code></li>
+    </ol>
+  </div>
+
+  <p><strong>الترجمة:</strong> خطوات عبر سطر الأوامر:</p>
+  <ol class="steps-list">
+    <li>تشغيل XAMPP أو WAMP.</li>
+    <li>فتح CMD ثم الانتقال إلى <code dir="ltr">xampp/mysql/bin</code>.</li>
+    <li>تنفيذ <code dir="ltr">mysql -u root</code> للدخول.</li>
+    <li>تنفيذ <code dir="ltr">CREATE DATABASE biodata;</code> لإنشاء قاعدة.</li>
+    <li>تنفيذ <code dir="ltr">USE biodata;</code> لاختيارها.</li>
+    <li>تنفيذ <code dir="ltr">CREATE TABLE mahasiswa (...)</code> لإنشاء جدول.</li>
+  </ol>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Example — Creating biodata DB and mahasiswa table</p>
+<pre class="code-block"><code dir="ltr">mysql -u root
+
+MariaDB [(none)]&gt; CREATE DATABASE biodata;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]&gt; USE biodata;
+Database changed
+
+MariaDB [biodata]&gt; CREATE TABLE mahasiswa (
+    -&gt; ID VARCHAR(3),
+    -&gt; nama VARCHAR(50),
+    -&gt; tanggal_lahir DATE,
+    -&gt; umur INT
+    -&gt; );
+Query OK, 0 rows affected (0.22 sec)
+
+MariaDB [biodata]&gt; DESC mahasiswa;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| ID            | varchar(3)  | YES  |     | NULL    |       |
+| nama          | varchar(50) | YES  |     | NULL    |       |
+| tanggal_lahir | date        | YES  |     | NULL    |       |
+| umur          | int(11)     | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)</code></pre>
+  </div>
+
+  <h3 id="s2-3">2.3 الطريقة الثالثة: باستخدام الكود <span dir="ltr" class="en">(Using Code)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Example — Create DB via SQL Code</p>
+<pre class="code-block"><code dir="ltr">CREATE DATABASE harmash;</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Example — Create Full DB via SQL Code</p>
+<pre class="code-block"><code dir="ltr">DROP DATABASE IF EXISTS harmash;
+CREATE DATABASE harmash;
+USE harmash;
+
+CREATE TABLE users (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    country VARCHAR(50)
+);
+
+INSERT INTO users VALUES (null, "Rami",   "Masri",   "Lebanon");
+INSERT INTO users VALUES (null, "Ahmad",  "Najd",    "Syria");
+INSERT INTO users VALUES (null, "Hanan",  "Mostafa", "KSA");
+INSERT INTO users VALUES (null, "Abdullah","Helmi",  "Egypt");
+INSERT INTO users VALUES (null, "Majed",  "Hali",    "Yemen");</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملاحظة:</p>
+    <p>يمكن تنفيذ الأكواد مباشرة من داخل phpMyAdmin عبر تبويب <strong>SQL</strong> — وهذا مفيد لإنشاء قاعدة بيانات كاملة بضغطة واحدة (ملف SQL يحتوي على كل الجداول والبيانات).</p>
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 3: Database Connection -->
+<!-- ============================================= -->
+<section id="section-3" class="section">
+  <h2 class="section-title">3. إنشاء ملف الاتصال بقاعدة البيانات <span dir="ltr" class="en">(Database Connection)</span></h2>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Next step</p>
+    <p dir="ltr">Create a file of connection between your database and your PHP interfaces.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> الخطوة التالية: أنشئ ملف اتصال بين قاعدة البيانات وواجهات PHP الخاصة بك.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Three ways of creating connection</p>
+    <ol class="steps-list" dir="ltr">
+      <li>mysqli (procedural)</li>
+      <li>mysqli (object-oriented)</li>
+      <li>PDO — we will use only PDO</li>
+    </ol>
+  </div>
+
+  <p><strong>الترجمة:</strong> ثلاث طرق لإنشاء الاتصال:</p>
+  <ol class="steps-list">
+    <li><strong>mysqli</strong> بالنمط الإجرائي.</li>
+    <li><strong>mysqli</strong> بالنمط الكائني التوجه.</li>
+    <li><strong>PDO</strong> — وهو ما سنستخدمه فقط في هذا المقرر.</li>
+  </ol>
+
+  <h3 id="s3-1">3.1 الاتصال باستخدام <span dir="ltr">mysqli</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Example — MySQLi Object-Oriented</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+$servername = "localhost";
+$username   = "username";
+$password   = "password";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password);
+
+// Check connection
+if ($conn-&gt;connect_error) {
+    die("Connection failed: " . $conn-&gt;connect_error);
+}
+echo "Connected successfully";
+?&gt;</code></pre>
+    <p><strong>الترجمة:</strong> هذا المثال يستخدم <code dir="ltr">mysqli</code> بالنمط الكائني التوجه. إذا فشل الاتصال، يتم عرض رسالة خطأ عبر <code dir="ltr">die()</code> وإيقاف التنفيذ.</p>
+  </div>
+
+  <h3 id="s3-2">3.2 الاتصال باستخدام <span dir="ltr">PDO</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Example — PDO</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+$servername = "localhost";
+$username   = "username";
+$password   = "password";
+
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=myDB", $username, $password);
+
+    // set the PDO error mode to exception
+    $conn-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    echo "Connected successfully";
+}
+catch (PDOException $e) {
+    echo "Connection failed: " . $e-&gt;getMessage();
+}
+?&gt;</code></pre>
+    <p><strong>الترجمة:</strong> يستخدم PDO كتلة <code dir="ltr">try...catch</code> لمعالجة الأخطاء. السطر <code dir="ltr">setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION)</code> يجعل PDO يرمي استثناءات عند حدوث أخطاء.</p>
+  </div>
+
+  <h3 id="s3-3">3.3 ملف <code dir="ltr">conn.php</code> النموذجي</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">What inside conn.php??</p>
+<pre class="code-block"><code dir="ltr">&lt;!-- connect via pdo --&gt;
+&lt;?php
+try {
+    $db = new PDO(
+        'mysql:host=localhost;dbname=attend_mangement;charset=utf8',
+        'root',
+        ''
+    );
+
+    $db-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $db-&gt;setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
+    echo "good connection";
+}
+catch (Exception $e) {
+    echo "connection filed";
+}
+?&gt;</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 شرح محتوى conn.php:</p>
+    <ul class="bullets">
+      <li><strong><code dir="ltr">mysql:host=localhost</code>:</strong> خادم MySQL على الجهاز المحلي.</li>
+      <li><strong><code dir="ltr">dbname=attend_mangement</code>:</strong> اسم قاعدة البيانات.</li>
+      <li><strong><code dir="ltr">charset=utf8</code>:</strong> ترميز الأحرف لدعم العربية.</li>
+      <li><strong><code dir="ltr">'root', ''</code>:</strong> اسم المستخدم (root) وكلمة المرور (فارغة).</li>
+      <li><strong><code dir="ltr">ATTR_ERRMODE, ERRMODE_EXCEPTION</code>:</strong> رمي استثناءات عند الأخطاء.</li>
+      <li><strong><code dir="ltr">ATTR_EMULATE_PREPARES, false</code>:</strong> استخدام Prepared Statements الحقيقية بدل المحاكاة.</li>
+    </ul>
+  </div>
+
+  <h4>أين يوضع ملف <code dir="ltr">conn.php</code>؟</h4>
+
+  <p>يوضح المخطط التالي بنية مجلد مشروع نموذجي على WAMP/XAMPP:</p>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>بنية مشروع <code dir="ltr">Sanaa university system2</code></h4>
+<pre class="code-block"><code dir="ltr">www/
+└── Sanaa university system2/
+    ├── Admin/
+    ├── css/
+    ├── Database/
+    ├── fonts/
+    ├── images/
+    ├── show samples/
+    ├── conn.php      ← ملف الاتصال
+    ├── errors.php
+    ├── login.php
+    └── login_process.php</code></pre>
+      <p><strong>ملاحظة:</strong> ضع <code dir="ltr">conn.php</code> في جذر المشروع، ثم استورده في كل ملف آخر عبر <code dir="ltr">require_once</code>.</p>
+    </div>
+  </div>
+
+  <h4>الفرق بين PDO و MySQLi</h4>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>وجه المقارنة</th>
+          <th>PDO</th>
+          <th>MySQLi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>دعم قواعد البيانات</strong></td>
+          <td>✅ 12 نظامًا مختلفًا (MySQL، PostgreSQL، SQLite، ...)</td>
+          <td>❌ MySQL فقط</td>
+        </tr>
+        <tr>
+          <td><strong>النمط</strong></td>
+          <td>كائني التوجه فقط</td>
+          <td>إجرائي + كائني التوجه</td>
+        </tr>
+        <tr>
+          <td><strong>Prepared Statements</strong></td>
+          <td>✅ مدعومة (مع تسميات مرنة)</td>
+          <td>✅ مدعومة</td>
+        </tr>
+        <tr>
+          <td><strong>الاستخدام في المقرر</strong></td>
+          <td>✅ نستخدمه</td>
+          <td>للمقارنة فقط</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 الفرق الجوهري:</p>
+    <p><strong>PDO</strong> يعمل على 12 نظام قاعدة بيانات مختلف، بينما <strong>MySQLi</strong> يعمل فقط مع MySQL.</p>
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 4: SQL Command Types + Operations -->
+<!-- ============================================= -->
+<section id="section-4" class="section">
+  <h2 class="section-title">4. أنواع أوامر SQL والعمليات الأساسية <span dir="ltr" class="en">(SQL Command Types &amp; Operations)</span></h2>
+
+  <h3 id="s4-1">4.1 أنواع أوامر SQL <span dir="ltr" class="en">(SQL Command Types)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Review: SQL Command Types</p>
+    <ul class="bullets" dir="ltr">
+      <li><strong>Data Definition Language (DDL)</strong> — used to create and modify database objects.</li>
+      <li><strong>Data Manipulation Language (DML)</strong> — used to insert, update, delete, and view the data in database objects.</li>
+      <li><strong>Control Language (CL)</strong> — ???</li>
+    </ul>
+  </div>
+
+  <p><strong>الترجمة:</strong> مراجعة لأنواع أوامر SQL:</p>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>النوع</th>
+          <th>الاسم الكامل</th>
+          <th>الاستخدام</th>
+          <th>أمثلة</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td dir="ltr"><strong>DDL</strong></td>
+          <td>Data Definition Language</td>
+          <td>إنشاء وتعديل كائنات قاعدة البيانات (جداول، قواعد بيانات، فهارس).</td>
+          <td dir="ltr">CREATE, ALTER, DROP, TRUNCATE</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>DML</strong></td>
+          <td>Data Manipulation Language</td>
+          <td>إدراج وتحديث وحذف وعرض البيانات داخل كائنات قاعدة البيانات.</td>
+          <td dir="ltr">INSERT, UPDATE, DELETE, SELECT</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>CL</strong></td>
+          <td>Control Language</td>
+          <td>التحكم في المعاملات والصلاحيات.</td>
+          <td dir="ltr">COMMIT, ROLLBACK, GRANT, REVOKE</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="s4-2">4.2 الإدراج (INSERT)</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original — Inserting a value for every field</p>
+<pre class="code-block"><code dir="ltr">INSERT INTO tablename VALUES(value1, value2, ...)</code></pre>
+    <ul class="bullets" dir="ltr">
+      <li>You must include a value for every field.</li>
+      <li>You must list the values in the correct order.</li>
+      <li>To find the correct order, look at the table in the Object Browser.</li>
+      <li>Why? The DBMS is expecting certain data types for each field. If the data types are not correct, an error occurs.</li>
+    </ul>
+  </div>
+
+  <p><strong>الترجمة:</strong> صيغة الإدراج:</p>
+  <ul class="bullets">
+    <li>يجب تضمين قيمة لكل حقل.</li>
+    <li>يجب سرد القيم بالترتيب الصحيح (نفس ترتيب الحقول في الجدول).</li>
+    <li>لمعرفة الترتيب الصحيح، انظر إلى الجدول في Object Browser.</li>
+    <li>لماذا؟ لأن DBMS يتوقع أنواع بيانات معينة لكل حقل، وإذا لم تكن الأنواع صحيحة يحدث خطأ.</li>
+  </ul>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Example — Inserting into candy_product</p>
+<pre class="code-block"><code dir="ltr">INSERT INTO candy_product
+VALUES (6, 'Chocolate Covered Ants', 6.25, 7.50);</code></pre>
+    <p><strong>ملاحظة:</strong> يجب أن تكون القيم بنفس الترتيب الذي ظهرت به الحقول عند تعريف الجدول، وبنفس الأنواع (رقم، نص، رقم عشري...).</p>
+  </div>
+
+  <h3 id="s4-3">4.3 التحديث (UPDATE)</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">General syntax</p>
+<pre class="code-block"><code dir="ltr">UPDATE tablename
+SET field1 = new_value, field2 = new_value, ...
+WHERE search_condition(s);</code></pre>
+  </div>
+
+  <p><strong>الترجمة:</strong> الصيغة العامة:</p>
+  <ul class="bullets">
+    <li><code dir="ltr">UPDATE</code> — اسم الجدول.</li>
+    <li><code dir="ltr">SET</code> — تعيين القيم الجديدة للحقول.</li>
+    <li><code dir="ltr">WHERE</code> — شرط تحديد السجلات التي سيتم تحديثها.</li>
+  </ul>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملاحظات على UPDATE:</p>
+    <ul class="bullets">
+      <li>يمكن تحديث السجلات في <strong>جدول واحد فقط</strong> في كل مرة.</li>
+      <li>يمكن تحديث <strong>عدة سجلات</strong> في نفس الجدول إذا طابقت جميعها شرط البحث.</li>
+      <li><strong>⚠️ خطير:</strong> إذا نسيت <code dir="ltr">WHERE</code> — سيتم تحديث <strong>جميع</strong> السجلات!</li>
+    </ul>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Examples — UPDATE</p>
+<pre class="code-block"><code dir="ltr">-- Update a single record
+UPDATE candy_product
+SET prod_desc = 'Chocolate Obsession', prod_price = 8.5
+WHERE prod_id = 6;
+
+-- Update multiple records matching a condition
+UPDATE candy_product
+SET prod_price = prod_price * 1.1
+WHERE prod_price &gt; 10;</code></pre>
+  </div>
+
+  <h3 id="s4-4">4.4 الحذف (DELETE)</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Syntax</p>
+<pre class="code-block"><code dir="ltr">DELETE FROM tablename WHERE search_condition;
+
+-- Example
+DELETE FROM candy_product WHERE prod_id = 6;</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملاحظات على DELETE:</p>
+    <ul class="bullets">
+      <li>يحذف <strong>عدة سجلات</strong> إذا حدد شرط البحث عدة سجلات.</li>
+      <li><strong>⚠️ خطير جدًا:</strong> إذا حُذف شرط <code dir="ltr">WHERE</code> — سيتم حذف <strong>جميع السجلات</strong> في الجدول!</li>
+      <li>لا يمكن حذف سجل في <strong>الجدول الأب</strong> إذا كان مرجعًا كمفتاح أجنبي في جدول آخر (Referential Integrity).</li>
+    </ul>
+  </div>
+</section>
+<!-- ============================================= -->
+<!-- Section 5: Accessing MySQL Using PDO -->
+<!-- ============================================= -->
+<section id="section-5" class="section">
+  <h2 class="section-title">5. الوصول إلى MySQL باستخدام PDO <span dir="ltr" class="en">(Accessing MySQL Using PDO)</span></h2>
+
+  <h3 id="s5-1">5.1 بنية التطبيق <span dir="ltr" class="en">(Application Structure)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Application Structure</p>
+    <p dir="ltr">The web application interacts with the database through a well-defined structure:
+    End User ↔ Application Software (PHP) ↔ Database Data Model; and separately: Developer ↔ Application; DBA ↔ Database Tools (phpMyAdmin) ↔ Database Data Model.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> يتفاعل تطبيق الويب مع قاعدة البيانات من خلال بنية محددة:</p>
+
+  <div class="request-flow">
+    <div class="flow-step">
+      <span class="step-num">1</span>
+      <div class="step-body">
+        <h4>End User</h4>
+        <p>المستخدم النهائي يتفاعل مع التطبيق عبر المتصفح.</p>
+        <span class="step-en">Browser</span>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="step-num">2</span>
+      <div class="step-body">
+        <h4>Application Software (PHP)</h4>
+        <p>التطبيق يترجم طلبات المستخدم إلى استعلامات SQL.</p>
+        <span class="step-en">PHP Code</span>
+      </div>
+    </div>
+    <div class="flow-step">
+      <span class="step-num">3</span>
+      <div class="step-body">
+        <h4>Database Data Model</h4>
+        <p>قاعدة البيانات تنفذ الاستعلام وتُرجع النتائج.</p>
+        <span class="step-en">MySQL</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 الأدوار في البنية:</p>
+    <ul class="bullets">
+      <li><strong>Developer</strong> (المطور): يتعامل مع Application Software.</li>
+      <li><strong>DBA</strong> (مدير قاعدة البيانات): يتعامل مع Database Tools (phpMyAdmin) لإدارة Database Data Model.</li>
+    </ul>
+  </div>
+
+  <h3 id="s5-2">5.2 إنشاء جدول <span dir="ltr" class="en">(Creating a Table)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original — CREATE TABLE</p>
+<pre class="code-block"><code dir="ltr">CREATE TABLE users (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT KEY,
+    name VARCHAR(128),
+    email VARCHAR(128),
+    password VARCHAR(128)
+);
+
+ALTER TABLE users ADD INDEX(email);</code></pre>
+  </div>
+
+  <p><strong>الترجمة:</strong> هذا الأمر ينشئ جدول <code dir="ltr">users</code> بأربعة حقول:</p>
+  <ul class="bullets">
+    <li><code dir="ltr">id</code> — عدد صحيح موجب، ليس NULL، يزيد تلقائيًا، مفتاح أساسي.</li>
+    <li><code dir="ltr">name</code> — نص بحد أقصى 128 حرفًا.</li>
+    <li><code dir="ltr">email</code> — نص بحد أقصى 128 حرفًا.</li>
+    <li><code dir="ltr">password</code> — نص بحد أقصى 128 حرفًا.</li>
+  </ul>
+
+  <p>ثم يُضيف فهرسًا (INDEX) على حقل <code dir="ltr">email</code> لتسريع البحث:</p>
+<pre class="code-block"><code dir="ltr">ALTER TABLE users ADD INDEX(email);</code></pre>
+
+  <div class="output-box">
+    <p class="output-label">مخرجات DESC users — تأكيد الهيكل:</p>
+<pre class="code-block"><code dir="ltr">mysql&gt; describe users;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| id       | int(10)      | NO   | PRI | NULL    | auto_increment |
+| name     | varchar(128) | YES  |     | NULL    |                |
+| email    | varchar(128) | YES  | MUL | NULL    |                |
+| password | varchar(128) | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+</code></pre>
+  </div>
+
+  <h3 id="s5-3">5.3 إدراج السجلات <span dir="ltr" class="en">(Inserting Records)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original — Inserting a Few Records</p>
+<pre class="code-block"><code dir="ltr">INSERT INTO users (name, email, password)
+VALUES ('Chuck', 'csev@umich.edu', '123');
+
+INSERT INTO users (name, email, password)
+VALUES ('Glenn', 'gg@umich.edu', '456');</code></pre>
+  </div>
+
+  <div class="output-box">
+    <p class="output-label">الناتج — تأكيد السجلات:</p>
+<pre class="code-block"><code dir="ltr">mysql&gt; select * from users;
++----+-------+----------------+----------+
+| id | name  | email          | password |
++----+-------+----------------+----------+
+|  1 | Chuck | csev@umich.edu | 123      |
+|  2 | Glenn | gg@umich.edu   | 456      |
++----+-------+----------------+----------+</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملاحظات:</p>
+    <ul class="bullets">
+      <li>حقل <code dir="ltr">id</code> تم توليده تلقائيًا بسبب <code dir="ltr">AUTO_INCREMENT</code> (1، 2، 3...).</li>
+      <li>لم نُدرج قيمة <code dir="ltr">id</code> — القاعدة وضعتها تلقائيًا.</li>
+      <li>الأسماء والقيم في <code dir="ltr">INSERT</code> يجب أن تكون بنفس الترتيب.</li>
+    </ul>
+  </div>
+
+  <h3 id="s5-4">5.4 الاتصال بقاعدة البيانات <span dir="ltr" class="en">(Database Connection)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Database Connection</p>
+    <p dir="ltr">The PHP software connects to the database server by providing: Hostname (server), Database name, and User credentials (id/password).</p>
+<pre class="code-block"><code dir="ltr">$pdo = new PDO('mysql:host=localhost;port=8889;dbname=misc', 'fred', 'zap');</code></pre>
+  </div>
+
+  <p><strong>الترجمة:</strong> يتصل تطبيق PHP بقاعدة البيانات عبر توفير:</p>
+  <ul class="bullets">
+    <li><strong>Hostname (server):</strong> اسم المضيف (<code dir="ltr">localhost</code>).</li>
+    <li><strong>Database name:</strong> اسم قاعدة البيانات (<code dir="ltr">misc</code>).</li>
+    <li><strong>Credentials:</strong> بيانات الاعتماد (اسم المستخدم <code dir="ltr">fred</code> وكلمة المرور <code dir="ltr">zap</code>).</li>
+  </ul>
+
+  <h3 id="s5-5">5.5 أمثلة على استعلامات PDO</h3>
+
+  <h4>Example 1 — <code dir="ltr">first.php</code>: استعلام بسيط</h4>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">first.php</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+$pdo = new PDO('mysql:host=localhost;port=8889;dbname=misc', 'fred', 'zap');
+
+$stmt = $pdo-&gt;query('SELECT * FROM users');
+
+while ( $row = $stmt-&gt;fetch(PDO::FETCH_ASSOC) ) {
+    print_r($row);
+}
+?&gt;</code></pre>
+  </div>
+
+  <div class="output-box">
+    <p class="output-label">الناتج:</p>
+<pre class="code-block"><code dir="ltr">Array
+(
+    [id] =&gt; 1
+    [name] =&gt; Chuck
+    [email] =&gt; csev@umich.edu
+    [password] =&gt; 123
+)
+Array
+(
+    [id] =&gt; 2
+    [name] =&gt; Glenn
+    [email] =&gt; gg@umich.edu
+    [password] =&gt; 456
+)</code></pre>
+  </div>
+
+  <h4>Example 2 — <code dir="ltr">second.php</code>: عرض النتائج في جدول HTML</h4>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">second.php</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+$pdo = new PDO('mysql:host=localhost;port=8889;dbname=misc', 'fred', 'zap');
+
+$stmt = $pdo-&gt;query('SELECT name, email, password FROM users');
+
+echo '&lt;table border="1"&gt;' . "\n";
+while ( $row = $stmt-&gt;fetch(PDO::FETCH_ASSOC) ) {
+    echo "&lt;tr&gt;&lt;td&gt;";
+    echo($row['name']);
+    echo("&lt;/td&gt;&lt;td&gt;");
+    echo($row['email']);
+    echo("&lt;/td&gt;&lt;td&gt;");
+    echo($row['password']);
+    echo("&lt;/td&gt;&lt;/tr&gt;\n");
+}
+echo "&lt;/table&gt;\n";
+?&gt;</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 ما يفعله هذا الملف:</p>
+    <ul class="bullets">
+      <li>ينشئ اتصالًا بقاعدة البيانات.</li>
+      <li>يُشغّل استعلامًا لجلب name, email, password من جدول users.</li>
+      <li>يطبع جدول HTML يحتوي على صفوف النتائج.</li>
+    </ul>
+  </div>
+
+  <h4>Example 3 — <code dir="ltr">pdo.php</code> و <code dir="ltr">third.php</code>: عزل الاتصال في ملف منفصل</h4>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Pattern — Put connection info in a single file</p>
+    <p dir="ltr">Put database connection information in a single file and include it in all your other files.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> ضع معلومات الاتصال بقاعدة البيانات في ملف واحد، ثم ضُمّنه في جميع ملفاتك الأخرى.</p>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4><code dir="ltr">pdo.php</code> — ملف الاتصال</h4>
+<pre class="code-block"><code dir="ltr">&lt;?php
+$pdo = new PDO('mysql:host=localhost;port=8889;dbname=misc', 'fred', 'zap');
+
+// See the "errors" folder for details...
+$pdo-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+?&gt;</code></pre>
+    </div>
+
+    <div class="schema-card">
+      <h4><code dir="ltr">third.php</code> — استخدام الاتصال</h4>
+<pre class="code-block"><code dir="ltr">&lt;?php
+require_once "pdo.php";
+
+$stmt = $pdo-&gt;query("SELECT * FROM users");
+while ($row = $stmt-&gt;fetch(PDO::FETCH_ASSOC)) {
+    print_r($row);
+}
+?&gt;</code></pre>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 فوائد عزل الاتصال:</p>
+    <ul class="bullets">
+      <li>✅ <strong>صيانة أسهل:</strong> تغيير بيانات الاتصال في مكان واحد فقط.</li>
+      <li>✅ <strong>تقليل التكرار:</strong> لا حاجة لكتابة بيانات الاتصال في كل ملف.</li>
+      <li>✅ <strong>الأمان:</strong> يمكن حماية الملف عبر صلاحيات نظام الملفات.</li>
+      <li>✅ <strong>سهولة النقل:</strong> نقل التطبيق إلى خادم آخر يتطلب تغيير ملف واحد فقط.</li>
+    </ul>
+  </div>
+
+  <h3 id="s5-6">5.6 إدخال البيانات من نموذج HTML إلى Database</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Example — user1.php: Add A New User</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+require_once "pdo.php";
+
+if (isset($_POST['name']) &amp;&amp;
+    isset($_POST['email']) &amp;&amp;
+    isset($_POST['password'])) {
+
+    $sql = "INSERT INTO users (name, email, password)
+            VALUES (:name, :email, :password)";
+
+    echo("\n" . $sql . "\n\n");
+
+    $stmt = $pdo-&gt;prepare($sql);
+    $stmt-&gt;execute(array(
+        ':name'     =&gt; $_POST['name'],
+        ':email'    =&gt; $_POST['email'],
+        ':password' =&gt; $_POST['password']
+    ));
+}
+?&gt;
+&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;
+&lt;p&gt;Add A New User&lt;/p&gt;
+&lt;form method="post"&gt;
+  &lt;p&gt;Name:&lt;input type="text" name="name" size="40"&gt;&lt;/p&gt;
+  &lt;p&gt;Email:&lt;input type="text" name="email"&gt;&lt;/p&gt;
+  &lt;p&gt;Password:&lt;input type="password" name="password"&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;input type="submit" value="Add New"&gt;&lt;/p&gt;
+&lt;/form&gt;
+&lt;/body&gt;&lt;/html&gt;</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 ما يفعله هذا الملف:</p>
+    <ol class="steps-list">
+      <li>يتحقق من وجود الحقول المطلوبة (<code dir="ltr">isset</code>).</li>
+      <li>يُحضّر استعلام <code dir="ltr">INSERT</code> باستخدام Prepared Statement مع مسميات (<code dir="ltr">:name</code>، <code dir="ltr">:email</code>، <code dir="ltr">:password</code>).</li>
+      <li>ينفذ الاستعلام عبر <code dir="ltr">execute()</code> مع تمرير القيم.</li>
+      <li>يعرض نموذج HTML لإدخال البيانات.</li>
+    </ol>
+  </div>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>Before Submit — الفورم فارغ</h4>
+      <p><strong>Name:</strong> ______<br>
+         <strong>Email:</strong> ______<br>
+         <strong>Password:</strong> ______<br>
+         <strong>[Add New]</strong></p>
+    </div>
+
+    <div class="schema-card">
+      <h4>After Submit — إضافة "Fred"</h4>
+      <p><strong>Name:</strong> Fred<br>
+         <strong>Email:</strong> fred@umich.edu<br>
+         <strong>Password:</strong> YO</p>
+    </div>
+  </div>
+
+  <div class="output-box">
+    <p class="output-label">النتيجة في قاعدة البيانات:</p>
+<pre class="code-block"><code dir="ltr">mysql&gt; select * from users;
++----+-------+------------------+----------+
+| id | name  | email            | password |
++----+-------+------------------+----------+
+|  1 | Chuck | csev@umich.edu   | 123      |
+|  2 | Glenn | gg@umich.edu     | 456      |
+|  3 | Fred  | fred@umich.edu   | YO       |
++----+-------+------------------+----------+</code></pre>
+  </div>
+
+  <h4>Example — user2del.php: حذف مستخدم</h4>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">user2del.php</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+require_once "pdo.php";
+
+if (isset($_POST['id'])) {
+    $sql = "DELETE FROM users WHERE id = :zip";
+    echo "\n$sql\n";
+
+    $stmt = $pdo-&gt;prepare($sql);
+    $stmt-&gt;execute(array(':zip' =&gt; $_POST['id']));
+}
+?&gt;
+
+&lt;p&gt;Delete A User&lt;/p&gt;
+&lt;form method="post"&gt;
+  &lt;p&gt;ID to Delete:&lt;input type="text" name="id"&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;input type="submit" value="Delete"&gt;&lt;/p&gt;
+&lt;/form&gt;</code></pre>
+  </div>
+
+  <h4>Example — صفحة موحدة (Add + List + Delete)</h4>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">user3.php — برنامج موحد</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+require_once "pdo.php";
+
+// Handle DELETE
+if ( isset($_POST['delete']) &amp;&amp; isset($_POST['id']) ) {
+    $sql = "DELETE FROM users WHERE id = :zip";
+    echo "&lt;pre&gt;\n$sql\n&lt;/pre&gt;\n";
+
+    $stmt = $pdo-&gt;prepare($sql);
+    $stmt-&gt;execute(array(':zip' =&gt; $_POST['id']));
+}
+
+// Handle INSERT
+if ( isset($_POST['name']) &amp;&amp; isset($_POST['email']) &amp;&amp; isset($_POST['password']) ) {
+    $sql = "INSERT INTO users (name, email, password)
+            VALUES (:name, :email, :password)";
+    echo "&lt;pre&gt;\n$sql\n&lt;/pre&gt;\n";
+
+    $stmt = $pdo-&gt;prepare($sql);
+    $stmt-&gt;execute(array(
+        ':name'     =&gt; $_POST['name'],
+        ':email'    =&gt; $_POST['email'],
+        ':password' =&gt; $_POST['password']
+    ));
+}
+?&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;table border="1"&gt;
+&lt;?php
+$stmt = $pdo-&gt;query("SELECT name, email, password, id FROM users");
+while ( $row = $stmt-&gt;fetch(PDO::FETCH_ASSOC) ) {
+    echo "&lt;tr&gt;&lt;td&gt;";
+    echo($row['name']);
+    echo("&lt;/td&gt;&lt;td&gt;");
+    echo($row['email']);
+    echo("&lt;/td&gt;&lt;td&gt;");
+    echo($row['password']);
+    echo("&lt;/td&gt;&lt;td&gt;");
+    echo('&lt;form method="post"&gt;&lt;input type="hidden" ');
+    echo('name="id" value="'.$row['id'].'"&gt;'."\n");
+    echo('&lt;input type="submit" value="Del" name="delete"&gt;');
+    echo("\n&lt;/form&gt;\n");
+    echo("&lt;/td&gt;&lt;/tr&gt;\n");
+}
+?&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Add A New User&lt;/p&gt;
+&lt;form method="post"&gt;
+  &lt;p&gt;Name:&lt;input type="text" name="name"&gt;&lt;/p&gt;
+  &lt;p&gt;Email:&lt;input type="text" name="email"&gt;&lt;/p&gt;
+  &lt;p&gt;Password:&lt;input type="password" name="password"&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;input type="submit" value="Add New"&gt;&lt;/p&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </div>
+</section>
+<!-- ============================================= -->
+<!-- Section 7: Site Organization -->
+<!-- ============================================= -->
+<section id="section-7" class="section">
+  <h2 class="section-title">7. تنظيم ملفات الموقع <span dir="ltr" class="en">(Site Organization)</span></h2>
+
+  <h3 id="s7-1">7.1 الحاجة لتنظيم ملفات الموقع <span dir="ltr" class="en">(The Need to Organize Site Files)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Thus far, we have placed all our site files into the main (root) website folder. As a website becomes larger and more sophisticated, a single folder becomes too cluttered to manage effectively. To better organize our site, we can group similar files, such as images and CSS files, into their own dedicated subfolders.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> حتى الآن، كنا نضع جميع ملفات الموقع في المجلد الرئيسي (root). مع نمو الموقع وتعقده، يصبح المجلد الواحد مزدحمًا جدًا لإدارته بفعالية. لتنظيم الموقع بشكل أفضل، يمكننا تجميع الملفات المتشابهة (مثل الصور وملفات CSS) في مجلدات فرعية مخصصة.</p>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>بنية موقع منظمة</h4>
+<pre class="code-block"><code dir="ltr">Website/
+├── css/
+│   └── mycss.css
+├── images/
+│   ├── flowers.jpg
+│   ├── orange.jpg
+│   └── pink.jpg
+└── index.html</code></pre>
+      <p><strong>الترجمة:</strong> المجلد الرئيسي يحتوي على ملف HTML الرئيسي + مجلدات فرعية للصور والأنماط.</p>
+    </div>
+  </div>
+
+  <h3 id="s7-2">7.2 المسارات النسبية <span dir="ltr" class="en">(Relative Paths)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Once we move site files to subfolders, we need a way to tell the browser where to find them. To do this, we use relative paths.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> بمجرد نقل ملفات الموقع إلى مجلدات فرعية، نحتاج إلى طريقة لإخبار المتصفح بمكان وجودها. للقيام بذلك، نستخدم <strong>المسارات النسبية (Relative Paths)</strong>.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Example — Relative Path</p>
+<pre class="code-block"><code dir="ltr">&lt;div class="gallery"&gt;
+  &lt;img src="images/flowers.jpg" /&gt;
+  &lt;img src="images/orange.jpg" /&gt;
+  &lt;img src="images/pink.jpg" /&gt;
+&lt;/div&gt;</code></pre>
+    <p><strong>ملاحظات:</strong></p>
+    <ul class="bullets">
+      <li>المسار دائمًا <strong>نسبي</strong> إلى الملف الذي يقوم بالإشارة (في هذه الحالة <code dir="ltr">index.html</code>).</li>
+      <li>استخدم دائمًا <strong>الشرطة المائلة الأمامية (<code dir="ltr">/</code>)</strong> في مسارات الملفات، <strong>وليس</strong> الشرطة المائلة العكسية (<code dir="ltr">\</code>).</li>
+    </ul>
+  </div>
+
+  <h3>7.3 المسارات المطلقة <span dir="ltr" class="en">(Absolute Paths)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">A common mistake committed by novice web designers is to copy and paste the full path to a local file in their markup. This can be a frustrating error, as the browser on our own computer can locate and display the image. But when the site is uploaded to a live web server, the image won't appear, since the location is no longer valid. These paths, since they are not relative to the current location, are known as <strong>absolute paths</strong>.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> خطأ شائع يرتكبه مصممو الويب المبتدئون هو نسخ ولصق المسار الكامل لملف محلي في كودهم:</p>
+<pre class="code-block"><code dir="ltr">&lt;img src="file:///C:/Users/me/Desktop/Website/images/pink.jpg" /&gt;</code></pre>
+
+  <p>هذا خطأ محبط، لأن المتصفح على جهازك يمكنه تحديد موقع الصورة وعرضها. لكن عند رفع الموقع إلى خادم ويب حي، <strong>لن تظهر الصورة</strong>، لأن الموقع لم يعد صالحًا. هذه المسارات، لأنها ليست نسبية للموقع الحالي، تُسمى <strong>المسارات المطلقة (Absolute Paths)</strong>.</p>
+
+  <div class="warning-box">
+    <p><span class="badge-wrong">⚠️ خطأ شائع:</span> <strong>لا تستخدم</strong> مسارات مطلقة مثل <code dir="ltr">file:///C:/...</code> أو <code dir="ltr">http://localhost/...</code> داخل كود HTML — استخدم دائمًا مسارات نسبية.</p>
+  </div>
+
+  <h3>7.4 ورقة الأنماط الخارجية في مجلد منفصل <span dir="ltr" class="en">(External CSS in Subfolder)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Example</p>
+<pre class="code-block"><code dir="ltr">&lt;head&gt;
+  ...
+  &lt;link rel="stylesheet" type="text/css" href="css/mycss.css" /&gt;
+&lt;/head&gt;</code></pre>
+    <p><strong>الترجمة:</strong> عندما ننقل ملف CSS إلى مجلد <code dir="ltr">css/</code>، نشير إليه في وسم <code dir="ltr">&lt;link&gt;</code> بالمسار <code dir="ltr">css/mycss.css</code>.</p>
+  </div>
+
+  <h4>المسارات النسبية داخل ورقة الأنماط</h4>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Example — Background image in CSS</p>
+<pre class="code-block"><code dir="ltr">body {
+    background-image: url('../images/orange.jpg');
+}</code></pre>
+    <p><strong>الترجمة:</strong> عندما يكون ملف CSS في مجلد <code dir="ltr">css/</code> ويحتاج إلى صورة في مجلد <code dir="ltr">images/</code>، نستخدم:</p>
+    <ul class="bullets">
+      <li><code dir="ltr">..</code> (نقطتان) = <strong>الصعود مجلدًا واحدًا</strong>.</li>
+      <li><code dir="ltr">/</code> = الانتقال إلى مجلد آخر.</li>
+      <li><code dir="ltr">images/orange.jpg</code> = المسار داخل المجلد الهدف.</li>
+    </ul>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 قاعدة مهمة:</p>
+    <p><strong>المسار دائمًا نسبي إلى الملف الذي يقوم بالإشارة</strong>. في حالة CSS، الملف المُشير هو ملف CSS نفسه داخل مجلد <code dir="ltr">css/</code>، وليس <code dir="ltr">index.html</code>.</p>
+  </div>
+
+  <h3 id="s7-3">7.5 نمط MVC — تنظيم بنية المشروع <span dir="ltr" class="en">(MVC Pattern)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">For larger projects, we organize files into three main folders: <strong>Controller</strong> (handles user requests), <strong>Model</strong> (handles database operations), <strong>View</strong> (handles display). Plus supporting folders: css, js, img, db.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> للمشاريع الأكبر، نُنظّم الملفات في ثلاثة مجلدات رئيسية: <strong>Controller</strong> (يتعامل مع طلبات المستخدم)، <strong>Model</strong> (يتعامل مع عمليات قاعدة البيانات)، <strong>View</strong> (يتعامل مع العرض). بالإضافة إلى مجلدات دعم: css، js، img، db.</p>
+
+  <div class="schema-grid">
+    <div class="schema-card">
+      <h4>مجلد <code dir="ltr">controller/</code> — المتحكم</h4>
+      <p>يحتوي على الملفات التي تستقبل طلبات المستخدم وتنسقها بين Model و View.</p>
+      <p><strong>أمثلة:</strong> <code dir="ltr">loginController.php</code>، <code dir="ltr">productController.php</code>...</p>
+    </div>
+
+    <div class="schema-card">
+      <h4>مجلد <code dir="ltr">model/</code> — النموذج</h4>
+      <p>يحتوي على الملفات التي تتعامل مباشرة مع قاعدة البيانات — استعلامات PDO.</p>
+<pre class="code-block"><code dir="ltr">model/
+├── Customers/
+├── uploads/
+├── Users/
+├── customer.php
+├── dashboard.php
+├── deleteProduct.php
+├── editProduct.php
+├── footer.php
+├── logout.php
+├── navigation.php
+├── product.php
+├── product_cards.php
+├── side_info.php
+├── user.php
+├── viewCustomer.php
+├── viewProduct.php
+└── viewUser.php</code></pre>
+    </div>
+
+    <div class="schema-card">
+      <h4>مجلد <code dir="ltr">view/</code> — العرض</h4>
+      <p>يحتوي على الملفات التي تعرض واجهة المستخدم (HTML + CSS).</p>
+<pre class="code-block"><code dir="ltr">view/
+├── index.php
+├── login.php
+└── registration.php</code></pre>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 مثال حقيقي — Inventory Management:</p>
+    <p>موقع إدارة المخزون على <code dir="ltr">http://localhost:8080/Inventory-Management/view/login.php</code> — يستخدم بنية MVC كاملة مع فصل الملفات بحسب المسؤوليات.</p>
+  </div>
+
+  <h3>7.6 ملاحظات على <code dir="ltr">include</code> و <code dir="ltr">require</code></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original — Types of Includes</p>
+    <ul class="bullets" dir="ltr">
+      <li><strong>include</strong> — a warning is displayed and the script continues.</li>
+      <li><strong>require</strong> — an error is displayed and the script stops.</li>
+      <li><strong>include_once</strong> — same as include, but the file is only included once per page request.</li>
+      <li><strong>require_once</strong> — same as require, but the file is only included once per page request.</li>
+    </ul>
+  </div>
+
+  <p><strong>الترجمة:</strong> أنواع تضمين الملفات:</p>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>الأمر</th>
+          <th>عند الفشل</th>
+          <th>التضمين المتكرر</th>
+          <th>الاستخدام</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td dir="ltr"><strong>include</strong></td>
+          <td>تحذير + استمرار</td>
+          <td>مسموح</td>
+          <td>تضمين ملفات صغيرة غير حرجة</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>require</strong></td>
+          <td>خطأ + توقف</td>
+          <td>مسموح</td>
+          <td>تضمين ملفات حرجة (مثل الاتصال بقاعدة البيانات)</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>include_once</strong></td>
+          <td>تحذير + استمرار</td>
+          <td>ممنوع (مرة واحدة)</td>
+          <td>دوال أو تعريفات</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>require_once</strong></td>
+          <td>خطأ + توقف</td>
+          <td>ممنوع (مرة واحدة)</td>
+          <td>ملفات الاتصال بقاعدة البيانات — الأكثر شيوعًا</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 الأكثر استخدامًا في المشاريع:</p>
+    <p><code dir="ltr">require_once "pdo.php";</code> — لأنه يضمن تحميل ملف الاتصال مرة واحدة فقط، وإن فشل التحميل يتوقف التنفيذ فورًا (بدلًا من تنفيذ أوامر بدون اتصال).</p>
+  </div>
+
+  <h3>7.7 Assignment — مشروعك النهائي</h3>
+
+  <div class="note-box">
+    <p class="note-label" dir="ltr">Assignment</p>
+    <ol class="steps-list" dir="ltr">
+      <li>Complete your scenario.</li>
+      <li>Create your ER diagram.</li>
+      <li>Review this diagram with DB teachers.</li>
+      <li>Start to create your own MySQL DB using any way of creation.</li>
+      <li>Create your file of connection and test your connection.</li>
+      <li>Don't forget to complete your website.</li>
+    </ol>
+    <p><strong>الترجمة:</strong></p>
+    <ol class="steps-list">
+      <li>أكمل سيناريو مشروعك.</li>
+      <li>أنشئ مخطط ERD.</li>
+      <li>راجع المخطط مع مدرسي قاعدة البيانات.</li>
+      <li>ابدأ في إنشاء قاعدة بيانات MySQL الخاصة بك بأي طريقة.</li>
+      <li>أنشئ ملف الاتصال واختبر الاتصال.</li>
+      <li>لا تنسَ إكمال موقع الويب.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 8: Definitions -->
+<!-- ============================================= -->
+<section id="section-8" class="section">
+  <h2 class="section-title">8. التعاريف الأساسية <span dir="ltr" class="en">(Definitions)</span></h2>
+
+  <nav class="definitions-nav" aria-label="التنقل بين التعاريف">
+    <p class="definitions-nav-title">⚡ تنقل سريع:</p>
+    <a href="#def-1">1. ERD</a>
+    <a href="#def-2">2. PDO</a>
+    <a href="#def-3">3. mysqli</a>
+    <a href="#def-4">4. conn.php</a>
+    <a href="#def-5">5. DDL</a>
+    <a href="#def-6">6. DML</a>
+    <a href="#def-7">7. CRUD</a>
+    <a href="#def-8">8. SQL Injection</a>
+    <a href="#def-9">9. Prepared Statements</a>
+    <a href="#def-10">10. Error Modes</a>
+    <a href="#def-11">11. Relative Path</a>
+    <a href="#def-12">12. Absolute Path</a>
+    <a href="#def-13">13. MVC</a>
+    <a href="#def-14">14. POST-Redirect-GET</a>
+    <a href="#def-15">15. utf8mb4</a>
+  </nav>
+
+  <div class="definitions-grid">
+
+    <div class="term-card" id="def-1">
+      <h3 class="term-name">1. ERD (Entity-Relationship Diagram)</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Entity-Relationship Diagram</dd>
+        <dt>النطق بالعربية</dt><dd>إنْتِيتِي رِيلِيشِنْشِب دَايَاغْرَام</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A visual representation of a database structure showing tables, fields, and their relationships.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ فِجْوَال رِبْرِزِنْتِيشِن أوف أ دَاتَابِيس سْتْرَكْشَر شُوِنْغ تَيْبِلْز، فِيلْدْز، آند ذَير رِيلِيشِنْشِبْز.</dd>
+        <dt>الترجمة العربية</dt><dd>مخطط الكيان والعلاقة.</dd>
+        <dt>الشرح المبسط</dt><dd>رسم تخطيطي يُظهر بنية قاعدة البيانات — الجداول والعلاقات بينها.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-2">
+      <h3 class="term-name">2. PDO</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">PHP Data Objects</dd>
+        <dt>النطق بالعربية</dt><dd>بي-إتْش-بي دَاتَا أُوبْجِكْتْس</dd>
+        <dt>Definition in English</dt><dd dir="ltr">An object-oriented data-access abstraction layer in PHP that works with 12 different database systems.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أن أُوبْجِكْت-أُورْيَنْتِد دَاتَا-أكْسِس أبْسْتْرَاكْشِن لايَر إن بي-إتْش-بي ذَت وِرْكْس وِذ تْوِيلْف دِفْرِنْت دَاتَابِيس سِسْتِمْز.</dd>
+        <dt>الترجمة العربية</dt><dd>كائنات بيانات PHP.</dd>
+        <dt>الشرح المبسط</dt><dd>واجهة PHP موحدة تعمل مع 12 نظام قاعدة بيانات مختلف.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-3">
+      <h3 class="term-name">3. mysqli</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">MySQL Improved Extension</dd>
+        <dt>النطق بالعربية</dt><dd>مَاي إس كْيُو إل إمْبْرُوفْد</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A PHP extension that works only with MySQL databases, supporting both procedural and OO styles.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ بي-إتْش-بي إكْسْتِنْشِن ذَت وِرْكْس أُونْلِي وِذ مَاي إس كْيُو إل دَاتَابِيسِز، سَبُورْتِنْغ بُوثْ بْرُوسِيدْجُرَال آند أو-أو سْتَايْلْز.</dd>
+        <dt>الترجمة العربية</dt><dd>امتداد MySQL المحسّن.</dd>
+        <dt>الشرح المبسط</dt><dd>امتداد PHP يعمل مع MySQL فقط.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-4">
+      <h3 class="term-name">4. conn.php</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Connection File</dd>
+        <dt>النطق بالعربية</dt><dd>كُونِكْشِن فَايِل</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A PHP file that holds the database connection details (host, DB name, user, password) and is included in other files.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ بي-إتْش-بي فَايِل ذَت هُولْدْز ذا دَاتَابِيس كُونِكْشِن دِيتَايِلْز (هُوسْت، دي-بي نِيم، يُوزَر، بَاسْوُورْد) آند إز إنْكْلُودِد إن أَذَر فَايْلْز.</dd>
+        <dt>الترجمة العربية</dt><dd>ملف الاتصال بقاعدة البيانات.</dd>
+        <dt>الشرح المبسط</dt><dd>ملف مركزي يحتوي على تفاصيل الاتصال بقاعدة البيانات.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-5">
+      <h3 class="term-name">5. DDL</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Data Definition Language</dd>
+        <dt>النطق بالعربية</dt><dd>دَاتَا دِفِنِيشِن لَانْغْوِج</dd>
+        <dt>Definition in English</dt><dd dir="ltr">SQL commands used to create and modify database objects (CREATE, ALTER, DROP, TRUNCATE).</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>إس كيو إل كُومَانْدْز يُوزْد تو كْرِيت آند مُودِفَاي دَاتَابِيس أُوبْجِكْتْس.</dd>
+        <dt>الترجمة العربية</dt><dd>لغة تعريف البيانات.</dd>
+        <dt>الشرح المبسط</dt><dd>أوامر SQL لإنشاء وتعديل كائنات قاعدة البيانات.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-6">
+      <h3 class="term-name">6. DML</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Data Manipulation Language</dd>
+        <dt>النطق بالعربية</dt><dd>دَاتَا مَانِيبْيُولِيشِن لَانْغْوِج</dd>
+        <dt>Definition in English</dt><dd dir="ltr">SQL commands used to insert, update, delete, and view the data (INSERT, UPDATE, DELETE, SELECT).</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>إس كيو إل كُومَانْدْز يُوزْد تو إنْسِرْت، أَبْدِيت، دِيلِيت، آند فْيُو ذا دَاتَا.</dd>
+        <dt>الترجمة العربية</dt><dd>لغة معالجة البيانات.</dd>
+        <dt>الشرح المبسط</dt><dd>أوامر SQL لمعالجة البيانات داخل الجداول.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-7">
+      <h3 class="term-name">7. CRUD</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">CRUD (Create, Read, Update, Delete)</dd>
+        <dt>النطق بالعربية</dt><dd>كْرَد</dd>
+        <dt>Definition in English</dt><dd dir="ltr">The four basic database operations: Create (INSERT), Read (SELECT), Update (UPDATE), Delete (DELETE).</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>ذا فُور بَيْسِك دَاتَابِيس أُوبِرِيشِنْز: كْرِيت، رِيد، أَبْدِيت، دِيلِيت.</dd>
+        <dt>الترجمة العربية</dt><dd>العمليات الأربع الأساسية.</dd>
+        <dt>الشرح المبسط</dt><dd>العمليات الأساسية الأربع على البيانات.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-8">
+      <h3 class="term-name">8. SQL Injection</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">SQL Injection (SQLi)</dd>
+        <dt>النطق بالعربية</dt><dd>إس كيو إل إنْجِكْشِن</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A code injection attack that exploits vulnerabilities when user input is incorrectly filtered before being included in SQL queries.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ كُود إنْجِكْشِن أتَاك ذَت إِكْسْبْلُويتْس فُولْنِرَابِلِيتِيز وِن يُوزَر إنْبُوت إز إنْكُورِكْتْلِي فِيلْتَرْد بِفُور بِينْغ إنْكْلُودِد إن إس كيو إل كْوِيرِيز.</dd>
+        <dt>الترجمة العربية</dt><dd>حقن SQL.</dd>
+        <dt>الشرح المبسط</dt><dd>هجوم يزرع كود SQL خبيث عبر مدخلات غير مُنقّاة.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-9">
+      <h3 class="term-name">9. Prepared Statements</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Prepared Statements</dd>
+        <dt>النطق بالعربية</dt><dd>بْرِيبِيرْد سْتَيْتْمِنْتْس</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A technique that separates SQL code from data, preventing SQL injection and improving performance for repeated queries.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ تِكْنِيك ذَت سِبَارِيتْس إس كيو إل كُود فروم دَاتَا، بِرِيفِنْتِنْغ إس كيو إل إنْجِكْشِن آند إمْبْرُوفِنْغ بِرْفُورْمَنْس فُور رِبِيتِد كْوِيرِيز.</dd>
+        <dt>الترجمة العربية</dt><dd>الاستعلامات المحضرة.</dd>
+        <dt>الشرح المبسط</dt><dd>تقنية تفصل الكود عن البيانات وتمنع حقن SQL.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-10">
+      <h3 class="term-name">10. Error Modes</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">PDO Error Modes</dd>
+        <dt>النطق بالعربية</dt><dd>بي دي أو إيرُور مُودْز</dd>
+        <dt>Definition in English</dt><dd dir="ltr">Three modes that control how PDO reports errors: SILENT (default), WARNING, and EXCEPTION.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>ثْرِي مُودْز ذَت كُونْتْرُول هَاو بي دي أو رِبُورْتْس إيرُورْز: سَايْلِنْت (دِيفُولْت)، وُورْنِنْغ، آند إِكْسِبْشِن.</dd>
+        <dt>الترجمة العربية</dt><dd>أوضاع معالجة الأخطاء في PDO.</dd>
+        <dt>الشرح المبسط</dt><dd>ثلاثة أوضاع تحدد كيفية إبلاغ PDO عن الأخطاء.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-11">
+      <h3 class="term-name">11. Relative Path</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Relative Path</dd>
+        <dt>النطق بالعربية</dt><dd>رِيلَاتِيف بَاث</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A file path defined relative to the location of the file that references it (e.g., <code>images/pic.jpg</code>).</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ فَايِل بَاث دِفَايْنْد رِيلَاتِيف تو ذا لُوكِيشِن أوف ذا فَايِل ذَت رِيفْرِنْسِز إِت.</dd>
+        <dt>الترجمة العربية</dt><dd>مسار نسبي.</dd>
+        <dt>الشرح المبسط</dt><dd>مسار يُحدَّد بالنسبة لموقع الملف المُشير.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-12">
+      <h3 class="term-name">12. Absolute Path</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Absolute Path</dd>
+        <dt>النطق بالعربية</dt><dd>آبْسُولُوت بَاث</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A full path starting from the root of the filesystem or a URL protocol (e.g., <code>file:///C:/...</code>).</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ فُول بَاث سْتَارْتِنْغ فروم ذا رُوت أوف ذا فَايِلْسِسْتِم أُور أ يو-آر-إل بروتوكول.</dd>
+        <dt>الترجمة العربية</dt><dd>مسار مطلق.</dd>
+        <dt>الشرح المبسط</dt><dd>مسار كامل يبدأ من جذر نظام الملفات — لا يجب استخدامه في HTML.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-13">
+      <h3 class="term-name">13. MVC</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Model-View-Controller</dd>
+        <dt>النطق بالعربية</dt><dd>مُودِل فْيُو كُونْتْرُولَر</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A design pattern that separates the application into three parts: Model (data), View (display), and Controller (logic).</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ دِيزَايْن بَاتِرْن ذَت سِبَارِيتْس ذي آبْلِكِيشِن إنْتو ثْرِي بَارْتْس: مُودِل، فْيُو، آند كُونْتْرُولَر.</dd>
+        <dt>الترجمة العربية</dt><dd>نمط النموذج-العرض-المتحكم.</dd>
+        <dt>الشرح المبسط</dt><dd>نمط معماري يقسم التطبيق إلى ثلاث طبقات.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-14">
+      <h3 class="term-name">14. POST-Redirect-GET (PRG)</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">POST-Redirect-GET</dd>
+        <dt>النطق بالعربية</dt><dd>بُوسْت رِيدَايْرِكْت جِت</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A web pattern where a form POST is followed by a redirect to a GET page to prevent duplicate submissions.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ وِب بَاتِرْن وِير أ فُورْم بُوسْت إز فُولُود باي أ رِيدَايْرِكْت تو أ جِت بَاج تو بِرِيفِنْت دُوبْلِكِيت سَبْمِشِنْز.</dd>
+        <dt>الترجمة العربية</dt><dd>نمط POST-إعادة توجيه-GET.</dd>
+        <dt>الشرح المبسط</dt><dd>نمط يمنع إعادة إرسال النموذج عند تحديث الصفحة.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-15">
+      <h3 class="term-name">15. utf8mb4</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">utf8mb4</dd>
+        <dt>النطق بالعربية</dt><dd>يو-تي-إف-إيت إم-بي-فُور</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A MySQL character set that supports all Unicode characters, including emojis and Arabic text.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ مَاي إس كْيُو إل كَارِكْتَر سِت ذَت سَبُورْتْس أول يُونِيكُود كَارِكْتَرْز، إنْكْلُودِنْغ إِمُوجِيز آند عَرَبِك تِكْسْت.</dd>
+        <dt>الترجمة العربية</dt><dd>ترميز utf8mb4.</dd>
+        <dt>الشرح المبسط</dt><dd>ترميز أحرف يدعم جميع Unicode (بما فيه العربية والرموز).</dd>
+      </dl>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 9: Interactive Quiz -->
+<!-- ============================================= -->
+<section id="section-9" class="section">
+  <h2 class="section-title">9. اختبار تفاعلي <span dir="ltr" class="en">(Interactive Quiz — 20 Questions)</span></h2>
+
+  <div class="note-box">
+    <p class="note-label">📝 تعليمات:</p>
+    <ul class="bullets">
+      <li>عدد الأسئلة: <strong>20</strong> (10 اختيار من متعدد + 10 صح/خطأ).</li>
+      <li>أجب عن جميع الأسئلة ثم اضغط «إظهار النتيجة».</li>
+    </ul>
+  </div>
+
+  <div id="quiz-container">
+
+    <article class="quiz-question" data-question="mcq-1" data-correct="b">
+      <p class="quiz-prompt"><strong>س1.</strong> <span dir="ltr">Which of these is the correct first step before creating a database?</span></p>
+      <p class="quiz-ar">ما الخطوة الأولى قبل إنشاء قاعدة البيانات؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q1" value="a"> <span dir="ltr">A) Write PHP code</span></label></li>
+        <li><label><input type="radio" name="q1" value="b"> <span dir="ltr">B) Design the ER diagram</span></label></li>
+        <li><label><input type="radio" name="q1" value="c"> <span dir="ltr">C) Create the connection file</span></label></li>
+        <li><label><input type="radio" name="q1" value="d"> <span dir="ltr">D) Run XAMPP</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — تصميم ERD أولًا." data-wrong-feedback="❌ خطأ — الصحيح: B."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-2" data-correct="c">
+      <p class="quiz-prompt"><strong>س2.</strong> <span dir="ltr">Which of the following is NOT a way to create a MySQL database?</span></p>
+      <p class="quiz-ar">أي مما يلي ليس طريقة لإنشاء قاعدة بيانات MySQL؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q2" value="a"> <span dir="ltr">A) phpMyAdmin</span></label></li>
+        <li><label><input type="radio" name="q2" value="b"> <span dir="ltr">B) Command Line Interface</span></label></li>
+        <li><label><input type="radio" name="q2" value="c"> <span dir="ltr">C) HTML file</span></label></li>
+        <li><label><input type="radio" name="q2" value="d"> <span dir="ltr">D) PHP code with SQL</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — HTML ليس له علاقة بإنشاء DB." data-wrong-feedback="❌ خطأ — الصحيح: C."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-3" data-correct="d">
+      <p class="quiz-prompt"><strong>س3.</strong> <span dir="ltr">Which is the recommended database API for this course?</span></p>
+      <p class="quiz-ar">أي واجهة برمجة قواعد البيانات الموصى بها في هذا المقرر؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q3" value="a"> <span dir="ltr">A) mysql</span></label></li>
+        <li><label><input type="radio" name="q3" value="b"> <span dir="ltr">B) mysqli procedural</span></label></li>
+        <li><label><input type="radio" name="q3" value="c"> <span dir="ltr">C) mysqli OO</span></label></li>
+        <li><label><input type="radio" name="q3" value="d"> <span dir="ltr">D) PDO</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — PDO." data-wrong-feedback="❌ خطأ — الصحيح: D."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-4" data-correct="a">
+      <p class="quiz-prompt"><strong>س4.</strong> <span dir="ltr">Which SQL command is used to add a new row?</span></p>
+      <p class="quiz-ar">أي أمر SQL لإضافة صف جديد؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q4" value="a"> <span dir="ltr">A) INSERT</span></label></li>
+        <li><label><input type="radio" name="q4" value="b"> <span dir="ltr">B) UPDATE</span></label></li>
+        <li><label><input type="radio" name="q4" value="c"> <span dir="ltr">C) SELECT</span></label></li>
+        <li><label><input type="radio" name="q4" value="d"> <span dir="ltr">D) DELETE</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — INSERT." data-wrong-feedback="❌ خطأ — الصحيح: A."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-5" data-correct="c">
+      <p class="quiz-prompt"><strong>س5.</strong> <span dir="ltr">What does the acronym CRUD stand for?</span></p>
+      <p class="quiz-ar">ماذا يعني اختصار CRUD؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q5" value="a"> <span dir="ltr">A) Create, Run, Update, Drop</span></label></li>
+        <li><label><input type="radio" name="q5" value="b"> <span dir="ltr">B) Copy, Read, Update, Delete</span></label></li>
+        <li><label><input type="radio" name="q5" value="c"> <span dir="ltr">C) Create, Read, Update, Delete</span></label></li>
+        <li><label><input type="radio" name="q5" value="d"> <span dir="ltr">D) Call, Reset, Undo, Drop</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — Create, Read, Update, Delete." data-wrong-feedback="❌ خطأ — الصحيح: C."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-6" data-correct="b">
+      <p class="quiz-prompt"><strong>س6.</strong> <span dir="ltr">Which technique protects against SQL injection?</span></p>
+      <p class="quiz-ar">أي تقنية تحمي من حقن SQL؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q6" value="a"> <span dir="ltr">A) Using SELECT *</span></label></li>
+        <li><label><input type="radio" name="q6" value="b"> <span dir="ltr">B) Prepared Statements</span></label></li>
+        <li><label><input type="radio" name="q6" value="c"> <span dir="ltr">C) Using AUTO_INCREMENT</span></label></li>
+        <li><label><input type="radio" name="q6" value="d"> <span dir="ltr">D) Disabling errors</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — Prepared Statements." data-wrong-feedback="❌ خطأ — الصحيح: B."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-7" data-correct="d">
+      <p class="quiz-prompt"><strong>س7.</strong> <span dir="ltr">Which PDO error mode throws an exception?</span></p>
+      <p class="quiz-ar">أي وضع خطأ في PDO يرمي استثناءً؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q7" value="a"> <span dir="ltr">A) SILENT</span></label></li>
+        <li><label><input type="radio" name="q7" value="b"> <span dir="ltr">B) WARNING</span></label></li>
+        <li><label><input type="radio" name="q7" value="c"> <span dir="ltr">C) DEBUG</span></label></li>
+        <li><label><input type="radio" name="q7" value="d"> <span dir="ltr">D) EXCEPTION</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — EXCEPTION." data-wrong-feedback="❌ خطأ — الصحيح: D."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-8" data-correct="a">
+      <p class="quiz-prompt"><strong>س8.</strong> <span dir="ltr">What does the path <code>../images/pic.jpg</code> mean?</span></p>
+      <p class="quiz-ar">ماذا يعني المسار <code>../images/pic.jpg</code>؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q8" value="a"> <span dir="ltr">A) Go up one folder, then into images/</span></label></li>
+        <li><label><input type="radio" name="q8" value="b"> <span dir="ltr">B) Go into images/ from current folder</span></label></li>
+        <li><label><input type="radio" name="q8" value="c"> <span dir="ltr">C) Go up two folders</span></label></li>
+        <li><label><input type="radio" name="q8" value="d"> <span dir="ltr">D) An absolute path to images</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — الصعود مجلدًا ثم دخول images." data-wrong-feedback="❌ خطأ — الصحيح: A."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-9" data-correct="c">
+      <p class="quiz-prompt"><strong>س9.</strong> <span dir="ltr">Which command is used to prevent form resubmission?</span></p>
+      <p class="quiz-ar">أي تقنية تمنع إعادة إرسال النموذج؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q9" value="a"> <span dir="ltr">A) die()</span></label></li>
+        <li><label><input type="radio" name="q9" value="b"> <span dir="ltr">B) exit()</span></label></li>
+        <li><label><input type="radio" name="q9" value="c"> <span dir="ltr">C) POST-Redirect-GET</span></label></li>
+        <li><label><input type="radio" name="q9" value="d"> <span dir="ltr">D) echo "success"</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — POST-Redirect-GET." data-wrong-feedback="❌ خطأ — الصحيح: C."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-10" data-correct="b">
+      <p class="quiz-prompt"><strong>س10.</strong> <span dir="ltr">Which PHP include command stops execution on failure AND ensures the file is loaded only once?</span></p>
+      <p class="quiz-ar">أي أمر تضمين يتوقف عند الفشل ويضمن التحميل مرة واحدة؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q10" value="a"> <span dir="ltr">A) include</span></label></li>
+        <li><label><input type="radio" name="q10" value="b"> <span dir="ltr">B) require_once</span></label></li>
+        <li><label><input type="radio" name="q10" value="c"> <span dir="ltr">C) include_once</span></label></li>
+        <li><label><input type="radio" name="q10" value="d"> <span dir="ltr">D) require</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — require_once." data-wrong-feedback="❌ خطأ — الصحيح: B."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-1" data-correct="true">
+      <p class="quiz-prompt"><strong>س11.</strong> <span dir="ltr">PDO works with multiple database systems (MySQL, PostgreSQL, SQLite...).</span></p>
+      <p class="quiz-ar">PDO يعمل مع أنظمة قواعد بيانات متعددة.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q11" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q11" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-2" data-correct="false">
+      <p class="quiz-prompt"><strong>س12.</strong> <span dir="ltr">mysqli can be used with PostgreSQL databases.</span></p>
+      <p class="quiz-ar">mysqli يمكن استخدامه مع PostgreSQL.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q12" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q12" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، mysqli يعمل مع MySQL فقط." data-wrong-feedback="❌ خطأ — الصحيح: خطأ."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-3" data-correct="true">
+      <p class="quiz-prompt"><strong>س13.</strong> <span dir="ltr">Using relative paths in CSS is important when the CSS file is in a subfolder.</span></p>
+      <p class="quiz-ar">استخدام المسارات النسبية في CSS مهم عندما يكون ملف CSS في مجلد فرعي.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q13" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q13" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-4" data-correct="false">
+      <p class="quiz-prompt"><strong>س14.</strong> <span dir="ltr">Absolute paths (like file:///C:/...) are safe to use in production.</span></p>
+      <p class="quiz-ar">المسارات المطلقة (مثل file:///C:/...) آمنة للاستخدام في الإنتاج.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q14" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q14" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، تفشل عند رفع الموقع." data-wrong-feedback="❌ خطأ — الصحيح: خطأ."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-5" data-correct="true">
+      <p class="quiz-prompt"><strong>س15.</strong> <span dir="ltr">Prepared Statements separate SQL code from data.</span></p>
+      <p class="quiz-ar">Prepared Statements تفصل كود SQL عن البيانات.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q15" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q15" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-6" data-correct="false">
+      <p class="quiz-prompt"><strong>س16.</strong> <span class="badge-wrong">UPDATE without WHERE updates only the first row.</span></p>
+      <p class="quiz-ar">UPDATE بدون WHERE يُحدّث الصف الأول فقط.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q16" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q16" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، يُحدّث الكل." data-wrong-feedback="❌ خطأ — الصحيح: خطأ (يُحدّث الكل)."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-7" data-correct="true">
+      <p class="quiz-prompt"><strong>س17.</strong> <span dir="ltr">In MVC, the Model handles database operations and the View handles display.</span></p>
+      <p class="quiz-ar">في MVC، Model يتعامل مع قاعدة البيانات وView يتعامل مع العرض.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q17" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q17" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-8" data-correct="true">
+      <p class="quiz-prompt"><strong>س18.</strong> <span dir="ltr">The <code>require_once</code> directive is commonly used for including <code>pdo.php</code>.</span></p>
+      <p class="quiz-ar">الأمر <code>require_once</code> يُستخدم عادةً لتضمين <code>pdo.php</code>.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q18" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q18" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-9" data-correct="false">
+      <p class="quiz-prompt"><strong>س19.</strong> <span dir="ltr">The default PDO error mode is EXCEPTION.</span></p>
+      <p class="quiz-ar">وضع الخطأ الافتراضي في PDO هو EXCEPTION.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q19" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q19" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، الافتراضي SILENT." data-wrong-feedback="❌ خطأ — الصحيح: خطأ (الافتراضي SILENT)."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-10" data-correct="true">
+      <p class="quiz-prompt"><strong>س20.</strong> <span dir="ltr">Deleting a parent record that has dependent children violates referential integrity.</span></p>
+      <p class="quiz-ar">حذف سجل أب له أبناء تابعون ينتهك السلامة المرجعية.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q20" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q20" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+  </div>
+
+  <div class="quiz-actions">
+    <button id="quizSubmitBtn" class="btn btn-primary" type="button">إظهار النتيجة</button>
+    <button id="quizResetBtn" class="btn" type="button">إعادة المحاولة</button>
+  </div>
+
+  <div id="quizResult" class="quiz-result" aria-live="polite"></div>
+
+</section>
+
+</main>
+
+
+<footer class="page-footer">
+  <div class="container">
+    <p> المذاكرة الشاملة — <span dir="ltr">osmah</span></p>
+    <p style="font-size:.85rem;color:var(--text-muted);margin-top:6px;">إعداد: osamh almtyl</p>
+  </div>
+</footer>
+<button id="backToTop" class="back-to-top" type="button" aria-label="العودة إلى الأعلى" title="العودة إلى الأعلى">↑</button>
+
+<script src="script.js"></script>
+</body>
+</html>

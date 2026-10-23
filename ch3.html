@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="مذكرة شاملة — PHP Classes and Objects">
+<title>مذكرة شاملة :  PHP Classes and Objects - kata</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================= -->
+<!-- الشريط الجانبي -->
+<!-- ============================================= -->
+<nav class="side-nav" aria-label="تنقل جانبي بين الفقرات">
+
+  <div class="side-nav-title">📑 الفقرات</div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">1. نظرة عامة على OOP</div>
+    <a href="#s1-1"><span class="nav-num">1.1</span> مقدمة</a>
+    <a href="#s1-2"><span class="nav-num">1.2</span> المصطلحات</a>
+    <a href="#s1-3"><span class="nav-num">1.3</span> Class و Object</a>
+    <a href="#s1-4"><span class="nav-num">1.4</span> UML Diagrams</a>
+    <a href="#s1-5"><span class="nav-num">1.5</span> Server vs Desktop</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">2. Classes & Objects in PHP</div>
+    <a href="#s2-1"><span class="nav-num">2.1</span> تعريف Class</a>
+    <a href="#s2-2"><span class="nav-num">2.2</span> Instantiation</a>
+    <a href="#s2-3"><span class="nav-num">2.3</span> Properties</a>
+    <a href="#s2-4"><span class="nav-num">2.4</span> Constructors</a>
+    <a href="#s2-5"><span class="nav-num">2.5</span> Methods</a>
+    <a href="#s2-6"><span class="nav-num">2.6</span> Visibility</a>
+    <a href="#s2-7"><span class="nav-num">2.7</span> Static Members</a>
+    <a href="#s2-8"><span class="nav-num">2.8</span> Class Constants</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">3. Object-Oriented Design</div>
+    <a href="#s3-1"><span class="nav-num">3.1</span> Encapsulation</a>
+    <a href="#s3-2"><span class="nav-num">3.2</span> Getters/Setters</a>
+    <a href="#s3-3"><span class="nav-num">3.3</span> Inheritance</a>
+    <a href="#s3-4"><span class="nav-num">3.4</span> Protected Access</a>
+    <a href="#s3-5"><span class="nav-num">3.5</span> Polymorphism</a>
+    <a href="#s3-6"><span class="nav-num">3.6</span> Interfaces</a>
+    <a href="#s3-7"><span class="nav-num">3.7</span> Abstract Classes</a>
+    <a href="#s3-8"><span class="nav-num">3.8</span> Extended Example</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">4. التعاريف</div>
+    <a href="#section-4"><span class="nav-num">4</span> التعاريف</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">5. المقارنات</div>
+    <a href="#section-5"><span class="nav-num">5</span> المقارنات</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">6. الاختبار</div>
+    <a href="#section-6"><span class="nav-num">6</span> اختبار تفاعلي</a>
+  </div>
+
+</nav>
+
+<header class="page-header">
+
+ <!-- شريط التنقل العلوي -->
+<nav class="top-nav" aria-label="التنقل بين الشابترات">
+  <div class="top-nav-inner">
+    <a href="index.html" class="top-nav-brand">
+      <span class="brand-icon">📚</span>
+      <span>الفهرس</span>
+    </a>
+
+    <button id="topNavToggle" class="top-nav-toggle" type="button" aria-expanded="false" aria-controls="topNavLinks">
+      <span>☰</span> <span>الشابترات</span>
+    </button>
+
+    <ul class="top-nav-links" id="topNavLinks">
+      <li><a href="index.html"><span class="nav-icon">🏠</span> الرئيسية</a></li>
+      <li><a href="ch1.html"><span class="nav-icon">📘</span> الشابتر 1</a></li>
+      <li><a href="ch2.html" ><span class="nav-icon">📗</span> الشابتر 2</a></li>
+      <li><a href="ch3.html" class="active"><span class="nav-icon">📙</span> الشابتر 3</a></li>
+      <li><a href="ch4.html"><span class="nav-icon">📕</span> الشابتر 4</a></li>
+      <li><a href="ch5.html"><span class="nav-icon">📓</span> الشابتر 5</a></li>
+    </ul>
+  </div>
+</nav>
+
+  <div class="container">
+    <h1 class="page-title"> المذاكرة الشاملة — Chapter 5</h1>
+    <p class="page-subtitle">PHP Classes and Objects</p>
+   
+    <div class="toolbar">
+      <button id="themeToggle" class="btn" type="button" aria-label="تبديل الوضع">
+        <span class="icon">🌙</span> <span class="label">الوضع الداكن</span>
+      </button>
+      <button id="printBtn" class="btn" type="button" aria-label="طباعة أو حفظ PDF">
+        <span class="icon">🖨️</span> <span class="label">طباعة / PDF</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="فهرس المحتويات">
+  <div class="container">
+    <h2 class="toc-title">فهرس المحتويات</h2>
+    <ol class="toc-list">
+      <li><a href="#section-1">1. نظرة عامة على البرمجة كائنية التوجه (Object-Oriented Overview)</a></li>
+      <li><a href="#section-2">2. الأصناف والكائنات في PHP (Classes and Objects in PHP)</a></li>
+      <li><a href="#section-3">3. التصميم كائني التوجه (Object-Oriented Design)</a></li>
+      <li><a href="#section-4">4. التعاريف الأساسية (Definitions)</a></li>
+      <li><a href="#section-5">5. جداول المقارنة (Comparison Tables)</a></li>
+      <li><a href="#section-6">6. اختبار تفاعلي (Interactive Quiz)</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="container">
+
+<!-- ============================================= -->
+<!-- Section 1: OOP Overview -->
+<!-- ============================================= -->
+<section id="section-1" class="section">
+  <h2 class="section-title">1. نظرة عامة على البرمجة كائنية التوجه <span dir="ltr" class="en">(Object-Oriented Overview)</span></h2>
+
+  <h3 id="s1-1">1.1 مقدمة <span dir="ltr" class="en">(Overview)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">PHP is a full-fledged object-oriented language which simulates reality. For example, if we have a class called Human has some attributes such as name, age, grade and he/she has operations (activities) such as reading, writing and walking. PHP supports object-oriented language so it's called strong language. PHP is a full-fledged object-oriented language with many of the syntactic constructs popularized in languages like Java and C++. Earlier versions of PHP do not support all of these object-oriented features — PHP versions after 5.0 do.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> PHP هي لغة كائنية التوجه بالكامل، وتُحاكي الواقع. على سبيل المثال، إذا كان لدينا صنف يُسمى <code dir="ltr">Human</code> له سمات مثل الاسم والعمر والدرجة، وله عمليات (أنشطة) مثل القراءة والكتابة والمشي. PHP تدعم البرمجة كائنية التوجه، ولذلك تُسمى لغة قوية. PHP لغة كائنية التوجه بالكامل مع العديد من التركيبات النحوية الشائعة في لغات مثل Java و C++. الإصدارات القديمة من PHP لا تدعم كل هذه الميزات الكائنية — الإصدارات بعد 5.0 تدعمها.</p>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملاحظة:</p>
+    <p>PHP هي لغة كائنية التوجه بالكامل، لكن دعم الميزات الكائنية الكاملة بدأ من الإصدار 5.0.</p>
+  </div>
+
+  <h3 id="s1-2">1.2 المصطلحات <span dir="ltr" class="en">(Terminology)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Each variable created from a class is called an object or instance, and each object maintains its own set of variables, and behaves (largely) independently from the class once created. An item (object) allows the developer to think about particular properties (also called attributes or data members) and methods (functions).</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> كل متغير يُنشأ من صنف يُسمى <strong>كائن (Object)</strong> أو <strong>نسخة (Instance)</strong>، وكل كائن يحتفظ بمجموعة متغيراته الخاصة، ويتصرف (إلى حد كبير) بشكل مستقل عن الصنف بمجرد إنشائه. العنصر (الكائن) يسمح للمطور بالتفكير في <strong>خصائص (Properties)</strong> معينة — تُسمى أيضًا سمات (Attributes) أو متغيرات أعضاء (Data Members) — و<strong>دوال (Methods)</strong>.</p>
+
+  <h3 id="s1-3">1.3 العلاقة بين الصنف والكائن <span dir="ltr" class="en">(Relationship between Class and Objects)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Example — Book Class</p>
+    <p dir="ltr"><strong>Book class</strong> — Defines properties such as: title, author, and number of pages.<br>
+    <strong>Objects</strong> (or instances of the Book class) — Each instance has its own title, author, and number of pages property values.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong></p>
+  <ul class="bullets">
+    <li><strong>الصنف <code dir="ltr">Book</code>:</strong> يُعرّف خصائص مثل العنوان والمؤلف وعدد الصفحات.</li>
+    <li><strong>الكائنات (Objects):</strong> نسخ من الصنف <code dir="ltr">Book</code>، ولكل نسخة قيم خاصة بها للعنوان والمؤلف وعدد الصفحات.</li>
+  </ul>
+
+  <h3 id="s1-4">1.4 لغة النمذجة الموحدة <span dir="ltr" class="en">(UML — Unified Modelling Language)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">The standard diagramming notation for object-oriented design is UML (Unified Modeling Language). Class diagrams and object diagrams, in particular, are useful to us when describing the properties, methods, and relationships between classes and objects. UML is a set of graphical techniques to describe software design.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> التدوين القياسي للمخططات في التصميم كائني التوجه هو <strong>UML (لغة النمذجة الموحدة)</strong>. مخططات الأصناف (Class Diagrams) ومخططات الكائنات (Object Diagrams) مفيدة بشكل خاص عند وصف الخصائص والدوال والعلاقات بين الأصناف والكائنات. UML هي مجموعة من التقنيات الرسومية لوصف تصميم البرمجيات.</p>
+
+  <h4>مثال UML Class Diagram — Artist</h4>
+
+  <p>يوضح الشابتر مخطط UML لصنف <code dir="ltr">Artist</code> وكائنين منشأين منه:</p>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Objects (Instances)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td dir="ltr"><strong>Artist</strong><br>
+          + firstName: String<br>
+          + lastName: String<br>
+          + birthDate: Date<br>
+          + birthCity: String<br>
+          + deathDate: Date</td>
+          <td dir="ltr"><strong>$picasso : Artist</strong><br>
+          + firstName: Pablo<br>
+          + lastName: Picasso<br>
+          + birthDate: October 25, 1881<br>
+          + birthCity: Malaga<br>
+          + deathDate: April 8, 1973<br><br>
+          <strong>$dali : Artist</strong><br>
+          + firstName: Salvador<br>
+          + lastName: Dali<br>
+          + birthDate: May 11, 1904<br>
+          + birthCity: Figures<br>
+          + deathDate: January 23, 1989</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 رموز UML:</p>
+    <ul class="bullets">
+      <li><strong>+</strong> تشير إلى <code dir="ltr">public</code> (متاح للجميع).</li>
+      <li><strong>−</strong> تشير إلى <code dir="ltr">private</code> (خاص).</li>
+      <li><strong>#</strong> تشير إلى <code dir="ltr">protected</code> (محمي).</li>
+    </ul>
+  </div>
+
+  <h4>مستويات التفاصيل في UML Class Diagram</h4>
+
+  <p>يوضح الشابتر أن UML Class Diagram يمكن عرضه بمستويات مختلفة من التفاصيل:</p>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>المستوى</th>
+          <th>الوصف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>اسم الصنف فقط (Artist).</td></tr>
+        <tr><td>2</td><td>اسم الصنف + أسماء الخصائص فقط.</td></tr>
+        <tr><td>3</td><td>اسم الصنف + أسماء الخصائص + مستويات الوصول (+, −, #).</td></tr>
+        <tr><td>4</td><td>اسم الصنف + الخصائص + أنواع البيانات.</td></tr>
+        <tr><td>5</td><td>كل التفاصيل (اسم + خصائص + وصول + أنواع).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="s1-5">1.5 كائنات الخادم مقابل كائنات سطح المكتب <span dir="ltr" class="en">(Server and Desktop Objects)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">What is the difference between web programming and desktop application programming? Object in web programming is created (normally) and a PHP object is loaded into memory only for the life of that HTTP request. In desktop software, the object must be recreated and loaded into memory for each request that requires.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> ما الفرق بين برمجة الويب وبرمجة تطبيقات سطح المكتب؟ الكائن في برمجة الويب يُنشأ (عادةً) ويُحمَّل كائن PHP في الذاكرة فقط خلال عمر طلب HTTP ذلك. أما في برمجيات سطح المكتب، فيجب إعادة إنشاء الكائن وتحميله في الذاكرة لكل طلب يتطلب ذلك.</p>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>وجه المقارنة</th>
+          <th>Desktop Application</th>
+          <th>Web Application (PHP)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>عمر الكائن</strong></td>
+          <td>يبقى في الذاكرة طالما التطبيق يعمل.</td>
+          <td>يُنشأ ويُدمَّر مع كل HTTP Request.</td>
+        </tr>
+        <tr>
+          <td><strong>إعادة الإنشاء</strong></td>
+          <td>مرة واحدة عند بدء التطبيق.</td>
+          <td>مع كل طلب جديد.</td>
+        </tr>
+        <tr>
+          <td><strong>الذاكرة</strong></td>
+          <td>ذاكرة واحدة مشتركة (Desktop memory).</td>
+          <td>ذاكرة مستقلة لكل طلب (Request A / B / C).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<!-- ============================================= -->
+<!-- Section 2: Classes and Objects in PHP -->
+<!-- ============================================= -->
+<section id="section-2" class="section">
+  <h2 class="section-title">2. الأصناف والكائنات في PHP <span dir="ltr" class="en">(Classes and Objects in PHP)</span></h2>
+
+  <h3 id="s2-1">2.1 تعريف الأصناف في PHP <span dir="ltr" class="en">(Defining Classes in PHP)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">The PHP syntax for defining a class uses the <code>class</code> keyword followed by the class name and <code>{}</code> braces.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> صياغة PHP لتعريف صنف تستخدم الكلمة المفتاحية <code dir="ltr">class</code> متبوعة باسم الصنف والأقواس المعقوفة <code>{}</code>.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 10.1 — A simple Artist class</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+class Artist {
+    public $firstName;
+    public $lastName;
+    public $birthDate;
+    public $birthCity;
+    public $deathDate;
+}
+?&gt;</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملاحظة تاريخية:</p>
+    <p>قبل الإصدار 5 من PHP، كانت الكلمة المفتاحية <code dir="ltr">var</code> تُستخدم لتعريف خاصية (بدلًا من <code dir="ltr">public</code>).</p>
+  </div>
+
+  <h3 id="s2-2">2.2 إنشاء الكائنات <span dir="ltr" class="en">(Instantiating Objects in PHP)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Defining a class is not the same as using it. To make use of a class, one must instantiate (create) objects from its definition using the <code>new</code> keyword.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> تعريف الصنف لا يعني استخدامه. للاستفادة من الصنف، يجب إنشاء كائنات من تعريفه باستخدام الكلمة المفتاحية <code dir="ltr">new</code>.</p>
+
+<pre class="code-block"><code dir="ltr">$picasso = new Artist();
+$dali = new Artist();</code></pre>
+
+  <h3 id="s2-3">2.3 الخصائص <span dir="ltr" class="en">(Properties)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Once you have instances of an object, you can access and modify the properties of each one separately using the variable name and an arrow (->).</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> بعد أن تحصل على كائنات، يمكنك الوصول إلى خصائص كل واحد منها وتعديلها بشكل منفصل باستخدام اسم المتغير والسهم <code dir="ltr">-&gt;</code>.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 10.2 — Instantiating two Artist objects and setting properties</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+$picasso = new Artist();
+$dali = new Artist();
+
+$picasso-&gt;firstName = "Pablo";
+$picasso-&gt;lastName  = "Picasso";
+$picasso-&gt;birthCity = "Malaga";
+$picasso-&gt;birthDate = "October 25 1881";
+$picasso-&gt;deathDate = "April 8 1973";
+?&gt;</code></pre>
+  </div>
+
+  <h3 id="s2-4">2.4 الدوال البنائية <span dir="ltr" class="en">(Constructors)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Constructors let you specify parameters during instantiation to initialize the properties within a class right away. In PHP, constructors are defined as functions with the name <code>__construct()</code>. Notice that in the constructor each parameter is assigned to an internal class variable using the <code>$this-&gt;</code> syntax. You must always use the <code>$this</code> syntax to reference all properties and methods associated with this particular instance of a class.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> الدوال البنائية تسمح لك بتحديد معاملات أثناء إنشاء الكائن لتهيئة الخصائص داخل الصنف فورًا. في PHP، تُعرَّف الدوال البنائية كدوال باسم <code dir="ltr">__construct()</code>. لاحظ أن كل معامل في الدالة البنائية يُسند إلى متغير داخلي في الصنف باستخدام صياغة <code dir="ltr">$this-&gt;</code>. يجب دائمًا استخدام <code dir="ltr">$this</code> للإشارة إلى جميع الخصائص والدوال المرتبطة بهذه النسخة المحددة من الصنف.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 10.3 — A constructor added to the class definition</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+class Artist {
+    // variables from previous listing still go here
+    public $firstName;
+    public $lastName;
+    public $birthDate;
+    public $birthCity;
+    public $deathDate;
+
+    function __construct($firstName, $lastName, $city, $birth, $death = null) {
+        $this-&gt;firstName = $firstName;
+        $this-&gt;lastName  = $lastName;
+        $this-&gt;birthCity = $city;
+        $this-&gt;birthDate = $birth;
+        $this-&gt;deathDate = $death;
+    }
+}
+?&gt;</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Using the constructor</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+$picasso = new Artist("Pablo", "Picasso", "Malaga", "Oct 25, 1881", "Apr 8, 1973");
+$dali    = new Artist("Salvador", "Dali", "Figures", "May 11 1904", "Jan 23 1989");
+?&gt;</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملاحظة:</p>
+    <p>لاحظ استخدام <code dir="ltr">$death = null</code> كقيمة افتراضية — فبعض الفنانين لا يزالون على قيد الحياة.</p>
+  </div>
+
+  <h3 id="s2-5">2.5 الدوال <span dir="ltr" class="en">(Methods)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Methods are like functions, except they are associated with a class. They define the tasks each instance of a class can perform and are useful since they associate behavior with objects.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> الدوال (Methods) تشبه الدوال العادية، لكنها مرتبطة بصنف. تحدد المهام التي يمكن لكل نسخة من الصنف أداؤها، وهي مفيدة لأنها تربط السلوك بالكائنات.</p>
+
+<pre class="code-block"><code dir="ltr">&lt;?php
+$picasso = new Artist(...);
+echo $picasso-&gt;outputAsTable();
+?&gt;</code></pre>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Example — outputAsTable method</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+class Artist {
+    public $firstName;
+    public $lastName;
+    public $birthDate;
+    public $birthCity;
+    public $deathDate;
+
+    public function outputAsTable() {
+        $table  = "&lt;table&gt;";
+        $table .= "&lt;tr&gt;&lt;th colspan='2'&gt;";
+        $table .= $this-&gt;firstName . " " . $this-&gt;lastName;
+        $table .= "&lt;/th&gt;&lt;/tr&gt;";
+
+        $table .= "&lt;tr&gt;&lt;td&gt;Birth:&lt;/td&gt;";
+        $table .= "&lt;td&gt;" . $this-&gt;birthDate;
+        $table .= " (" . $this-&gt;birthCity . ")&lt;/td&gt;&lt;/tr&gt;";
+
+        $table .= "&lt;tr&gt;&lt;td&gt;Death:&lt;/td&gt;";
+        $table .= "&lt;td&gt;" . $this-&gt;deathDate . "&lt;/td&gt;&lt;/tr&gt;";
+
+        $table .= "&lt;/table&gt;";
+        return $table;
+    }
+}
+?&gt;</code></pre>
+  </div>
+
+  <h4>إضافة الدوال إلى UML Class Diagram</h4>
+
+  <p>عند إضافة الدوال إلى مخطط UML، يظهر قسم جديد داخل الصنف يحتوي على أسماء الدوال ومعاملاتها:</p>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Class (with methods)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td dir="ltr"><strong>Artist</strong><br>
+          + firstName: String<br>
+          + lastName: String<br>
+          + birthDate: Date<br>
+          + birthCity: String<br>
+          + deathDate: Date<br>
+          <hr style="margin:4px 0;border:none;border-top:1px solid var(--border);">
+          + __construct(string, string, string, string, string)<br>
+          + outputAsTable() : String</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="s2-6">2.6 مستويات الظهور <span dir="ltr" class="en">(Visibility / Accessibility)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">The visibility of a property or method determines the accessibility of a class member and can be set to:</p>
+    <ul class="bullets" dir="ltr">
+      <li><strong>Public</strong> — the property or method is accessible to any code that has a reference to the object.</li>
+      <li><strong>Private</strong> — sets a method or variable to only be accessible from within the class.</li>
+      <li><strong>Protected</strong> — is related to inheritance.</li>
+    </ul>
+  </div>
+
+  <p><strong>الترجمة:</strong> مستوى الظهور (Visibility) لخاصية أو دالة يحدد إمكانية الوصول إلى عضو الصنف، ويمكن ضبطه على:</p>
+  <ul class="bullets">
+    <li><strong><code dir="ltr">public</code> (عام):</strong> الخاصية أو الدالة متاحة لأي كود لديه مرجع للكائن.</li>
+    <li><strong><code dir="ltr">private</code> (خاص):</strong> يجعل الدالة أو المتغير متاحًا فقط من داخل الصنف.</li>
+    <li><strong><code dir="ltr">protected</code> (محمي):</strong> مرتبط بالوراثة (سنتعلمه لاحقًا في قسم Inheritance).</li>
+  </ul>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">UML Visibility Diagram — Painting class</p>
+<pre class="code-block"><code dir="ltr">class Painting {
+    public  $title;
+    private $profit;
+
+    public function doThis() {
+        $a = $this-&gt;profit;             // ✅ مسموح (داخل الصنف)
+        $b = $this-&gt;title;              // ✅ مسموح
+        $c = $this-&gt;doSecretThat();     // ✅ مسموح
+    }
+
+    private function doSecretThat() {
+        $a = $this-&gt;profit;             // ✅ مسموح
+        $b = $this-&gt;title;              // ✅ مسموح
+    }
+}
+
+// من خارج الصنف:
+$p1 = new Painting();
+$x = $p1-&gt;title;                    // ✅ مسموح (public)
+$y = $p1-&gt;profit;                   // ❌ غير مسموح (private)
+$p1-&gt;doThis();                      // ✅ مسموح (public)
+$p1-&gt;doSecretThat();                // ❌ غير مسموح (private)</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 رموز UML لمستويات الظهور:</p>
+    <ul class="bullets">
+      <li><strong>+</strong> = <code dir="ltr">public</code></li>
+      <li><strong>−</strong> = <code dir="ltr">private</code></li>
+      <li><strong>#</strong> = <code dir="ltr">protected</code></li>
+    </ul>
+  </div>
+</section>
+<!-- ============================================= -->
+<!-- Section 2 (تكملة): Static + Constants -->
+<!-- ============================================= -->
+<section id="section-2b" class="section">
+  <h3 id="s2-7">2.7 الأعضاء الساكنة <span dir="ltr" class="en">(Static Members)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">A static member is a property or method that all instances of a class share. Static members use the <code>self::</code> syntax and are not associated with one object. They can be accessed without any instance of an Artist object by using the class name, that is, via <code>Artist::$artistCount</code>.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> العضو الساكن (Static Member) هو خاصية أو دالة تشترك فيها جميع نسخ الصنف. الأعضاء الساكنة تستخدم صياغة <code dir="ltr">self::</code> ولا ترتبط بكائن واحد. يمكن الوصول إليها دون أي نسخة من كائن <code dir="ltr">Artist</code> باستخدام اسم الصنف، أي عبر <code dir="ltr">Artist::$artistCount</code>.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 10.5 — Class definition modified with static members</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+class Artist {
+    public static $artistCount = 0;
+    public $firstName;
+    public $lastName;
+    public $birthDate;
+    public $birthCity;
+    public $deathDate;
+
+    function __construct($firstName, $lastName, $city, $birth, $death = null) {
+        $this-&gt;firstName = $firstName;
+        $this-&gt;lastName  = $lastName;
+        $this-&gt;birthCity = $city;
+        $this-&gt;birthDate = $birth;
+        $this-&gt;deathDate = $death;
+        self::$artistCount++;
+    }
+}
+?&gt;</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 الفرق الجوهري:</p>
+    <ul class="bullets">
+      <li><strong>الخاصية العادية (<code>$firstName</code>):</strong> لكل كائن نسخة مستقلة منها.</li>
+      <li><strong>الخاصية الساكنة (<code>self::$artistCount</code>):</strong> نسخة واحدة مشتركة بين جميع الكائنات.</li>
+    </ul>
+  </div>
+
+  <h4>Static Members في UML</h4>
+
+  <p>في مخطط UML، يُشار إلى الأعضاء الساكنة بخط سفلي (underline) على اسم الخاصية/الدالة:</p>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>UML Representation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td dir="ltr"><strong>Artist</strong><br>
+          + <u>artistCount: int</u> (static, underlined)<br>
+          + firstName: String<br>
+          + lastName: String<br>
+          + birthDate: Date<br>
+          + birthCity: String<br>
+          + deathDate: Date</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="s2-8">2.8 ثوابت الصنف <span dir="ltr" class="en">(Class Constants)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Constant values can be stored more efficiently as class constants so long as they are not calculated or updated (such as string). They are added to a class using the <code>const</code> keyword. Unlike all other variables, constants don't use the <code>$</code> symbol when declaring or using them. Accessed both inside and outside the class using <code>self::EARLIEST_DATE</code> in the class and <code>classReference::EARLIEST_DATE</code> outside.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> يمكن تخزين القيم الثابتة بكفاءة أكبر كثوابت صنف، بشرط ألا تكون محسوبة أو محدَّثة (مثل النصوص). تُضاف إلى الصنف باستخدام الكلمة المفتاحية <code dir="ltr">const</code>. على عكس كل المتغيرات الأخرى، الثوابت لا تستخدم رمز <code>$</code> عند تعريفها أو استخدامها. يمكن الوصول إليها من داخل الصنف وخارجه عبر <code dir="ltr">self::EARLIEST_DATE</code> داخل الصنف، و<code dir="ltr">ClassName::EARLIEST_DATE</code> خارجه.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Example — Class Constant</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+class Artist {
+    const EARLIEST_DATE = 'January 1, 1200';
+
+    // ... باقي الخصائص والدوال
+
+    public function getEarliestAllowedDate() {
+        return self::EARLIEST_DATE;  // الوصول من داخل الصنف
+    }
+}
+
+// الوصول من خارج الصنف:
+echo Artist::EARLIEST_DATE;
+?&gt;</code></pre>
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 3: Object-Oriented Design -->
+<!-- ============================================= -->
+<section id="section-3" class="section">
+  <h2 class="section-title">3. التصميم كائني التوجه <span dir="ltr" class="en">(Object-Oriented Design)</span></h2>
+
+  <h3 id="s3-1">3.1 تغليف البيانات <span dir="ltr" class="en">(Data Encapsulation)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Perhaps the most important advantage to object-oriented design is the possibility of encapsulation, which generally refers to restricting access to an object's internal components. Another way of understanding encapsulation is: it is the hiding of an object's implementation details. A properly encapsulated class will define an interface to the world in the form of its public methods, and leave its data, that is, its properties, hidden (that is, private).</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> ربما تكون أهم ميزة للتصميم كائني التوجه هي إمكانية <strong>التغليف (Encapsulation)</strong>، والذي يشير عمومًا إلى تقييد الوصول إلى المكونات الداخلية للكائن. طريقة أخرى لفهم التغليف: هو إخفاء تفاصيل تنفيذ الكائن. الصنف المُغلَّف بشكل صحيح يُعرّف واجهة للعالم في صورة دواله العامة (public methods)، ويترك بياناته (أي خصائصه) مخفية (أي private).</p>
+
+  <h3 id="s3-2">3.2 دوال الجلب والتعديل <span dir="ltr" class="en">(Getters and Setters)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">If a properly encapsulated class makes its properties private, then how do you access them? Using getters and setters. A getter to return a variable's value is often very straightforward and should not modify the property. Setter methods modify properties, and allow extra logic to be added to prevent properties from being set to strange values.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> إذا كان الصنف المُغلَّف بشكل صحيح يجعل خصائصه خاصة (private)، فكيف تصل إليها؟ باستخدام <strong>دوال الجلب (Getters)</strong> و<strong>دوال التعديل (Setters)</strong>. دالة الجلب التي تُرجع قيمة متغير غالبًا ما تكون واضحة جدًا، ولا يجب أن تُعدّل الخاصية. دوال التعديل تُعدّل الخصائص، وتسمح بإضافة منطق إضافي لمنع ضبط الخصائص على قيم غريبة.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Getter Example</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+public function getFirstName() {
+    return $this-&gt;firstName;
+}
+?&gt;</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Setter Example — with validation</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+public function setBirthDate($birthdate) {
+    // set variable only if passed a valid date string
+    $date = date_create($birthdate);
+    if (! $date) {
+        $this-&gt;birthDate = $this-&gt;getEarliestAllowedDate();
+    } else {
+        $this-&gt;birthDate = $date;
+    }
+}
+?&gt;</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 10.7 — Using an encapsulated class</p>
+<pre class="code-block"><code dir="ltr">&lt;html&gt;
+&lt;body&gt;
+&lt;h2&gt;Tester for Artist class&lt;/h2&gt;
+&lt;?php
+// first must include the class definition
+include 'Artist.class.php';
+
+// now create one instance of the Artist class
+$picasso = new Artist("Pablo", "Picasso", "Malaga", "Oct 25,1881", "Apr 8,1973");
+
+// output some of its fields to test the getters
+echo $picasso-&gt;getLastName() . ' ';
+echo date_format($picasso-&gt;getBirthDate(), 'd M Y') . ' to ';
+echo date_format($picasso-&gt;getDeathDate(), 'd M Y') . '&lt;hr&gt;';
+
+// create another instance and test it
+$dali = new Artist("Salvador", "Dali", "Figures", "May 11,1904", "January 23,1989");
+echo $dali-&gt;getLastName() . ' ';
+echo date_format($dali-&gt;getBirthDate(), 'd M Y') . ' to ';
+echo date_format($dali-&gt;getDeathDate(), 'd M Y') . '&lt;hr&gt;';
+
+// test the output method
+echo $picasso-&gt;outputAsTable();
+
+// finally test the static method
+echo '&lt;hr&gt;';
+echo 'Number of Instantiated artists: ' . Artist::getArtistCount();
+?&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </div>
+
+  <h3 id="s3-3">3.3 الوراثة <span dir="ltr" class="en">(Inheritance)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Inheritance enables you to create new PHP classes that reuse, extend, and modify the behavior that is defined in another PHP class. A class that is inheriting from another class is said to be a <strong>subclass</strong> or a <strong>derived class</strong>. The class that is being inherited from is typically called a <strong>superclass</strong> or a <strong>base class</strong>. A PHP class is defined as a subclass by using the <code>extends</code> keyword.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> الوراثة تتيح لك إنشاء أصناف PHP جديدة تُعيد استخدام وتوسّع وتعدّل السلوك المُعرَّف في صنف PHP آخر. الصنف الذي يرث من صنف آخر يُسمى <strong>صنفًا فرعيًا (Subclass)</strong> أو <strong>صنفًا مشتقًا (Derived Class)</strong>. الصنف الذي يورث منه يُسمى عادةً <strong>الصنف الأعلى (Superclass)</strong> أو <strong>الصنف الأساسي (Base Class)</strong>. يُعرَّف صنف PHP كصنف فرعي باستخدام الكلمة المفتاحية <code dir="ltr">extends</code>.</p>
+
+<pre class="code-block"><code dir="ltr">&lt;?php
+class Painting extends Art {
+    // ...
+}
+?&gt;</code></pre>
+
+  <h4>UML Inheritance Diagram</h4>
+
+  <p>يوضح مخطط UML أن <code dir="ltr">Painting</code> يرث من <code dir="ltr">Art</code> — يُشار إلى الوراثة بسهم مثلث مفتوح الرأس يشير من الابن إلى الأب:</p>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>يملك</th>
+          <th>يمتد من</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td dir="ltr"><strong>Art</strong></td>
+          <td dir="ltr">− name<br>− artist<br>− createdYear<br>+ __toString()<br>+ getName()<br>+ setName()</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>Painting</strong></td>
+          <td dir="ltr">− medium<br>+ getMedium()<br>+ setMedium()</td>
+          <td>extends Art</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Example usage</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+$p = new Painting();
+echo $p-&gt;getName();    // defined in base class (Art)
+echo $p-&gt;getMedium();  // defined in subclass (Painting)
+?&gt;</code></pre>
+  </div>
+
+  <h3 id="s3-4">3.4 مستوى الوصول المحمي <span dir="ltr" class="en">(Protected Access Modifier)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">If you want a member to be available to subclasses but not anywhere else, you can use the <code>protected</code> access modifier.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> إذا أردت أن يكون عضو متاحًا للأصناف الفرعية ولكن ليس في أي مكان آخر، يمكنك استخدام معدّل الوصول <code dir="ltr">protected</code>.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Example — protected methods</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+class Art {
+    private $name;
+    private $original;
+
+    public  function getName()      { return $this-&gt;name; }
+    public  function setName($n)    { $this-&gt;name = $n; }
+    protected function getOriginal() { return $this-&gt;original; }
+    protected function setOriginal($o) { $this-&gt;original = $o; }
+    private function init()        { /* ... */ }
+}
+?&gt;
+
+// من صفحة أو صنف آخر:
+$p = new Painting();
+$a = new Art();
+
+$w = $p-&gt;getOriginal();   // ❌ غير مسموح (protected - من خارج الوراثة)
+$y = $a-&gt;getOriginal();   // ❌ غير مسموح (protected - من خارج الصنف)</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملخص مستويات الوصول الثلاثة:</p>
+    <ul class="bullets">
+      <li><strong><code dir="ltr">public</code>:</strong> متاح من أي مكان.</li>
+      <li><strong><code dir="ltr">protected</code>:</strong> متاح من داخل الصنف والأصناف المورثة فقط.</li>
+      <li><strong><code dir="ltr">private</code>:</strong> متاح من داخل الصنف نفسه فقط.</li>
+    </ul>
+  </div>
+</section>
+<!-- ============================================= -->
+<!-- Section 3 (تكملة): Polymorphism + Interfaces + Abstract + Extended -->
+<!-- ============================================= -->
+<section id="section-3b" class="section">
+  <h3 id="s3-5">3.5 تعدد الأشكال <span dir="ltr" class="en">(Polymorphism)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Polymorphism is the notion that an object can in fact be multiple things at the same time. Consider an instance of a Painting object named <code>$guernica</code> created as follows: <code>$guernica = new Painting("1937", $picasso, "Guernica", "Oil on canvas");</code>. The variable <code>$guernica</code> is both a Painting object and an Art object due to its inheritance.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> تعدد الأشكال (Polymorphism) هو فكرة أن الكائن يمكن أن يكون في الحقيقة عدة أشياء في نفس الوقت. اعتبر نسخة من كائن <code dir="ltr">Painting</code> باسم <code dir="ltr">$guernica</code> منشأة كالتالي: <code dir="ltr">$guernica = new Painting("1937", $picasso, "Guernica", "Oil on canvas");</code>. المتغير <code dir="ltr">$guernica</code> هو في نفس الوقت كائن <code dir="ltr">Painting</code> وكائن <code dir="ltr">Art</code> بسبب الوراثة.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Polymorphism in action</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+$picasso = new Artist("Pablo", "Picasso", "Malaga", "Oct 25, 1881", "Apr 8, 1973");
+
+// create the paintings
+$guernica = new Painting("1937", "Picasso", "Guernica", "Oil on canvas");
+$chicago  = new Sculpture("1967", "Picasso", "Chicago", 454);
+
+// create an array of art
+$works = array();
+$works[0] = $guernica;
+$works[1] = $chicago;
+
+// to test polymorphism, loop through art array
+foreach ($works as $art) {
+    // the beauty of polymorphism:
+    // the appropriate __toString() method will be called!
+    echo $art;
+}
+?&gt;</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 جوهر تعدد الأشكال:</p>
+    <p>هذا يعني أن كائنين من نفس النوع يمكن أن يكون لهما تطبيقات مختلفة بنفس الاسم، كما في مثال <code dir="ltr">Painting</code> / <code dir="ltr">Sculpture</code> — كلاهما يرث من <code dir="ltr">Art</code>، وكلاهما يُعيد تعريف <code dir="ltr">__toString()</code> بطريقته الخاصة.</p>
+  </div>
+
+  <h3 id="s3-6">3.6 الواجهات <span dir="ltr" class="en">(Interfaces)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">An object interface is a way of defining a formal list of methods that a class must implement without specifying their implementation. Interfaces are defined using the <code>interface</code> keyword, and look similar to standard PHP classes, except an interface contains no properties and its methods do not have method bodies defined.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> واجهة الكائن (Interface) هي طريقة لتعريف قائمة رسمية بالدوال التي يجب على الصنف تطبيقها دون تحديد تنفيذها. تُعرَّف الواجهات باستخدام الكلمة المفتاحية <code dir="ltr">interface</code>، وتبدو مشابهة لأصناف PHP القياسية، إلا أن الواجهة لا تحتوي على خصائص، ودوالها لا تحتوي على أجسام محددة.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Defining the interface</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+interface Viewable {
+    public function getSize();
+    public function getPNG();
+}
+?&gt;</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Implementing the interface</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+class Painting extends Art implements Viewable {
+    public function getPNG() {
+        // return image data would go here
+    }
+    public function getSize() {
+        // return image size would go here
+    }
+}
+?&gt;</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 ملاحظة:</p>
+    <p>عندما يُقال إن الصنف <code dir="ltr">Painting</code> يُنفّذ واجهة <code dir="ltr">Viewable</code>، فهذا يعني أنه <strong>يجب</strong> أن يوفّر تطبيقات لدوال <code dir="ltr">getSize()</code> و<code dir="ltr">getPNG()</code>.</p>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Listing 10.11 — Painting class implementing an interface</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+interface Viewable {
+    public function getSize();
+    public function getPNG();
+}
+
+class Painting extends Art implements Viewable {
+    public function getPNG() {
+        // return image data would go here ...
+    }
+    public function getSize() {
+        // return image size would go here ...
+    }
+}
+?&gt;</code></pre>
+  </div>
+
+  <h4>مثال موسّع على الواجهات</h4>
+
+  <p>يوضح المخطط التالي أن:</p>
+  <ul class="bullets">
+    <li><strong>Viewable</strong> واجهة تُطبقها <code dir="ltr">Painting</code> و<code dir="ltr">Movie</code> — فيها <code dir="ltr">getSize()</code> و<code dir="ltr">getPNG()</code>.</li>
+    <li><strong>Playable</strong> واجهة تُطبقها <code dir="ltr">Movie</code> و<code dir="ltr">Song</code> — فيها <code dir="ltr">getLength()</code> و<code dir="ltr">getMedia()</code>.</li>
+    <li>كلها ترث من الصنف الأساسي <code dir="ltr">Art</code>.</li>
+  </ul>
+
+  <h3 id="s3-7">3.7 الأصناف المجرّدة <span dir="ltr" class="en">(Abstract Classes)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">An abstract class is a class that contains functionality required by all other classes. Abstract classes cannot be instantiated directly, and force subclasses to implement their abstract methods.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> الصنف المجرّد (Abstract Class) هو صنف يحتوي على وظائف تتطلبها جميع الأصناف الأخرى. لا يمكن إنشاء كائنات من الأصناف المجرّدة مباشرة، وتُجبر الأصناف الفرعية على تطبيق دوالها المجرّدة.</p>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Extended Example — Abstract Class Art</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+/**
+ * The abstract class that contains functionality
+ * required by all types of Art
+ */
+abstract class Art {
+    private $name;
+    private $artist;
+    private $yearCreated;
+
+    // ... constructor, getters, setters
+
+    abstract public function __toString();
+}
+?&gt;</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Painting — requires a "medium"</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+class Painting extends Art {
+    private $medium;
+
+    // ... constructor, getters, setters
+
+    public function __toString() {
+        return parent::__toString() . ", Medium: " . $this-&gt;getMedium();
+    }
+}
+?&gt;</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Sculpture — has weight</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+class Sculpture extends Art {
+    private $weight;
+
+    // ... constructor, getters, setters
+
+    public function __toString() {
+        return parent::__toString() . ", Weight: " . $this-&gt;getWeight() . "kg";
+    }
+}
+?&gt;</code></pre>
+  </div>
+
+  <h3 id="s3-8">3.8 المثال الموسّع الشامل <span dir="ltr" class="en">(Extended Example)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Using the classes</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+$picasso  = new Artist("Pablo", "Picasso", "Malaga", "May 11, 1904", "Apr 8, 1973");
+$guernica = new Painting("1937", "picasso", "Guernica", "Oil on canvas");
+$woman    = new Sculpture("1909", "picasso", "Head of a Woman", 30.5);
+?&gt;
+
+&lt;h2&gt;Paintings&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;Use the __toString() methods&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;?php echo $guernica; ?&gt;&lt;/p&gt;
+
+&lt;h2&gt;Sculptures&lt;/h2&gt;
+&lt;p&gt;&lt;?php echo $woman; ?&gt;&lt;/p&gt;</code></pre>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 الخلاصة:</p>
+    <p>هذا المثال يجمع كل مفاهيم الشابتر: الأصناف، الوراثة، التجريد، الواجهات، تعدد الأشكال، والتغليف.</p>
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 4: Definitions -->
+<!-- ============================================= -->
+<section id="section-4" class="section">
+  <h2 class="section-title">4. التعاريف الأساسية <span dir="ltr" class="en">(Definitions)</span></h2>
+
+  <nav class="definitions-nav" aria-label="التنقل بين التعاريف">
+    <p class="definitions-nav-title">⚡ تنقل سريع:</p>
+    <a href="#def-1">1. OOP</a>
+    <a href="#def-2">2. Class</a>
+    <a href="#def-3">3. Object</a>
+    <a href="#def-4">4. Property</a>
+    <a href="#def-5">5. Method</a>
+    <a href="#def-6">6. Instance</a>
+    <a href="#def-7">7. Constructor</a>
+    <a href="#def-8">8. Visibility</a>
+    <a href="#def-9">9. $this</a>
+    <a href="#def-10">10. Encapsulation</a>
+    <a href="#def-11">11. Inheritance</a>
+    <a href="#def-12">12. Polymorphism</a>
+    <a href="#def-13">13. Abstract Class</a>
+    <a href="#def-14">14. Interface</a>
+    <a href="#def-15">15. UML</a>
+  </nav>
+
+  <div class="definitions-grid">
+
+    <div class="term-card" id="def-1">
+      <h3 class="term-name">1. Object-Oriented Programming (OOP)</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Object-Oriented Programming</dd>
+        <dt>النطق بالعربية</dt><dd>أُوبْجِكْت أُورْيَنْتِدْ بْرُوجْرَامِينْج</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A programming paradigm organized around objects containing data and code rather than logic and functions.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ بْرُوجْرَامِينْج بَارَادَايْم أُورْغَنَايْزْد أَرَاوْنْد أُوبْجِكْتْس كُونْتَيْنِنْغ دَاتَا آند كُود رَاذَر ذَان لُوجِك آند فَانْكْشِنْز.</dd>
+        <dt>الترجمة العربية</dt><dd>البرمجة كائنية التوجه.</dd>
+        <dt>الشرح المبسط</dt><dd>نمط برمجي ينظم الكود في كائنات تجمع البيانات والسلوك.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-2">
+      <h3 class="term-name">2. Class</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Class</dd>
+        <dt>النطق بالعربية</dt><dd>كْلَاس</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A user-defined blueprint or template that defines the properties and methods for creating objects.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ يُوزَرْ-دِفَايْنْد بْلُو-بْرِنْت أُور تِمْبلِت ذَت دِفَايْنْز ذا بْرُوبَرْتِيز آند مِيثُودْز فُور كْرِيَيِتِنْغ أُوبْجِكْتْس.</dd>
+        <dt>الترجمة العربية</dt><dd>الصنف / الفئة.</dd>
+        <dt>الشرح المبسط</dt><dd>قالب يحدد خصائص ودوال الكائنات التي ستُنشأ منه.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-3">
+      <h3 class="term-name">3. Object</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Object</dd>
+        <dt>النطق بالعربية</dt><dd>أُوبْجِكْت</dd>
+        <dt>Definition in English</dt><dd dir="ltr">An instance of a class loaded into memory with actual data values assigned to its properties.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أن إنْسْتَانْس أوف أ كْلَاس لُودِد إنْتو مِيمُورِي وِذ أكْشُوَال دَاتَا فَالْيُوز أسَايْنْد تو إِتْس بْرُوبَرْتِيز.</dd>
+        <dt>الترجمة العربية</dt><dd>الكائن.</dd>
+        <dt>الشرح المبسط</dt><dd>نسخة حية من الصنف محمّلة في الذاكرة بقيم فعلية.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-4">
+      <h3 class="term-name">4. Property</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Property (Attribute)</dd>
+        <dt>النطق بالعربية</dt><dd>بْرُوبَرْتِي</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A variable declared inside a class that represents the state or data of an object.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ فَارْيَابْل دِكْلَيَرْد إنْسَايْد أ كْلَاس ذَت رِبْرِزِنْتْس ذا سْتَيْت أُور دَاتَا أوف أن أُوبْجِكْت.</dd>
+        <dt>الترجمة العربية</dt><dd>الخاصية / السمة.</dd>
+        <dt>الشرح المبسط</dt><dd>متغير داخل الصنف يخزّن حالة الكائن.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-5">
+      <h3 class="term-name">5. Method</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Method</dd>
+        <dt>النطق بالعربية</dt><dd>مِيثُودْ</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A function declared within a class that defines a behavior or action an object can perform.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ فَانْكْشِن دِكْلَيَرْد وِيذِن أ كْلَاس ذَت دِفَايْنْز أ بِهَيْفْيُور أُور أكْشِن أن أُوبْجِكْت كَان بِرْفُورْم.</dd>
+        <dt>الترجمة العربية</dt><dd>الدالة / الأسلوب.</dd>
+        <dt>الشرح المبسط</dt><dd>دالة داخل الصنف تنفذ سلوكًا معينًا.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-6">
+      <h3 class="term-name">6. Instance</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Instance</dd>
+        <dt>النطق بالعربية</dt><dd>إنْسْتَانْس</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A concrete occurrence of an object created from a class in memory.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ كُونْكْرِيت أوكَرَنْس أوف أن أُوبْجِكْت كْرِيَيِتِد فروم أ كْلَاس إن مِيمُورِي.</dd>
+        <dt>الترجمة العربية</dt><dd>النسخة التجسيدية.</dd>
+        <dt>الشرح المبسط</dt><dd>الكائن الحقيقي المجسد في الذاكرة.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-7">
+      <h3 class="term-name">7. Constructor</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Constructor</dd>
+        <dt>النطق بالعربية</dt><dd>كُونْسْتْرَكْتُرْ</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A magic method automatically called upon object creation (new) to initialize object properties.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ مَاجِك مِيثُود أوتُومَاتِكْلِي كُولْد أبُون أُوبْجِكْت كْرِيِيشِن (نيو) تو إِنِيشَالايز أُوبْجِكْت بْرُوبَرْتِيز.</dd>
+        <dt>الترجمة العربية</dt><dd>دالة البناء.</dd>
+        <dt>الشرح المبسط</dt><dd>دالة تُنفذ تلقائيًا عند إنشاء الكائن لتهيئته.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-8">
+      <h3 class="term-name">8. Visibility (Access Modifiers)</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Visibility</dd>
+        <dt>النطق بالعربية</dt><dd>فِيزِيبِيلِيتِي</dd>
+        <dt>Definition in English</dt><dd dir="ltr">Modifiers (public, protected, private) that restrict access permissions to class properties and methods.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>مُودِفَايَرْز (بَابْلِك، بْرُوتِكْتِد، بْرَايْفِت) ذَت رِسْتْرِكْت أكْسِس بِرْمِشِنْز تو كْلَاس بْرُوبَرْتِيز آند مِيثُودْز.</dd>
+        <dt>الترجمة العربية</dt><dd>مستويات الظهور.</dd>
+        <dt>الشرح المبسط</dt><dd>كلمات تحدد من يمكنه الوصول لعضو الصنف.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-9">
+      <h3 class="term-name">9. $this Pseudo-variable</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">$this</dd>
+        <dt>النطق بالعربية</dt><dd>دُولَار ذِيس</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A pseudo-variable that represents a reference to the current calling object within an object context.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ سُودُو-فَارْيَابْل ذَت رِبْرِزِنْتْس أ رِفْرِنْس تو ذا كَرِنْت كُولِنْغ أُوبْجِكْت وِيذِن أن أُوبْجِكْت كُونْتَكْسْت.</dd>
+        <dt>الترجمة العربية</dt><dd>المتغير المرجعي $this.</dd>
+        <dt>الشرح المبسط</dt><dd>متغير داخلي يشير إلى الكائن الحالي.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-10">
+      <h3 class="term-name">10. Encapsulation</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Encapsulation</dd>
+        <dt>النطق بالعربية</dt><dd>إنْكَابْسُولِيشِن</dd>
+        <dt>Definition in English</dt><dd dir="ltr">Bundling data and methods within a class while restricting direct access using private/protected modifiers.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>بَانْدْلِنْغ دَاتَا آند مِيثُودْز وِيذِن أ كْلَاس وَايْل رِسْتْرِكْتِنْغ دَايْرِكْت أكْسِس يُوزِنْغ بْرَايْفِت/بْرُوتِكْتِد مُودِفَايَرْز.</dd>
+        <dt>الترجمة العربية</dt><dd>التغليف / كبسلة البيانات.</dd>
+        <dt>الشرح المبسط</dt><dd>حماية البيانات بحجب الوصول المباشر لها.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-11">
+      <h3 class="term-name">11. Inheritance (extends)</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Inheritance</dd>
+        <dt>النطق بالعربية</dt><dd>إنْهِيرِيتَانْس</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A mechanism allowing a child class to derive and extend properties and methods from a parent class using extends.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ مِكَانِيزْم أَلَاوِنْغ أ تشَايْلْد كْلَاس تو دِرَايْف آند إِكْسْتِنْد بْرُوبَرْتِيز آند مِيثُودْز فروم أ بَارِنْت كْلَاس يُوزِنْغ إِكْسْتِنْدْز.</dd>
+        <dt>الترجمة العربية</dt><dd>الوراثة.</dd>
+        <dt>الشرح المبسط</dt><dd>تمكين صنف من إعادة استخدام خصائص ودوال صنف آخر.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-12">
+      <h3 class="term-name">12. Polymorphism</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Polymorphism</dd>
+        <dt>النطق بالعربية</dt><dd>بُولِي مُورْفِيزْم</dd>
+        <dt>Definition in English</dt><dd dir="ltr">The ability of different child classes to redefine inherited methods to provide specific behaviors.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>ذا أبِيلِيتِي أوف دِفْرِنْت تشَايْلْد كْلَاسِز تو رِيدِفَايْن إنْهِيرِتِد مِيثُودْز تو بْرُوفَايْد سْبِسِفِك بِهَيْفْيُورْز.</dd>
+        <dt>الترجمة العربية</dt><dd>تعدد الأشكال.</dd>
+        <dt>الشرح المبسط</dt><dd>قدرة الأصناف الفرعية على إعادة تعريف الدوال الموروثة.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-13">
+      <h3 class="term-name">13. Abstract Class (abstract)</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Abstract Class</dd>
+        <dt>النطق بالعربية</dt><dd>أَبْسْتْرَاكْت كْلَاس</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A class that cannot be instantiated directly and forces child classes to implement its abstract methods.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ كْلَاس ذَت كَانُوت بِ إنْسْتَانْشِيَيتِد دَايْرِكْتْلِي آند فُورْسِز تشَايْلْد كْلَاسِز تو إِمْبلِمِنْت إِتْس أَبْسْتْرَاكْت مِيثُودْز.</dd>
+        <dt>الترجمة العربية</dt><dd>الصنف المجرّد.</dd>
+        <dt>الشرح المبسط</dt><dd>صنف لا يمكن إنشاء كائنات منه مباشرة.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-14">
+      <h3 class="term-name">14. Interface (implements)</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Interface</dd>
+        <dt>النطق بالعربية</dt><dd>إنْتَرْفِيس</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A contract that specifies methods a class must implement without defining their actual handling code.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ كُونْتْرَاكْت ذَت سْبِسِفَايْز مِيثُودْز أ كْلَاس مَاسْت إِمْبلِمِنْت وِيذَاوتْ دِفَايْنِنْغ ذَير أكْشُوَال هَانْدْلِنْغ كُود.</dd>
+        <dt>الترجمة العربية</dt><dd>الواجهة.</dd>
+        <dt>الشرح المبسط</dt><dd>عقد يحدد دوالاً يجب على الصنف تطبيقها.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-15">
+      <h3 class="term-name">15. UML (Unified Modelling Language)</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">UML</dd>
+        <dt>النطق بالعربية</dt><dd>يُو-إم-إل</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A standard diagramming notation for object-oriented design, used to describe classes, objects, properties, methods, and relationships.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ سْتَنْدَرْد دَايَاغْرَامِينْغ نُوتِيشِن فُور أُوبْجِكْت-أُورْيَنْتِد دِيزَايْن، يُوزْد تو دِسْكْرَايْب كْلَاسِز، أُوبْجِكْتْس، بْرُوبَرْتِيز، مِيثُودْز، آند رِيلِيشِنْشِبْز.</dd>
+        <dt>الترجمة العربية</dt><dd>لغة النمذجة الموحدة.</dd>
+        <dt>الشرح المبسط</dt><dd>لغة رسومية قياسية لتصميم البرمجيات كائنية التوجه.</dd>
+      </dl>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 5: Comparison Tables -->
+<!-- ============================================= -->
+<section id="section-5" class="section">
+  <h2 class="section-title">5. جداول المقارنة <span dir="ltr" class="en">(Comparison Tables)</span></h2>
+
+  <h3>5.1 Class vs Object</h3>
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>وجه المقارنة</th>
+          <th>Class</th>
+          <th>Object</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>المفهوم</strong></td><td>قالب نظري</td><td>كيان حقيقي في الذاكرة</td></tr>
+        <tr><td><strong>الذاكرة</strong></td><td>لا يحجز ذاكرة</td><td>يحجز مساحة بقيم فعلية</td></tr>
+        <tr><td><strong>آلية الإنشاء</strong></td><td>يُعرّف بـ <code>class</code></td><td>يُنشأ بـ <code>new</code></td></tr>
+        <tr><td><strong>العدد</strong></td><td>مرة واحدة في السكريبت</td><td>عدد لا نهائي</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>5.2 Property vs Method</h3>
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>وجه المقارنة</th>
+          <th>Property</th>
+          <th>Method</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>الهدف</strong></td><td>تخزين بيانات</td><td>تنفيذ سلوك</td></tr>
+        <tr><td><strong>التعريف</strong></td><td>متغير + مستوى ظهور</td><td>دالة <code>function</code></td></tr>
+        <tr><td><strong>الاستدعاء</strong></td><td>بدون أقواس</td><td>بالأقواس</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>5.3 Public vs Protected vs Private</h3>
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>المستوى</th>
+          <th>داخل الصنف</th>
+          <th>الأصناف المورثة</th>
+          <th>خارج الصنف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td dir="ltr"><strong>public</strong></td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td dir="ltr"><strong>protected</strong></td><td>✅</td><td>✅</td><td>❌</td></tr>
+        <tr><td dir="ltr"><strong>private</strong></td><td>✅</td><td>❌</td><td>❌</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>5.4 Procedural vs OOP</h3>
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>وجه المقارنة</th>
+          <th>Procedural</th>
+          <th>OOP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>المركز</strong></td><td>الدوال والخطوات</td><td>الكائنات</td></tr>
+        <tr><td><strong>حماية البيانات</strong></td><td>ضعيفة</td><td>قوية (Encapsulation)</td></tr>
+        <tr><td><strong>إعادة الاستخدام</strong></td><td>صعبة</td><td>سهلة (Inheritance)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>5.5 Abstract Class vs Interface</h3>
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>وجه المقارنة</th>
+          <th>Abstract Class</th>
+          <th>Interface</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>الخصائص</strong></td><td>يمكن أن تحتوي</td><td>لا تحتوي</td></tr>
+        <tr><td><strong>الدوال المُنفّذة</strong></td><td>يمكن</td><td>لا (فقط تعريف)</td></tr>
+        <tr><td><strong>الوراثة</strong></td><td><code>extends</code> (واحد فقط)</td><td><code>implements</code> (متعدد)</td></tr>
+        <tr><td><strong>الإنشاء</strong></td><td>❌ مباشرة</td><td>❌ كليًا</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>5.6 Server Objects vs Desktop Objects</h3>
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>وجه المقارنة</th>
+          <th>Desktop</th>
+          <th>Server (PHP)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>عمر الكائن</strong></td><td>طالما التطبيق يعمل</td><td>مع كل HTTP Request</td></tr>
+        <tr><td><strong>إعادة الإنشاء</strong></td><td>مرة واحدة</td><td>مع كل طلب</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 6: Interactive Quiz -->
+<!-- ============================================= -->
+<section id="section-6" class="section">
+  <h2 class="section-title">6. اختبار تفاعلي <span dir="ltr" class="en">(Interactive Quiz — 20 Questions)</span></h2>
+
+  <div class="note-box">
+    <p class="note-label">📝 تعليمات:</p>
+    <ul class="bullets">
+      <li>عدد الأسئلة: <strong>20</strong> (10 اختيار من متعدد + 10 صح/خطأ).</li>
+      <li>أجب عن جميع الأسئلة ثم اضغط «إظهار النتيجة».</li>
+    </ul>
+  </div>
+
+  <div id="quiz-container">
+
+    <article class="quiz-question" data-question="mcq-1" data-correct="b">
+      <p class="quiz-prompt"><strong>س1.</strong> <span dir="ltr">Which keyword creates an object from a class in PHP?</span></p>
+      <p class="quiz-ar">أي كلمة تُنشئ كائنًا من صنف في PHP؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q1" value="a"> <span dir="ltr">A) create</span></label></li>
+        <li><label><input type="radio" name="q1" value="b"> <span dir="ltr">B) new</span></label></li>
+        <li><label><input type="radio" name="q1" value="c"> <span dir="ltr">C) instance</span></label></li>
+        <li><label><input type="radio" name="q1" value="d"> <span dir="ltr">D) object</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — new." data-wrong-feedback="❌ خطأ — الصحيح: new."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-2" data-correct="c">
+      <p class="quiz-prompt"><strong>س2.</strong> <span dir="ltr">What is the name of the constructor method in PHP?</span></p>
+      <p class="quiz-ar">ما اسم الدالة البنائية في PHP؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q2" value="a"> <span dir="ltr">A) __init()</span></label></li>
+        <li><label><input type="radio" name="q2" value="b"> <span dir="ltr">B) __start()</span></label></li>
+        <li><label><input type="radio" name="q2" value="c"> <span dir="ltr">C) __construct()</span></label></li>
+        <li><label><input type="radio" name="q2" value="d"> <span dir="ltr">D) constructor()</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — __construct()." data-wrong-feedback="❌ خطأ — الصحيح: __construct()."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-3" data-correct="a">
+      <p class="quiz-prompt"><strong>س3.</strong> <span dir="ltr">Which visibility level makes a member accessible only within the class itself?</span></p>
+      <p class="quiz-ar">أي مستوى وصول يجعل العضو متاحًا فقط داخل الصنف نفسه؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q3" value="a"> <span dir="ltr">A) private</span></label></li>
+        <li><label><input type="radio" name="q3" value="b"> <span dir="ltr">B) public</span></label></li>
+        <li><label><input type="radio" name="q3" value="c"> <span dir="ltr">C) protected</span></label></li>
+        <li><label><input type="radio" name="q3" value="d"> <span dir="ltr">D) static</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — private." data-wrong-feedback="❌ خطأ — الصحيح: private."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-4" data-correct="d">
+      <p class="quiz-prompt"><strong>س4.</strong> <span dir="ltr">Which keyword is used to inherit from a parent class?</span></p>
+      <p class="quiz-ar">أي كلمة تُستخدم للوراثة من صنف أب؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q4" value="a"> <span dir="ltr">A) implements</span></label></li>
+        <li><label><input type="radio" name="q4" value="b"> <span dir="ltr">B) inherits</span></label></li>
+        <li><label><input type="radio" name="q4" value="c"> <span dir="ltr">C) extends from</span></label></li>
+        <li><label><input type="radio" name="q4" value="d"> <span dir="ltr">D) extends</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — extends." data-wrong-feedback="❌ خطأ — الصحيح: extends."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-5" data-correct="b">
+      <p class="quiz-prompt"><strong>س5.</strong> <span dir="ltr">What does $this refer to in PHP?</span></p>
+      <p class="quiz-ar">إلى ماذا يشير $this في PHP؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q5" value="a"> <span dir="ltr">A) The parent class</span></label></li>
+        <li><label><input type="radio" name="q5" value="b"> <span dir="ltr">B) The current object instance</span></label></li>
+        <li><label><input type="radio" name="q5" value="c"> <span dir="ltr">C) A static variable</span></label></li>
+        <li><label><input type="radio" name="q5" value="d"> <span dir="ltr">D) The global scope</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — الكائن الحالي." data-wrong-feedback="❌ خطأ — الصحيح: B."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-6" data-correct="c">
+      <p class="quiz-prompt"><strong>س6.</strong> <span dir="ltr">What is encapsulation?</span></p>
+      <p class="quiz-ar">ما هو التغليف (Encapsulation)؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q6" value="a"> <span dir="ltr">A) Creating multiple classes</span></label></li>
+        <li><label><input type="radio" name="q6" value="b"> <span dir="ltr">B) Loading objects into memory</span></label></li>
+        <li><label><input type="radio" name="q6" value="c"> <span dir="ltr">C) Hiding internal details and restricting access to properties</span></label></li>
+        <li><label><input type="radio" name="q6" value="d"> <span dir="ltr">D) Copying objects from one class to another</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — إخفاء التفاصيل الداخلية." data-wrong-feedback="❌ خطأ — الصحيح: C."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-7" data-correct="a">
+      <p class="quiz-prompt"><strong>س7.</strong> <span dir="ltr">How do you access a static property in PHP from outside the class?</span></p>
+      <p class="quiz-ar">كيف تصل إلى خاصية ساكنة في PHP من خارج الصنف؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q7" value="a"> <span dir="ltr">A) ClassName::$propertyName</span></label></li>
+        <li><label><input type="radio" name="q7" value="b"> <span dir="ltr">B) $object-&gt;propertyName</span></label></li>
+        <li><label><input type="radio" name="q7" value="c"> <span dir="ltr">C) static::propertyName</span></label></li>
+        <li><label><input type="radio" name="q7" value="d"> <span dir="ltr">D) global::$propertyName</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — ClassName::$property." data-wrong-feedback="❌ خطأ — الصحيح: A."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-8" data-correct="d">
+      <p class="quiz-prompt"><strong>س8.</strong> <span dir="ltr">Which keyword is used to declare a class constant?</span></p>
+      <p class="quiz-ar">أي كلمة تُستخدم لتعريف ثابت صنف؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q8" value="a"> <span dir="ltr">A) define</span></label></li>
+        <li><label><input type="radio" name="q8" value="b"> <span dir="ltr">B) static</span></label></li>
+        <li><label><input type="radio" name="q8" value="c"> <span dir="ltr">C) final</span></label></li>
+        <li><label><input type="radio" name="q8" value="d"> <span dir="ltr">D) const</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — const." data-wrong-feedback="❌ خطأ — الصحيح: const."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-9" data-correct="b">
+      <p class="quiz-prompt"><strong>س9.</strong> <span dir="ltr">Which keyword is used to implement an interface?</span></p>
+      <p class="quiz-ar">أي كلمة تُستخدم لتطبيق واجهة (interface)؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q9" value="a"> <span dir="ltr">A) extends</span></label></li>
+        <li><label><input type="radio" name="q9" value="b"> <span dir="ltr">B) implements</span></label></li>
+        <li><label><input type="radio" name="q9" value="c"> <span dir="ltr">C) interface</span></label></li>
+        <li><label><input type="radio" name="q9" value="d"> <span dir="ltr">D) inherit</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — implements." data-wrong-feedback="❌ خطأ — الصحيح: implements."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-10" data-correct="c">
+      <p class="quiz-prompt"><strong>س10.</strong> <span dir="ltr">Which of the following can be instantiated directly?</span></p>
+      <p class="quiz-ar">أي مما يلي يمكن إنشاء كائن منه مباشرة؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q10" value="a"> <span dir="ltr">A) Abstract class</span></label></li>
+        <li><label><input type="radio" name="q10" value="b"> <span dir="ltr">B) Interface</span></label></li>
+        <li><label><input type="radio" name="q10" value="c"> <span dir="ltr">C) Concrete class</span></label></li>
+        <li><label><input type="radio" name="q10" value="d"> <span dir="ltr">D) Abstract method</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — الصنف العادي (Concrete)." data-wrong-feedback="❌ خطأ — الصحيح: C."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-1" data-correct="true">
+      <p class="quiz-prompt"><strong>س11.</strong> <span dir="ltr">PHP supports multiple inheritance (a class can extend multiple parent classes).</span></p>
+      <p class="quiz-ar">PHP تدعم الوراثة المتعددة (يمكن للصنف أن يرث من عدة أصناف أب).</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q11" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q11" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، وراثة أحادية فقط." data-wrong-feedback="❌ خطأ — الصحيح: خطأ (أحادية فقط)."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-2" data-correct="false">
+      <p class="quiz-prompt"><strong>س12.</strong> <span dir="ltr">A protected member is accessible from outside the class hierarchy.</span></p>
+      <p class="quiz-ar">العضو المحمي (protected) متاح من خارج هرمية الصنف.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q12" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q12" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة." data-wrong-feedback="❌ خطأ — الصحيح: خطأ."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-3" data-correct="true">
+      <p class="quiz-prompt"><strong>س13.</strong> <span dir="ltr">A class is a blueprint; an object is an instance loaded in memory.</span></p>
+      <p class="quiz-ar">الصنف قالب، والكائن نسخة محمّلة في الذاكرة.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q13" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q13" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-4" data-correct="false">
+      <p class="quiz-prompt"><strong>س14.</strong> <span dir="ltr">An abstract class can be instantiated directly using new.</span></p>
+      <p class="quiz-ar">الصنف المجرّد يمكن إنشاء كائن منه مباشرة بـ new.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q14" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q14" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة." data-wrong-feedback="❌ خطأ — الصحيح: خطأ."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-5" data-correct="true">
+      <p class="quiz-prompt"><strong>س15.</strong> <span dir="ltr">Static members are shared by all instances of a class.</span></p>
+      <p class="quiz-ar">الأعضاء الساكنة مشتركة بين جميع كائنات الصنف.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q15" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q15" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-6" data-correct="true">
+      <p class="quiz-prompt"><strong>س16.</strong> <span dir="ltr">An interface can contain properties.</span></p>
+      <p class="quiz-ar">الواجهة يمكن أن تحتوي على خصائص.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q16" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q16" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، الواجهة لا تحتوي على خصائص." data-wrong-feedback="❌ خطأ — الصحيح: خطأ."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-7" data-correct="true">
+      <p class="quiz-prompt"><strong>س17.</strong> <span dir="ltr">In PHP, an object's lifetime on the server is limited to the HTTP request.</span></p>
+      <p class="quiz-ar">في PHP، عمر الكائن على الخادم محدود بطلب HTTP.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q17" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q17" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-8" data-correct="true">
+      <p class="quiz-prompt"><strong>س18.</strong> <span dir="ltr">Getters should not modify the property they return.</span></p>
+      <p class="quiz-ar">دوال الجلب (Getters) لا يجب أن تعدّل الخاصية التي تُرجعها.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q18" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q18" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-9" data-correct="false">
+      <p class="quiz-prompt"><strong>س19.</strong> <span dir="ltr">In UML, the + symbol indicates a private member.</span></p>
+      <p class="quiz-ar">في UML، الرمز + يشير إلى عضو خاص (private).</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q19" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q19" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، + يشير إلى public." data-wrong-feedback="❌ خطأ — الصحيح: خطأ (+ = public)."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-10" data-correct="true">
+      <p class="quiz-prompt"><strong>س20.</strong> <span dir="ltr">Polymorphism allows different child classes to override inherited methods with their own behavior.</span></p>
+      <p class="quiz-ar">تعدد الأشكال يسمح للأصناف الفرعية بتجاوز الدوال الموروثة بسلوكها الخاص.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q20" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q20" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+  </div>
+
+  <div class="quiz-actions">
+    <button id="quizSubmitBtn" class="btn btn-primary" type="button">إظهار النتيجة</button>
+    <button id="quizResetBtn" class="btn" type="button">إعادة المحاولة</button>
+  </div>
+
+  <div id="quizResult" class="quiz-result" aria-live="polite"></div>
+
+</section>
+
+</main>
+
+<footer class="page-footer">
+  <div class="container">
+    <p> المذاكرة الشاملة — <span dir="ltr">osmah</span></p>
+    <p style="font-size:.85rem;color:var(--text-muted);margin-top:6px;">إعداد: osamh almtyl</p>
+  </div>
+</footer>
+<button id="backToTop" class="back-to-top" type="button" aria-label="العودة إلى الأعلى" title="العودة إلى الأعلى">↑</button>
+
+<script src="script.js"></script>
+</body>
+</html>

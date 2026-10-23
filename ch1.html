@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="  Introduction to Server-Side Development with PHP">
+<title> Introduction to Server-Side Development with PHP</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================= -->
+<!-- شريط التنقل الجانبي — أزرار لكل فقرة -->
+<!-- ============================================= -->
+<nav class="side-nav" aria-label="تنقل جانبي بين الفقرات">
+
+  <div class="side-nav-title">📑 الفقرات</div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">1. تطوير جانب الخادم</div>
+    <a href="#s1-1"><span class="nav-num">1.1</span> التعريف الأساسي</a>
+    <a href="#s1-2"><span class="nav-num">1.2</span> سكربت العميل/الخادم</a>
+    <a href="#s1-3"><span class="nav-num">1.3</span> موارد الخادم</a>
+    <a href="#s1-4"><span class="nav-num">1.4</span> تقنيات الويب</a>
+    <a href="#s1-5"><span class="nav-num">1.5</span> مقارنة التقنيات</a>
+    <a href="#s1-6"><span class="nav-num">1.6</span> حصة السوق</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">2. مسؤوليات خادم الويب</div>
+    <a href="#s2-1"><span class="nav-num">2.1</span> المسؤوليات الثماني</a>
+    <a href="#s2-2"><span class="nav-num">2.2</span> LAMP Stack</a>
+    <a href="#s2-3"><span class="nav-num">2.3</span> Apache و Linux</a>
+    <a href="#s2-4"><span class="nav-num">2.4</span> تثبيت LAMP</a>
+    <a href="#s2-5"><span class="nav-num">2.5</span> WampServer</a>
+    <a href="#s2-6"><span class="nav-num">2.6</span> إعدادات XAMPP</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">3. جولة سريعة في PHP</div>
+    <a href="#s3-1"><span class="nav-num">3.1</span> نظرة عامة</a>
+    <a href="#s3-2"><span class="nav-num">3.2</span> وسوم PHP</a>
+    <a href="#s3-3"><span class="nav-num">3.3</span> دمج HTML و PHP</a>
+    <a href="#s3-4"><span class="nav-num">3.4</span> التعليقات</a>
+    <a href="#s3-5"><span class="nav-num">3.5</span> المتغيرات</a>
+    <a href="#s3-6"><span class="nav-num">3.6</span> أنواع البيانات</a>
+    <a href="#s3-7"><span class="nav-num">3.7</span> الثوابت</a>
+    <a href="#s3-8"><span class="nav-num">3.8</span> echo والربط</a>
+    <a href="#s3-9"><span class="nav-num">3.9</span> أمثلة الربط</a>
+    <a href="#s3-10"><span class="nav-num">3.10</span> Escape Sequences</a>
+    <a href="#s3-11"><span class="nav-num">3.11</span> أمثلة الإخراج</a>
+    <a href="#s3-12"><span class="nav-num">3.12</span> PrintF</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">4. تراكيب التحكم</div>
+    <a href="#s4-1"><span class="nav-num">4.1</span> if...else</a>
+    <a href="#s4-2"><span class="nav-num">4.2</span> الصيغة البديلة</a>
+    <a href="#s4-3"><span class="nav-num">4.3</span> switch</a>
+    <a href="#s4-4"><span class="nav-num">4.4</span> while / do-while</a>
+    <a href="#s4-5"><span class="nav-num">4.5</span> for</a>
+    <a href="#s4-6"><span class="nav-num">4.6</span> صيغة بديلة للتحكم</a>
+    <a href="#s4-7"><span class="nav-num">4.7</span> Include Files</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">5. الدوال</div>
+    <a href="#s5-1"><span class="nav-num">5.1</span> مقدمة</a>
+    <a href="#s5-2"><span class="nav-num">5.2</span> صياغة الدوال</a>
+    <a href="#s5-3"><span class="nav-num">5.3</span> بدون قيمة إرجاع</a>
+    <a href="#s5-4"><span class="nav-num">5.4</span> استدعاء الدالة</a>
+    <a href="#s5-5"><span class="nav-num">5.5</span> المعاملات</a>
+    <a href="#s5-6"><span class="nav-num">5.6</span> القيم الافتراضية</a>
+    <a href="#s5-7"><span class="nav-num">5.7</span> Pass by Value</a>
+    <a href="#s5-8"><span class="nav-num">5.8</span> Pass by Reference</a>
+    <a href="#s5-9"><span class="nav-num">5.9</span> Variable Scope</a>
+    <a href="#s5-10"><span class="nav-num">5.10</span> Global Variables</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">6. التعاريف</div>
+    <a href="#section-6"><span class="nav-num">6</span> التعاريف الأساسية</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">7. المقارنات</div>
+    <a href="#s7-1"><span class="nav-num">7.1</span> Client vs Server</a>
+    <a href="#s7-2"><span class="nav-num">7.2</span> Server Tech</a>
+    <a href="#s7-3"><span class="nav-num">7.3</span> Value vs Reference</a>
+    <a href="#s7-4"><span class="nav-num">7.4</span> include vs require</a>
+  </div>
+
+  <div class="side-nav-group">
+    <div class="side-nav-group-title">8. الاختبار</div>
+    <a href="#section-8"><span class="nav-num">8</span> اختبار تفاعلي</a>
+  </div>
+
+</nav>
+
+<header class="page-header">
+  <!-- شريط التنقل العلوي -->
+<nav class="top-nav" aria-label="التنقل بين الشابترات">
+  <div class="top-nav-inner">
+    <a href="index.html" class="top-nav-brand">
+      <span class="brand-icon">📚</span>
+      <span>الفهرس</span>
+    </a>
+
+    <button id="topNavToggle" class="top-nav-toggle" type="button" aria-expanded="false" aria-controls="topNavLinks">
+      <span>☰</span> <span>الشابترات</span>
+    </button>
+
+    <ul class="top-nav-links" id="topNavLinks">
+      <li><a href="index.html"><span class="nav-icon">🏠</span> الرئيسية</a></li>
+      <li><a href="ch1.html" class="active"><span class="nav-icon">📘</span> الشابتر 1</a></li>
+      <li><a href="ch2.html"><span class="nav-icon">📗</span> الشابتر 2</a></li>
+      <li><a href="ch3.html"><span class="nav-icon">📙</span> الشابتر 3</a></li>
+      <li><a href="ch4.html"><span class="nav-icon">📕</span> الشابتر 4</a></li>
+      <li><a href="ch5.html"><span class="nav-icon">📓</span> الشابتر 5</a></li>
+    </ul>
+  </div>
+</nav>
+  <div class="container">
+    <h1 class="page-title"> المذاكرة الشاملة</h1>
+    <p class="page-subtitle">Introduction to Server-Side Development with PHP</p>
+    <p class="page-subtitle-ar">مقدمة في تطوير جانب الخادم بلغة PHP — </p>
+    <div class="toolbar">
+      <button id="themeToggle" class="btn" type="button" aria-label="تبديل الوضع">
+        <span class="icon">🌙</span> <span class="label">الوضع الداكن</span>
+      </button>
+      <button id="printBtn" class="btn" type="button" aria-label="طباعة أو حفظ PDF">
+        <span class="icon">🖨️</span> <span class="label">طباعة / PDF</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="فهرس المحتويات">
+  <div class="container">
+    <h2 class="toc-title">فهرس المحتويات</h2>
+    <ol class="toc-list">
+      <li><a href="#section-1">1. ما هو تطوير جانب الخادم</a></li>
+      <li><a href="#section-2">2. مسؤوليات خادم الويب</a></li>
+      <li><a href="#section-3">3. جولة سريعة في PHP</a></li>
+      <li><a href="#section-4">4. تراكيب التحكم</a></li>
+      <li><a href="#section-5">5. الدوال في PHP</a></li>
+      <li><a href="#section-6">6. التعاريف الأساسية</a></li>
+      <li><a href="#section-7">7. جداول المقارنة</a></li>
+      <li><a href="#section-8">8. اختبار تفاعلي</a></li>
+    </ol>
+  </div>
+</nav>
+
+<main class="container">
+
+<!-- ============================================= -->
+<!-- Section 1 -->
+<!-- ============================================= -->
+<section id="section-1" class="section">
+  <h2 class="section-title">1. ما هو تطوير جانب الخادم <span dir="ltr" class="en">(What is Server-Side Development)</span></h2>
+
+  <h3 id="s1-1">1.1 التعريف الأساسي</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Definition — Original</p>
+    <p dir="ltr">If you have a set of files or a file, you think you should host them on a web server. The basic hosting of your files is achieved through a web server. Server-side development involves the use of a programming technology like PHP or ASP.NET to create scripts (code) that dynamically generate content.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> إذا كانت لديك مجموعة ملفات أو ملف واحد، فأنت تفكر في استضافتها على خادم ويب. الاستضافة الأساسية للملفات تتم عبر خادم الويب. تطوير جانب الخادم يتضمن استخدام تقنية برمجية مثل PHP أو ASP.NET لإنشاء سكربتات (أكواد) تولّد المحتوى ديناميكيًا.</p>
+
+  <h3 id="s1-2">1.2 تنفيذ سكربت العميل مقابل سكربت الخادم <span dir="ltr" class="en">(Client Script vs Server Script)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label">(a) Client Script Execution — تنفيذ سكربت العميل</p>
+    <ol class="steps-list">
+      <li><strong dir="ltr">Request for JavaScript source file</strong> — طلب ملف JavaScript.</li>
+      <li><strong dir="ltr">script.js</strong> — الخادم يُرجع الملف إلى المتصفح.</li>
+      <li><strong dir="ltr">Execute any JavaScript as required</strong> — المتصفح ينفذ كود JavaScript.</li>
+      <li><strong dir="ltr">Display in browser</strong> — النتيجة تُعرض للمستخدم.</li>
+    </ol>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label">(b) Server Script Execution — تنفيذ سكربت الخادم</p>
+    <ol class="steps-list">
+      <li><strong dir="ltr">Request for PHP resource</strong> — طلب مورد PHP.</li>
+      <li><strong dir="ltr">PHP code in requested resource is executed</strong> — كود PHP في المورد المطلوب يُنفَّذ على الخادم.</li>
+      <li><strong dir="ltr">Output from PHP execution</strong> — ناتج تنفيذ PHP يُرجع إلى خادم الويب.</li>
+      <li><strong dir="ltr">Display in browser</strong> — النتيجة تُعرض في المتصفح.</li>
+    </ol>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📌 الفرق الجوهري:</p>
+    <ul class="bullets">
+      <li><strong>Client-side:</strong> الكود يُنفَّذ داخل المتصفح (JavaScript) — يمكن للمستخدم رؤيته وتعديله.</li>
+      <li><strong>Server-side:</strong> الكود يُنفَّذ على الخادم (PHP) — المستخدم يرى النتيجة فقط.</li>
+    </ul>
+  </div>
+
+  <h3 id="s1-3">1.3 موارد سكربت الخادم <span dir="ltr" class="en">(Server-Side Script Resources)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">There are so many tools in your kit. These resources can be categorized as data storage resources, web services, and software applications.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> هناك أدوات كثيرة في صندوق أدواتك. يمكن تصنيف هذه الموارد إلى: موارد تخزين بيانات، وخدمات ويب، وتطبيقات برمجية.</p>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>المورد</th>
+          <th>الوصف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td dir="ltr"><strong>Database</strong></td><td>قاعدة بيانات (تخزين بيانات).</td></tr>
+        <tr><td dir="ltr"><strong>Web service</strong></td><td>خدمة ويب (اتصال بأنظمة خارجية).</td></tr>
+        <tr><td dir="ltr"><strong>Files</strong></td><td>ملفات على الخادم (قراءة/كتابة).</td></tr>
+        <tr><td dir="ltr"><strong>Email</strong></td><td>إرسال بريد إلكتروني.</td></tr>
+        <tr><td dir="ltr"><strong>Other software</strong></td><td>برامج أخرى.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="s1-4">1.4 تقنيات تطوير الويب <span dir="ltr" class="en">(Web Development Technologies)</span></h3>
+
+  <p>يوضح الشابتر مخططًا مفاده أن نفس الصفحة يمكن تنفيذها بتقنيات مختلفة، مثال: <code dir="ltr">vacation.php</code> (PHP) و <code dir="ltr">vacation.aspx</code> (ASP.NET):</p>
+
+  <div class="example-box">
+    <p class="example-label">الخطوات الأربع للتنفيذ</p>
+    <ol class="steps-list">
+      <li><strong dir="ltr">GET /vacation.php (or .aspx)</strong> — طلب من المتصفح إلى خادم الويب.</li>
+      <li><strong dir="ltr">Execute program/script</strong> — الخادم ينفذ السكربت بلغة PHP أو ASP.NET.</li>
+      <li><strong dir="ltr">Program outputs HTML (and possibly JavaScript and CSS)</strong> — الناتج HTML + JS + CSS.</li>
+      <li><strong dir="ltr">Program output is sent back in HTTP response</strong> — الناتج يُرسل للمتصفح كاستجابة HTTP.</li>
+    </ol>
+  </div>
+
+  <h3 id="s1-5">1.5 مقارنة تقنيات جانب الخادم <span dir="ltr" class="en">(Comparing Server-Side Technologies)</span></h3>
+
+  <article class="lesson-card">
+    <h4>ASP (Active Server Pages)</h4>
+    <p dir="ltr"><em>Like PHP, ASP code (using VBScript) can be embedded within HTML. It is interpreted at run time, hence it can be slow compared to other technologies.</em></p>
+    <p><strong>الترجمة:</strong> مثل PHP، يمكن تضمين كود ASP (بلغة VBScript) داخل HTML. يُفسَّر في وقت التشغيل، مما قد يجعله بطيئًا مقارنة بتقنيات أخرى.</p>
+  </article>
+
+  <article class="lesson-card">
+    <h4>ASP.NET</h4>
+    <p dir="ltr"><em>Part of Microsoft's .NET Framework, can use any .NET language (C# common). Uses explicit object-oriented approach. Uses web server controls. Compiled into MSIL (like Java bytecode), then JIT-compiled. Excellent performance but Windows-only.</em></p>
+    <p><strong>الترجمة:</strong> جزء من إطار .NET لمايكروسوفت، يمكنه استخدام أي لغة .NET (C# هي الشائعة). يتبع نهجًا كائني التوجه صريحًا. يستخدم عناصر تحكم خادم الويب. يُجمَّع إلى MSIL (مثل Java bytecode)، ثم يُجمَّع بـ JIT. أداؤه ممتاز لكنه مخصص لـ Windows فقط.</p>
+  </article>
+
+  <article class="lesson-card">
+    <h4>JSP (Java Server Pages)</h4>
+    <p dir="ltr"><em>Uses Java, object-oriented, integrated into J2EE, uses JIT for fast execution, cross-platform. Small web usage but substantial in intranets and large sites.</em></p>
+    <p><strong>الترجمة:</strong> تستخدم Java، كائنية التوجه، مدمجة في بيئة J2EE، تستخدم JIT لتنفيذ سريع، ومتعددة المنصات. استخدامها قليل في الويب العام لكنه كبير في الشبكات الداخلية والمواقع الضخمة.</p>
+  </article>
+
+  <article class="lesson-card">
+    <h4>Node.js</h4>
+    <p dir="ltr"><em>Uses JavaScript on the server side. Developers use a single language for both sides. Unlike others, node.js is its own web server software (no Apache/IIS needed).</em></p>
+    <p><strong>الترجمة:</strong> يستخدم JavaScript على جانب الخادم. المطورون يستخدمون لغة واحدة للجانبين. على عكس التقنيات الأخرى، Node.js خادم ويب بحد ذاته (لا يحتاج Apache أو IIS).</p>
+  </article>
+
+  <article class="lesson-card">
+    <h4>Perl</h4>
+    <p dir="ltr"><em>Used for early server-side development. Excels in text manipulation. Used with CGI (an early standard API).</em></p>
+    <p><strong>الترجمة:</strong> استُخدمت في تطوير الويب المبكر. ممتازة في معالجة النصوص. استُخدمت مع CGI (واجهة برمجية معيارية قديمة للتواصل بين التطبيقات وخوادم الويب).</p>
+  </article>
+
+  <article class="lesson-card">
+    <h4>PHP</h4>
+    <p dir="ltr"><em>Dynamically typed, embedded directly within HTML, supports OOP (classes and inheritance). Compiled into opcodes (like Java bytecode). Originally "Personal Home Pages," now "PHP: Hypertext Processor."</em></p>
+    <p><strong>الترجمة:</strong> ديناميكية النوع، تُدمج مباشرة داخل HTML، تدعم OOP (الأصناف والوراثة). تُجمَّع إلى opcodes (مثل Java bytecode). كانت تعني "Personal Home Pages"، والآن تعني "PHP: Hypertext Processor".</p>
+  </article>
+
+  <article class="lesson-card">
+    <h4>Python</h4>
+    <p dir="ltr"><em>Object-oriented language, used in web frameworks like Django and Pyramid.</em></p>
+    <p><strong>الترجمة:</strong> لغة كائنية التوجه، تُستخدم في أطر تطوير الويب مثل Django و Pyramid.</p>
+  </article>
+
+  <article class="lesson-card">
+    <h4>Ruby on Rails</h4>
+    <p dir="ltr"><em>Web development framework using Ruby. Follows MVC design pattern. Integrates templates and engines to reduce development work.</em></p>
+    <p><strong>الترجمة:</strong> إطار تطوير ويب يستخدم لغة Ruby. يتبع نمط تصميم MVC. يدمج القوالب والمحركات لتقليل جهد التطوير.</p>
+  </article>
+
+  <h3 id="s1-6">1.6 حصة السوق <span dir="ltr" class="en">(Market Share)</span></h3>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>التقنية</th>
+          <th>Top 50 Million Sites</th>
+          <th>Top 10,000 Sites</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td dir="ltr"><strong>PHP</strong></td><td>47%</td><td>39%</td></tr>
+        <tr><td dir="ltr"><strong>ASP.NET</strong></td><td>27%</td><td>38%</td></tr>
+        <tr><td dir="ltr"><strong>JSP</strong></td><td>1.2%</td><td>8%</td></tr>
+        <tr><td dir="ltr"><strong>Ruby</strong></td><td>0.2%</td><td>—</td></tr>
+        <tr><td dir="ltr"><strong>Others</strong></td><td>24%</td><td>10%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-box">
+    <p class="note-label">📊 ملاحظة سريعة:</p>
+    <ul class="bullets">
+      <li>PHP يتصدر في المواقع الكبيرة عمومًا (47%).</li>
+      <li>ASP.NET يتقارب مع PHP في المواقع الأعلى استخدامًا (38% مقابل 39%).</li>
+      <li>JSP منخفض في الويب العام، لكنه قوي في الشبكات الداخلية.</li>
+    </ul>
+  </div>
+</section>
+<!-- ============================================= -->
+<!-- Section 2 -->
+<!-- ============================================= -->
+<section id="section-2" class="section">
+  <h2 class="section-title">2. مسؤوليات خادم الويب <span dir="ltr" class="en">(Web Server's Responsibilities)</span></h2>
+
+  <h3 id="s2-1">2.1 المسؤوليات الثماني</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">A web server has 8 main responsibilities:</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> يتحمل خادم الويب 8 مسؤوليات رئيسية:</p>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>المسؤولية (English)</th>
+          <th>الترجمة العربية</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td dir="ltr">Handling HTTP connections</td><td>إدارة اتصالات HTTP.</td></tr>
+        <tr><td>2</td><td dir="ltr">Responding to requests for static and dynamic resources</td><td>الاستجابة لطلبات الموارد الثابتة والديناميكية.</td></tr>
+        <tr><td>3</td><td dir="ltr">Managing permissions and access for certain resources</td><td>إدارة الصلاحيات والوصول لموارد معينة.</td></tr>
+        <tr><td>4</td><td dir="ltr">Encrypting and compressing data</td><td>تشفير وضغط البيانات.</td></tr>
+        <tr><td>5</td><td dir="ltr">Managing multiple domains and URLs</td><td>إدارة نطاقات وروابط متعددة.</td></tr>
+        <tr><td>6</td><td dir="ltr">Managing database connections</td><td>إدارة اتصالات قواعد البيانات.</td></tr>
+        <tr><td>7</td><td dir="ltr">Managing cookies and state</td><td>إدارة الكوكيز والحالة.</td></tr>
+        <tr><td>8</td><td dir="ltr">Uploading and managing files</td><td>رفع وإدارة الملفات.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="s2-2">2.2 LAMP Stack</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">You will be using the LAMP/WAMP software stack. W for ???!! — Linux operating system, Apache web server, MySQL DBMS, PHP scripting language.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> سوف تستخدم حزمة LAMP/WAMP البرمجية. حرف W يرمز إلى Windows في WAMP (بينما L = Linux). الحزمة تتكون من: نظام التشغيل Linux، خادم الويب Apache، نظام إدارة قواعد البيانات MySQL، لغة البرمجة PHP.</p>
+
+  <div class="note-box">
+    <p class="note-label">🔤 W for ???!!</p>
+    <p><strong>W</strong> = <strong>Windows</strong> (في WAMP) — بينما في LAMP الحرف الأول هو <strong>L</strong> = <strong>Linux</strong>.</p>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>الحرف</th>
+          <th>المكوّن</th>
+          <th>الترجمة</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td dir="ltr">L / W</td><td>Linux / Windows</td><td>نظام التشغيل</td></tr>
+        <tr><td dir="ltr">A</td><td>Apache</td><td>خادم الويب</td></tr>
+        <tr><td dir="ltr">M</td><td>MySQL</td><td>نظام إدارة قواعد البيانات</td></tr>
+        <tr><td dir="ltr">P</td><td>PHP</td><td>لغة البرمجة</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="s2-3">2.3 Apache and Linux</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Consider the Apache web server as the intermediary that interprets HTTP requests that arrive through a network port and decides how to handle the request, which often requires working in conjunction with PHP.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> اعتبر خادم Apache الوسيط الذي يفسّر طلبات HTTP الواردة عبر منفذ شبكة، ويقرر كيفية معالجة الطلب — غالبًا بالتعاون مع PHP.</p>
+
+  <ul class="bullets">
+    <li><strong dir="ltr">Port (e.g. 80)</strong> — منفذ الشبكة (مثل 80) الذي تستقبل عليه طلبات HTTP.</li>
+    <li><strong dir="ltr">php.ini</strong> — ملف إعدادات PHP.</li>
+    <li><strong dir="ltr">httpd.conf</strong> — ملف إعدادات Apache الرئيسي.</li>
+    <li><strong dir="ltr">.htaccess</strong> — ملف إعدادات إضافي لكل مجلد على حدة.</li>
+  </ul>
+
+  <h3 id="s2-4">2.4 Installing LAMP Locally</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">The easiest and quickest way to install LAMP locally is to use one of these packages: EasyPHP (Windows only), XAMPP (Windows), MAMP (Mac), WampServer (Windows). All of these install and configure Apache, PHP, and MySQL.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> أسهل وأسرع طريقة لتثبيت LAMP محليًا هي استخدام إحدى هذه الحزم: EasyPHP (لـ Windows فقط)، XAMPP (لـ Windows)، MAMP (لـ Mac)، WampServer (لـ Windows). كل هذه الحزم تثبّت وتُهيّئ Apache و PHP و MySQL تلقائيًا.</p>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>الحزمة</th>
+          <th>نظام التشغيل</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td dir="ltr"><strong>EasyPHP</strong></td><td>Windows only</td></tr>
+        <tr><td dir="ltr"><strong>XAMPP</strong></td><td>Windows / Linux / Mac</td></tr>
+        <tr><td dir="ltr"><strong>MAMP</strong></td><td>Mac (و Windows)</td></tr>
+        <tr><td dir="ltr"><strong>WampServer</strong></td><td>Windows (W = Windows)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="s2-5">2.5 WampServer</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">WampServer = Apache + PHP + MySQL on Windows. Available at http://www.wampserver.com/en/. Provides an interface to manage services (Start/Stop/Restart), MySQL console, phpMyAdmin, www directory.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> WampServer = Apache + PHP + MySQL على Windows. متاح على <code dir="ltr">http://www.wampserver.com/en/</code>. يوفر واجهة لإدارة الخدمات (تشغيل/إيقاف/إعادة تشغيل)، ووحدة تحكم MySQL، وphpMyAdmin، ومجلد www.</p>
+
+  <h3 id="s2-6">2.6 XAMPP Settings</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Defaults</p>
+    <ul class="bullets" dir="ltr">
+      <li>PHP requests in your browser will need to use the localhost domain (127.0.0.1).</li>
+      <li>PHP files will have to be saved somewhere within the C:\xampp\htdocs folder.</li>
+    </ul>
+  </div>
+
+  <p><strong>الترجمة:</strong></p>
+  <ul class="bullets">
+    <li>طلبات PHP في متصفحك يجب أن تستخدم نطاق <code dir="ltr">localhost</code> (أو <code dir="ltr">127.0.0.1</code>).</li>
+    <li>ملفات PHP يجب أن تُحفظ داخل مجلد <code dir="ltr">C:\xampp\htdocs</code>.</li>
+  </ul>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 3 -->
+<!-- ============================================= -->
+<section id="section-3" class="section">
+  <h2 class="section-title">3. جولة سريعة في PHP <span dir="ltr" class="en">(Quick Tour of PHP)</span></h2>
+
+  <h3 id="s3-1">3.1 نظرة عامة <span dir="ltr" class="en">(Overview)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <ul class="bullets" dir="ltr">
+      <li>PHP, like JavaScript, is a dynamically typed language.</li>
+      <li>It uses classes and functions.</li>
+      <li>Its consistent with other object-oriented languages such as C++, C#, and Java.</li>
+      <li>The syntax for loops, conditionals, and assignment is identical or same to JavaScript.</li>
+      <li>Differs when you get to functions, classes, and in how you define variables.</li>
+    </ul>
+  </div>
+
+  <p><strong>الترجمة:</strong></p>
+  <ul class="bullets">
+    <li>PHP، مثل JavaScript، لغة ديناميكية النوع <span dir="ltr">(dynamically typed)</span>.</li>
+    <li>تستخدم الأصناف والدوال.</li>
+    <li>متسقة مع لغات كائنية التوجه مثل C++ و C# و Java.</li>
+    <li>صياغة الحلقات والشروط والإسناد مطابقة لـ JavaScript.</li>
+    <li>تختلف في الدوال والأصناف وطريقة تعريف المتغيرات.</li>
+  </ul>
+
+  <h3 id="s3-2">3.2 وسوم PHP <span dir="ltr" class="en">(PHP Tags)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">The most important fact about PHP is that the programming code can be embedded directly within an HTML file. A PHP file will usually have the extension .php. Programming code must be contained within an opening &lt;?php tag and a matching closing ?&gt; tag. Any code outside the tags is echoed directly out to the client.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> أهم حقيقة عن PHP أن الكود يمكن تضمينه مباشرة داخل ملف HTML. ملف PHP عادةً يكون امتداده <code dir="ltr">.php</code>. يجب أن يكون الكود محصورًا بين وسم الفتح <code dir="ltr">&lt;?php</code> ووسم الإغلاق المطابق <code dir="ltr">?&gt;</code>. أي كود خارج الوسوم يُطبع مباشرة إلى العميل.</p>
+
+  <div class="example-box">
+    <p class="example-label">Listing 8.1 — PHP Code</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+  $user = "Randy";
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;h1&gt;Welcome &lt;?php echo $user; ?&gt; &lt;/h1&gt;
+  &lt;p&gt;
+    The server time is
+    &lt;?php
+      echo "&lt;strong&gt;";
+      echo date("H:i:s");
+      echo "&lt;/strong&gt;";
+    ?&gt;
+  &lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </div>
+
+  <div class="output-box">
+    <p class="output-label">Listing 8.2 — Output in Browser (الناتج في المتصفح):</p>
+<pre class="code-block"><code dir="ltr">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;h1&gt;Welcome Randy&lt;/h1&gt;
+  &lt;p&gt;
+    The server time is &lt;strong&gt;02:59:09&lt;/strong&gt;
+  &lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </div>
+
+  <h3 id="s3-3">3.3 دمج HTML و PHP — مقاربتان <span dir="ltr" class="en">(Two Approaches)</span></h3>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Approach</th>
+          <th>الوصف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td dir="ltr"><strong>#1 Mixing</strong></td>
+          <td>خلط كود PHP داخل HTML مباشرة في نفس الملف.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>#2 Separating</strong></td>
+          <td>فصل منطق العمل (Classes) عن ملفات العرض — كل شيء في ملف مستقل.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Approach #1 — Mixing HTML and PHP</h4>
+<pre class="code-block"><code dir="ltr">&lt;?php
+  $db = new mysqli('localhost', 'dbuser', 'dbpassword', 'dbname');
+  $sql = "SELECT * FROM Artists ORDER BY lastName";
+  $result = $db-&gt;query($sql);
+?&gt;
+&lt;body&gt;
+&lt;ul&gt;
+&lt;?php
+  while( $row = $result-&gt;fetch_assoc() ) {
+    echo "&lt;li&gt;";
+?&gt;
+  &lt;img src="images/add.png" /&gt;
+&lt;?php
+    echo $row['firstName'] . " " . $row['lastName'];
+    echo "&lt;/li&gt;";
+  }
+?&gt;
+&lt;/ul&gt;
+&lt;?php
+  $result-&gt;close();
+  $db-&gt;close();
+?&gt;
+&lt;/body&gt;</code></pre>
+
+  <h4>Approach #2 — Separating HTML and PHP</h4>
+<pre class="code-block"><code dir="ltr">&lt;?php
+  include "php/classes/artistCollection.php";
+  include "php/classes/artist.php";
+  $artists = new ArtistCollection();
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;?php echo $artists-&gt;outputEachArtist(); ?&gt;
+&lt;/html&gt;</code></pre>
+
+  <h3 id="s3-4">3.4 التعليقات — 3 أنواع <span dir="ltr" class="en">(Comments)</span></h3>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>النوع</th>
+          <th>الرمز</th>
+          <th>الوصف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td dir="ltr"><strong>Single-line</strong></td>
+          <td dir="ltr"><code>#</code></td>
+          <td>أسطر تبدأ بـ <code>#</code> هي تعليق ولا تُنفّذ.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>Multiline (block)</strong></td>
+          <td dir="ltr"><code>/* ... */</code></td>
+          <td>يبدأ بـ <code>/*</code> وينتهي بـ <code>*/</code> — يشمل كل ما بينهما.</td>
+        </tr>
+        <tr>
+          <td dir="ltr"><strong>End-of-line</strong></td>
+          <td dir="ltr"><code>//</code></td>
+          <td>كل ما يأتي بعد <code>//</code> حتى نهاية السطر يُعتبر تعليقًا.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label">Listing 8.3 — أمثلة على التعليقات</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+
+# single-line comment
+
+/*
+This is a multiline comment.
+They are a good way to document functions
+or complicated blocks of code
+*/
+
+$artist = readDatabase(); // end-of-line comment
+
+?&gt;</code></pre>
+  </div>
+
+  <h3 id="s3-5">3.5 المتغيرات في PHP <span dir="ltr" class="en">(Variables)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <ul class="bullets" dir="ltr">
+      <li>Variables in PHP are dynamically typed.</li>
+      <li>Variables are also loosely typed — a variable can be assigned different data types over time.</li>
+      <li>To declare a variable you must preface the variable name with the dollar ($) symbol.</li>
+    </ul>
+  </div>
+
+  <p><strong>الترجمة:</strong></p>
+  <ul class="bullets">
+    <li>المتغيرات في PHP ديناميكية النوع.</li>
+    <li>وهي مرنة (loosely typed) — يمكن إسناد أنواع بيانات مختلفة لنفس المتغير بمرور الوقت.</li>
+    <li>لتعريف متغير يجب أن تسبق اسمه بعلامة الدولار <code>$</code>.</li>
+  </ul>
+
+<pre class="code-block"><code dir="ltr">$count = 42;</code></pre>
+
+  <h3 id="s3-6">3.6 أنواع البيانات <span dir="ltr" class="en">(Data Types)</span></h3>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Data Type</th>
+          <th>Description (English)</th>
+          <th>الترجمة</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td dir="ltr"><strong>Boolean</strong></td><td dir="ltr">A logical true or false value</td><td>قيمة منطقية (صح/خطأ).</td></tr>
+        <tr><td dir="ltr"><strong>Integer</strong></td><td dir="ltr">Whole numbers</td><td>أعداد صحيحة.</td></tr>
+        <tr><td dir="ltr"><strong>Float</strong></td><td dir="ltr">Decimal numbers</td><td>أعداد عشرية.</td></tr>
+        <tr><td dir="ltr"><strong>String</strong></td><td dir="ltr">Letters</td><td>نصوص (حروف).</td></tr>
+        <tr><td dir="ltr"><strong>Array</strong></td><td dir="ltr">A collection of data of any type</td><td>مصفوفة (تُغطى في الشابتر التالي).</td></tr>
+        <tr><td dir="ltr"><strong>Object</strong></td><td dir="ltr">Instances of classes</td><td>كائنات (نسخ من الأصناف).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="s3-7">3.7 الثوابت <span dir="ltr" class="en">(Constants)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <ul class="bullets" dir="ltr">
+      <li>A constant is somewhat similar to a variable, but its value never changes.</li>
+      <li>Typically defined near the top of a PHP file via the define() function.</li>
+      <li>Once defined, it can be referenced without using the $ symbol.</li>
+    </ul>
+  </div>
+
+  <p><strong>الترجمة:</strong></p>
+  <ul class="bullets">
+    <li>الثابت يشبه المتغير إلى حد ما، لكن قيمته لا تتغير أبدًا.</li>
+    <li>يُعرَّف عادةً في أعلى ملف PHP عبر الدالة <code dir="ltr">define()</code>.</li>
+    <li>بمجرد تعريفه، يمكن الإشارة إليه دون استخدام رمز <code>$</code>.</li>
+  </ul>
+
+  <div class="example-box">
+    <p class="example-label">Listing 8.4 — Constants</p>
+<pre class="code-block"><code dir="ltr">&lt;?php
+
+# Uppercase for constants is a programming convention
+define("DATABASE_LOCAL",    "localhost");
+define("DATABASE_NAME",     "ArtStore");
+define("DATABASE_USER",     "Fred");
+define("DATABASE_PASSWORD", "F5\7%ad");
+
+# notice no $ prefixes constant names
+$db = new mysqli(DATABASE_LOCAL, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME);
+
+?&gt;</code></pre>
+  </div>
+
+  <h3 id="s3-8">3.8 الإخراج: echo &amp; ربط النصوص <span dir="ltr" class="en">(Output &amp; Concatenation)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label">echo() — long form and shortcut</p>
+<pre class="code-block"><code dir="ltr">echo ("hello");  // long form
+echo "hello";    // shortcut</code></pre>
+  </div>
+
+  <p><strong>ربط النصوص <span dir="ltr">(Concatenation)</span>:</strong> تُربط النصوص باستخدام معامل الربط <code>.</code>:</p>
+
+<pre class="code-block"><code dir="ltr">$username = "World";
+echo "Hello " . $username;
+// Output: Hello World</code></pre>
+
+  <h3 id="s3-9">3.9 أمثلة ربط النصوص <span dir="ltr" class="en">(Concatenation Examples)</span></h3>
+
+  <div class="example-box">
+    <p class="example-label">Example One — فروق علامات الاقتباس</p>
+<pre class="code-block"><code dir="ltr">$firstName = "Pablo";
+$lastName  = "Picasso";
+
+echo "&lt;em&gt;" . $firstName . " " . $lastName . "&lt;/em&gt;";
+echo "&lt;em&gt; $firstName $lastName &lt;/em&gt;";   // يعمل
+echo '&lt;em&gt;' . $firstName . ' ' . $lastName . '&lt;/em&gt;';
+echo '&lt;em&gt; $firstName $lastName &lt;/em&gt;';   // Won't Work!!</code></pre>
+    <p><strong>ملاحظة:</strong> السطر الأخير لن يعمل — علامات الاقتباس المفردة لا تُفسّر المتغيرات. الناتج سيكون النص الحرفي: <code dir="ltr">&lt;em&gt; $firstName $lastName &lt;/em&gt;</code>.</p>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label">Example Two — اقتباس مفرد ومزدوج متكافئان</p>
+<pre class="code-block"><code dir="ltr">echo "&lt;h1&gt;";
+echo '&lt;h1&gt;';
+// both produce the same output</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label">Example Three — استخدام Escape</p>
+<pre class="code-block"><code dir="ltr">echo '&lt;img src="23.jpg"&gt;';
+echo "&lt;img src=\"23.jpg\"&gt;";
+// both produce the same output</code></pre>
+  </div>
+
+  <h3 id="s3-10">3.10 تسلسلات الهروب <span dir="ltr" class="en">(String Escape Sequences)</span></h3>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Sequence</th>
+          <th>Description (English)</th>
+          <th>الترجمة</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td dir="ltr"><code>\n</code></td><td>Line feed</td><td>سطر جديد.</td></tr>
+        <tr><td dir="ltr"><code>\t</code></td><td>Horizontal tab</td><td>مسافة جدولة أفقية.</td></tr>
+        <tr><td dir="ltr"><code>\\</code></td><td>Backslash</td><td>شرطة مائلة عكسية.</td></tr>
+        <tr><td dir="ltr"><code>\$</code></td><td>Dollar sign</td><td>علامة الدولار.</td></tr>
+        <tr><td dir="ltr"><code>\"</code></td><td>Double quote</td><td>علامة اقتباس مزدوجة.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label">مثال:</p>
+<pre class="code-block"><code dir="ltr">"Good\nMorning"
+// Output:
+// Good
+// Morning</code></pre>
+  </div>
+
+  <h3 id="s3-11">3.11 أمثلة الإخراج عبر <code dir="ltr">&lt;img&gt;</code> و <code dir="ltr">&lt;a&gt;</code></h3>
+
+  <div class="example-box">
+    <p class="example-label">1 — الطريقة المباشرة</p>
+<pre class="code-block"><code dir="ltr">echo "&lt;img src='23.jpg' alt='" . $firstName . " " . $lastName . "'&gt;";
+// Output: &lt;img src='23.jpg' alt='Pablo Picasso'&gt;</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label">2 — متغيرات داخل اقتباسات مزدوجة</p>
+<pre class="code-block"><code dir="ltr">echo "&lt;img src='$id.jpg' alt='$firstName $lastName'&gt;";
+// Output: &lt;img src='23.jpg' alt='Pablo Picasso'&gt;</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label">3 — Escape للاقتباسات</p>
+<pre class="code-block"><code dir="ltr">echo "&lt;img src=\"$id.jpg\" alt=\"$firstName $lastName\"&gt;";
+// Output: &lt;img src="23.jpg" alt="Pablo Picasso"&gt;</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label">4 — اقتباسات مفردة مع ربط</p>
+<pre class="code-block"><code dir="ltr">echo '&lt;img src="' . $id . '.jpg" alt="' . $firstName . ' ' . $lastName . '"&gt;';
+// Output: &lt;img src="23.jpg" alt="Pablo Picasso"&gt;</code></pre>
+  </div>
+
+  <div class="example-box">
+    <p class="example-label">5 — بناء رابط</p>
+<pre class="code-block"><code dir="ltr">echo '&lt;a href="artist.php?id=' . $id . '"&gt;' . $firstName . ' ' . $lastName . '&lt;/a&gt;';
+// Output: &lt;a href="artist.php?id=23"&gt;Pablo Picasso&lt;/a&gt;</code></pre>
+  </div>
+
+  <h3 id="s3-12">3.12 PrintF</h3>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">You can use the printf() function — derived from the same-named function in the C programming language. It includes variations to print to string and files (sprintf, fprintf).</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> يمكنك استخدام الدالة <code dir="ltr">printf()</code> — مشتقة من الدالة التي تحمل نفس الاسم في لغة C. تتضمن تنويعات للطباعة إلى نص أو ملفات (<code dir="ltr">sprintf</code>، <code dir="ltr">fprintf</code>).</p>
+
+  <div class="example-box">
+    <p class="example-label">PrintF — Illustrated Example</p>
+<pre class="code-block"><code dir="ltr">$product = "box";
+$weight  = 1.56789;
+
+printf("The %s is %.2f pounds", $product, $weight);
+// Output: The box is 1.57 pounds.</code></pre>
+    <ul class="bullets">
+      <li><code dir="ltr">%s</code> — Placeholder للنصوص.</li>
+      <li><code dir="ltr">%.2f</code> — Precision specifier (رقم عشري بمنزلتين).</li>
+    </ul>
+  </div>
+
+  <h4>Type Specifiers</h4>
+  <p>كل placeholder يتطلب رمز النسبة <code>%</code> يليه محدد النوع:</p>
+
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Specifier</th>
+          <th>Description (English)</th>
+          <th>الترجمة</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td dir="ltr"><code>b</code></td><td>Binary</td><td>ثنائي.</td></tr>
+        <tr><td dir="ltr"><code>d</code></td><td>Signed integer</td><td>عدد صحيح بإشارة.</td></tr>
+        <tr><td dir="ltr"><code>f</code></td><td>Float</td><td>عدد عشري.</td></tr>
+        <tr><td dir="ltr"><code>o</code></td><td>Octal</td><td>ثماني.</td></tr>
+        <tr><td dir="ltr"><code>x</code></td><td>Hexadecimal</td><td>ست عشري.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Precision</h4>
+
+  <div class="example-box">
+    <p class="example-label" dir="ltr">Original</p>
+    <p dir="ltr">Precision allows control over how many decimal places are shown. Important for displaying calculated numbers in a "pretty" way. Achieved with a period (.) followed by a number.</p>
+  </div>
+
+  <p><strong>الترجمة:</strong> تسمح الدقة (Precision) بالتحكم في عدد المنازل العشرية المعروضة. مهم لعرض الأرقام المحسوبة بشكل "جميل". تتحقق بوضع نقطة <code>.</code> متبوعة برقم يحدد عدد الأرقام العشرية.</p>
+</section>
+<!-- ============================================= -->
+<!-- Section 6: Definitions -->
+<!-- ============================================= -->
+<section id="section-6" class="section">
+  <h2 class="section-title">6. التعاريف الأساسية <span dir="ltr" class="en">(Definitions)</span></h2>
+
+  <!-- شريط التنقل السريع -->
+  <nav class="definitions-nav" aria-label="التنقل بين التعاريف">
+    <p class="definitions-nav-title">⚡ تنقل سريع:</p>
+    <a href="#def-1">1. Server-Side</a>
+    <a href="#def-2">2. Client-Side</a>
+    <a href="#def-3">3. Web Server</a>
+    <a href="#def-4">4. HTTP</a>
+    <a href="#def-5">5. HTTP Response</a>
+    <a href="#def-6">6. Dynamic Content</a>
+    <a href="#def-7">7. PHP</a>
+    <a href="#def-8">8. Control Structure</a>
+    <a href="#def-9">9. Function</a>
+  </nav>
+
+  <div class="definitions-grid">
+
+    <div class="term-card" id="def-1">
+      <h3 class="term-name">1. Server-Side Programming</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Server-Side Programming</dd>
+        <dt>النطق بالعربية</dt><dd>سيرفر-سايد بروجرامينج</dd>
+        <dt>Definition in English</dt><dd dir="ltr">Using a programming technology like PHP or ASP.NET to create scripts that dynamically generate content on a web server.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>يُوزِنْغ أ بْرُوجْرَامِينْغ تِكْنُولُوجِي لايْك بي-إتش-بي أُور إيه-إس-بي دوت نِت تو كْرِيت سْكْرِبْتْس ذَت دَايْنَامِيكْلِي جِنِريت كُونْتِنْت أون أ وِب سِرْفَر.</dd>
+        <dt>الترجمة العربية</dt><dd>برمجة جانب الخادم.</dd>
+        <dt>الشرح المبسط</dt><dd>استخدام تقنية برمجية مثل PHP أو ASP.NET لإنشاء سكربتات تولّد المحتوى ديناميكيًا على خادم الويب.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-2">
+      <h3 class="term-name">2. Client-Side Programming</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Client-Side Programming</dd>
+        <dt>النطق بالعربية</dt><dd>كلاينت-سايد بروجرامينج</dd>
+        <dt>Definition in English</dt><dd dir="ltr">Executing code inside the user's browser to handle layout, visuals, and user interactions (e.g., JavaScript).</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>إِكْسِكْيُوتِنْغ كُود إنْسَايْد ذا يُوزَرْز بْرَاوْزَر تو هَانْدِل لاي-أَوْت، فِجْوَالْز، آند يُوزَر إنْتَرَأكْشِنْز (فُور إِجْزَامْبِل، جَافَا سْكْرِبْت).</dd>
+        <dt>الترجمة العربية</dt><dd>برمجة جانب العميل.</dd>
+        <dt>الشرح المبسط</dt><dd>الأكواد التي تعمل داخل متصفح المستخدم (مثل JavaScript) للتحكم في شكل وتفاعل الواجهة.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-3">
+      <h3 class="term-name">3. Web Server</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Web Server</dd>
+        <dt>النطق بالعربية</dt><dd>وِب سِرْفَر</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A system that hosts files and handles HTTP requests, returning static or dynamically generated resources.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ سِسْتَم ذَت هُوسْتْس فَايْلْز آند هَانْدِلْز إِتْش-تِي-تِي-بِي رِيكْوِيسْتْس، رِيتِرْنِنْغ سْتَاتِيك أُور دَايْنَامِيكْلِي جِنِريتِد رِيسُورْسِز.</dd>
+        <dt>الترجمة العربية</dt><dd>خادم الويب.</dd>
+        <dt>الشرح المبسط</dt><dd>النظام الذي يستضيف الملفات ويستقبل طلبات HTTP ويُرجع الموارد الثابتة أو الديناميكية.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-4">
+      <h3 class="term-name">4. HTTP</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">HTTP (HyperText Transfer Protocol)</dd>
+        <dt>النطق بالعربية</dt><dd>إِتْش-تِي-تِي-بِي</dd>
+        <dt>Definition in English</dt><dd dir="ltr">The protocol used by web browsers and servers to exchange requests and responses over the Web.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>ذا بْرُوتُوكُول يُوزْد باي وِب بْرَاوْزَرْز آند سِرْفَرْز تو إِكْسْتْشِينْج رِيكْوِيسْتْس آند رِيسْبُونْسِز أُوفَر ذا وِب.</dd>
+        <dt>الترجمة العربية</dt><dd>بروتوكول نقل النص الفائق.</dd>
+        <dt>الشرح المبسط</dt><dd>البروتوكول الذي يستخدمه المتصفح والخادم لتبادل الطلبات والاستجابات عبر الويب.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-5">
+      <h3 class="term-name">5. HTTP Response</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">HTTP Response</dd>
+        <dt>النطق بالعربية</dt><dd>إِتْش-تِي-تِي-بِي رِيسْبُونْس</dd>
+        <dt>Definition in English</dt><dd dir="ltr">The output sent back from the web server to the browser after executing a PHP script or serving a static file.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>ذي أَوْتْبُوت سِنْت بَاك فروم ذا وِب سِرْفَر تو ذا بْرَاوْزَر آفْتَر إِكْسِكْيُوتِنْغ أ بي-إتش-بي سْكْرِبْت أُور سِرْفِنْغ أ سْتَاتِيك فَايْل.</dd>
+        <dt>الترجمة العربية</dt><dd>استجابة HTTP.</dd>
+        <dt>الشرح المبسط</dt><dd>الناتج المُرسل من خادم الويب إلى المتصفح بعد تنفيذ سكربت PHP أو تقديم ملف ثابت.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-6">
+      <h3 class="term-name">6. Dynamic Content</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Dynamic Content</dd>
+        <dt>النطق بالعربية</dt><dd>دَايْنَامِيك كُونْتِنْت</dd>
+        <dt>Definition in English</dt><dd dir="ltr">Content generated on-the-fly by server-side scripts (e.g., PHP) rather than stored as fixed static files.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>كُونْتِنْت جِنِريتِد أون-ذا-فْلاي باي سِرْفَر-سايد سْكْرِبْتْس (فُور إِجْزَامْبِل، بي-إتش-بي) رَاذَر ذَان سْتُورْد آز فِيكْسْت سْتَاتِيك فَايْلْز.</dd>
+        <dt>الترجمة العربية</dt><dd>محتوى ديناميكي.</dd>
+        <dt>الشرح المبسط</dt><dd>المحتوى الذي يُولَّد لحظيًا بواسطة سكربتات الخادم بدلًا من كونه ملفات ثابتة.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-7">
+      <h3 class="term-name">7. PHP</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">PHP (PHP: Hypertext Processor)</dd>
+        <dt>النطق بالعربية</dt><dd>بي-إتْش-بي</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A dynamically typed, open-source server-side scripting language that can be embedded directly within HTML.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ دَايْنَامِيكْلِي تَايْبْد، أُوبِنْ-سُورْس سِرْفَر-سايد سْكْرِبْتِنْغ لَانْغْوِج ذَت كَان بي إِمْبِدِد دَايْرِيكْتْلِي وِيذِن إِتْش-تِي-إِمْ-إِل.</dd>
+        <dt>الترجمة العربية</dt><dd>لغة PHP.</dd>
+        <dt>الشرح المبسط</dt><dd>لغة برمجة خلفية ديناميكية النوع، مفتوحة المصدر، تُدمج مباشرة داخل HTML.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-8">
+      <h3 class="term-name">8. Control Structure</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Control Structure</dd>
+        <dt>النطق بالعربية</dt><dd>كُونْتْرُول سْتْرَكْتْشَر</dd>
+        <dt>Definition in English</dt><dd dir="ltr">Language constructs (like if/else, switch, loops) that direct the flow of program execution.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>لَانْغْوِج كُونْسْتْرَكْتْس (لايْك إِف/إِلْس، سْوِتْش، لُوبْس) ذَت دَايْرِيكْت ذا فْلُو أُوف بْرُوجْرَام إِكْسِكْيُوشِن.</dd>
+        <dt>الترجمة العربية</dt><dd>تركيب التحكم.</dd>
+        <dt>الشرح المبسط</dt><dd>أوامر مثل if/else و switch والحلقات التي توجّه مسار تنفيذ البرنامج.</dd>
+      </dl>
+    </div>
+
+    <div class="term-card" id="def-9">
+      <h3 class="term-name">9. Function</h3>
+      <dl class="term-details">
+        <dt>English Term</dt><dd dir="ltr">Function</dd>
+        <dt>النطق بالعربية</dt><dd>فَانْكْشِن</dd>
+        <dt>Definition in English</dt><dd dir="ltr">A named, reusable block of code that performs a specific task and may accept parameters and return a value.</dd>
+        <dt>النطق بالعربية للتعريف</dt><dd>أ نِيمْد، رِي-يُوزَبِل بْلُوك أُوف كُود ذَت بِرْفُورْمْز أ سْبِسِيفِيك تَاسْك آند مَاي أَكْسِبْت بَارَامِيتَرْز آند رِيتِرْن أ فَالْيُو.</dd>
+        <dt>الترجمة العربية</dt><dd>الدالة.</dd>
+        <dt>الشرح المبسط</dt><dd>كتلة برمجية مسماة قابلة لإعادة الاستخدام، تنفذ مهمة محددة، وقد تستقبل معاملات وتُرجع قيمة.</dd>
+      </dl>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 7: Comparison Tables -->
+<!-- ============================================= -->
+<section id="section-7" class="section">
+  <h2 class="section-title">7. جداول المقارنة <span dir="ltr" class="en">(Comparison Tables)</span></h2>
+
+  <h3 id="s7-1">7.1 Client-Side vs Server-Side</h3>
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>وجه المقارنة</th>
+          <th>Client-Side</th>
+          <th>Server-Side</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>مكان التنفيذ</strong></td><td>داخل المتصفح</td><td>على الخادم</td></tr>
+        <tr><td><strong>اللغات</strong></td><td dir="ltr">HTML, CSS, JavaScript</td><td dir="ltr">PHP, ASP.NET, JSP, Python, Ruby</td></tr>
+        <tr><td><strong>الصلاحيات</strong></td><td>محدودة</td><td>كاملة على الخادم وقواعد البيانات</td></tr>
+        <tr><td><strong>الأمان</strong></td><td>الكود مرئي للمستخدم</td><td>الكود مخفي على الخادم</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="s7-2">7.2 Comparing Server-Side Technologies</h3>
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>التقنية</th>
+          <th>اللغة</th>
+          <th>مميزات</th>
+          <th>قيود</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td dir="ltr">ASP</td><td>VBScript</td><td>مدمجة في HTML</td><td>تُفسَّر وقت التشغيل → أبطأ</td></tr>
+        <tr><td dir="ltr">ASP.NET</td><td>C#/.NET</td><td>OOP، أداء ممتاز بعد JIT</td><td>Windows فقط</td></tr>
+        <tr><td dir="ltr">JSP</td><td>Java</td><td>OOP، متعدد المنصات، أداء جيد</td><td>استخدام عام محدود</td></tr>
+        <tr><td dir="ltr">Node.js</td><td>JavaScript</td><td>لغة واحدة للجانبين، خادم بذاته</td><td>جديد نسبيًا</td></tr>
+        <tr><td dir="ltr">Perl</td><td>Perl</td><td>معالجة نصوص ممتازة</td><td>قديم، CGI</td></tr>
+        <tr><td dir="ltr">PHP</td><td>PHP</td><td>ديناميكية النوع، مدمجة، OOP</td><td>—</td></tr>
+        <tr><td dir="ltr">Python</td><td>Python</td><td>OOP، أطر Django/Pyramid</td><td>—</td></tr>
+        <tr><td dir="ltr">Ruby on Rails</td><td>Ruby</td><td>MVC، سريع التطوير</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="s7-3">7.3 Pass by Value vs Pass by Reference</h3>
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>وجه المقارنة</th>
+          <th>Pass by Value</th>
+          <th>Pass by Reference</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>الرمز</strong></td><td>افتراضي</td><td>إضافة <code>&amp;</code> قبل اسم المعامل</td></tr>
+        <tr><td><strong>التأثير</strong></td><td>لا يغيّر الأصل</td><td>يغيّر الأصل</td></tr>
+        <tr><td><strong>المثال</strong></td><td><code dir="ltr">change($x)</code></td><td><code dir="ltr">change(&amp;$x)</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="s7-4">7.4 include vs require</h3>
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>الأمر</th>
+          <th>عند الفشل</th>
+          <th>التضمين المتكرر</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td dir="ltr"><code>include</code></td><td>تحذير + استمرار</td><td>مسموح</td></tr>
+        <tr><td dir="ltr"><code>require</code></td><td>خطأ + توقف</td><td>مسموح</td></tr>
+        <tr><td dir="ltr"><code>include_once</code></td><td>تحذير + استمرار</td><td>ممنوع</td></tr>
+        <tr><td dir="ltr"><code>require_once</code></td><td>خطأ + توقف</td><td>ممنوع</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================= -->
+<!-- Section 8: Interactive Quiz -->
+<!-- ============================================= -->
+<section id="section-8" class="section">
+  <h2 class="section-title">8. اختبار تفاعلي <span dir="ltr" class="en">(Interactive Quiz — 20 Questions)</span></h2>
+
+  <div class="note-box">
+    <p class="note-label">📝 تعليمات:</p>
+    <ul class="bullets">
+      <li>عدد الأسئلة: <strong>20</strong> (10 اختيار من متعدد + 10 صح/خطأ).</li>
+      <li>أجب عن جميع الأسئلة ثم اضغط زر «إظهار النتيجة».</li>
+      <li>صح/خطأ: اختر صح أو خطأ لكل سؤال.</li>
+      <li>اختيار من متعدد: اختر إجابة واحدة فقط.</li>
+      <li>ستظهر الدرجة النهائية تلقائيًا (من 20).</li>
+    </ul>
+  </div>
+
+  <div id="quiz-container">
+
+    <article class="quiz-question" data-question="mcq-1" data-correct="b">
+      <p class="quiz-prompt"><strong>س1.</strong> <span dir="ltr">Which of the following is NOT a server-side technology?</span></p>
+      <p class="quiz-ar">أيٌّ مما يلي ليس من تقنيات جانب الخادم؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q1" value="a"> <span dir="ltr">A) PHP</span></label></li>
+        <li><label><input type="radio" name="q1" value="b"> <span dir="ltr">B) JavaScript</span></label></li>
+        <li><label><input type="radio" name="q1" value="c"> <span dir="ltr">C) ASP.NET</span></label></li>
+        <li><label><input type="radio" name="q1" value="d"> <span dir="ltr">D) JSP</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — JavaScript لغة عميل." data-wrong-feedback="❌ خطأ — الصحيح: JavaScript (لغة عميل)."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-2" data-correct="c">
+      <p class="quiz-prompt"><strong>س2.</strong> <span dir="ltr">In the LAMP stack, what does the "M" stand for?</span></p>
+      <p class="quiz-ar">في حزمة LAMP، ماذا يعني الحرف "M"؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q2" value="a"> <span dir="ltr">A) Microsoft</span></label></li>
+        <li><label><input type="radio" name="q2" value="b"> <span dir="ltr">B) MongoDB</span></label></li>
+        <li><label><input type="radio" name="q2" value="c"> <span dir="ltr">C) MySQL</span></label></li>
+        <li><label><input type="radio" name="q2" value="d"> <span dir="ltr">D) Memory</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — M = MySQL." data-wrong-feedback="❌ خطأ — الصحيح: MySQL."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-3" data-correct="b">
+      <p class="quiz-prompt"><strong>س3.</strong> <span dir="ltr">Which keyword is used to access a global variable inside a function in PHP?</span></p>
+      <p class="quiz-ar">أي كلمة مفتاحية تُستخدم للوصول إلى متغير عام داخل دالة في PHP؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q3" value="a"> <span dir="ltr">A) extern</span></label></li>
+        <li><label><input type="radio" name="q3" value="b"> <span dir="ltr">B) global</span></label></li>
+        <li><label><input type="radio" name="q3" value="c"> <span dir="ltr">C) static</span></label></li>
+        <li><label><input type="radio" name="q3" value="d"> <span dir="ltr">D) public</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — global." data-wrong-feedback="❌ خطأ — الصحيح: global."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-4" data-correct="a">
+      <p class="quiz-prompt"><strong>س4.</strong> <span dir="ltr">Which operator is used for string concatenation in PHP?</span></p>
+      <p class="quiz-ar">أي معامل يُستخدم لربط النصوص في PHP؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q4" value="a"> <span dir="ltr">A) . (period)</span></label></li>
+        <li><label><input type="radio" name="q4" value="b"> <span dir="ltr">B) + (plus)</span></label></li>
+        <li><label><input type="radio" name="q4" value="c"> <span dir="ltr">C) &amp; (ampersand)</span></label></li>
+        <li><label><input type="radio" name="q4" value="d"> <span dir="ltr">D) , (comma)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — النقطة (.)." data-wrong-feedback="❌ خطأ — الصحيح: النقطة (.)."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-5" data-correct="d">
+      <p class="quiz-prompt"><strong>س5.</strong> <span dir="ltr">What is the correct PHP opening tag?</span></p>
+      <p class="quiz-ar">ما هو وسم الفتح الصحيح في PHP؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q5" value="a"> <span dir="ltr">A) &lt;php&gt;</span></label></li>
+        <li><label><input type="radio" name="q5" value="b"> <span dir="ltr">B) &lt;script php&gt;</span></label></li>
+        <li><label><input type="radio" name="q5" value="c"> <span dir="ltr">C) &lt;?&gt;</span></label></li>
+        <li><label><input type="radio" name="q5" value="d"> <span dir="ltr">D) &lt;?php</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — &lt;?php." data-wrong-feedback="❌ خطأ — الصحيح: &lt;?php."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-6" data-correct="b">
+      <p class="quiz-prompt"><strong>س6.</strong> <span dir="ltr">Which of the following is a valid PHP comment?</span></p>
+      <p class="quiz-ar">أي مما يلي تعليق صحيح في PHP؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q6" value="a"> <span dir="ltr">A) &lt;!-- comment --&gt;</span></label></li>
+        <li><label><input type="radio" name="q6" value="b"> <span dir="ltr">B) // comment</span></label></li>
+        <li><label><input type="radio" name="q6" value="c"> <span dir="ltr">C) -- comment</span></label></li>
+        <li><label><input type="radio" name="q6" value="d"> <span dir="ltr">D) % comment</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — // تعليق سطر واحد." data-wrong-feedback="❌ خطأ — الصحيح: // (أو #)."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-7" data-correct="c">
+      <p class="quiz-prompt"><strong>س7.</strong> <span dir="ltr">What does printf("%.2f", 1.56789) output?</span></p>
+      <p class="quiz-ar">ماذا يُخرج <code>printf("%.2f", 1.56789)</code>؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q7" value="a"> <span dir="ltr">A) 1.5</span></label></li>
+        <li><label><input type="radio" name="q7" value="b"> <span dir="ltr">B) 1.56789</span></label></li>
+        <li><label><input type="radio" name="q7" value="c"> <span dir="ltr">C) 1.57</span></label></li>
+        <li><label><input type="radio" name="q7" value="d"> <span dir="ltr">D) 2</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — منزلتان عشريتان = 1.57." data-wrong-feedback="❌ خطأ — الصحيح: 1.57."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-8" data-correct="b">
+      <p class="quiz-prompt"><strong>س8.</strong> <span dir="ltr">Which of the following is NOT mentioned as a responsibility of the web server?</span></p>
+      <p class="quiz-ar">أيٌّ مما يلي ليس من مسؤوليات خادم الويب المذكورة؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q8" value="a"> <span dir="ltr">A) Handling HTTP connections</span></label></li>
+        <li><label><input type="radio" name="q8" value="b"> <span dir="ltr">B) Writing HTML for the developer</span></label></li>
+        <li><label><input type="radio" name="q8" value="c"> <span dir="ltr">C) Managing cookies and state</span></label></li>
+        <li><label><input type="radio" name="q8" value="d"> <span dir="ltr">D) Uploading and managing files</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — الخادم لا يكتب HTML للمطور." data-wrong-feedback="❌ خطأ — الصحيح: B."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-9" data-correct="a">
+      <p class="quiz-prompt"><strong>س9.</strong> <span dir="ltr">Which technology is its own web server and uses JavaScript on the server side?</span></p>
+      <p class="quiz-ar">أي تقنية تُعد خادم ويب بحد ذاتها وتستخدم JavaScript على الخادم؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q9" value="a"> <span dir="ltr">A) Node.js</span></label></li>
+        <li><label><input type="radio" name="q9" value="b"> <span dir="ltr">B) ASP.NET</span></label></li>
+        <li><label><input type="radio" name="q9" value="c"> <span dir="ltr">C) JSP</span></label></li>
+        <li><label><input type="radio" name="q9" value="d"> <span dir="ltr">D) Ruby on Rails</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — Node.js." data-wrong-feedback="❌ خطأ — الصحيح: Node.js."></p>
+    </article>
+
+    <article class="quiz-question" data-question="mcq-10" data-correct="c">
+      <p class="quiz-prompt"><strong>س10.</strong> <span dir="ltr">Which is the correct way to define a constant in PHP?</span></p>
+      <p class="quiz-ar">ما الطريقة الصحيحة لتعريف ثابت في PHP؟</p>
+      <ul class="quiz-options">
+        <li><label><input type="radio" name="q10" value="a"> <span dir="ltr">A) $const NAME = value;</span></label></li>
+        <li><label><input type="radio" name="q10" value="b"> <span dir="ltr">B) const $NAME = value;</span></label></li>
+        <li><label><input type="radio" name="q10" value="c"> <span dir="ltr">C) define("NAME", value);</span></label></li>
+        <li><label><input type="radio" name="q10" value="d"> <span dir="ltr">D) constant NAME = value;</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — define()." data-wrong-feedback="❌ خطأ — الصحيح: define()."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-1" data-correct="true">
+      <p class="quiz-prompt"><strong>س11.</strong> <span dir="ltr">PHP is a dynamically typed language.</span></p>
+      <p class="quiz-ar">PHP لغة ديناميكية النوع.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q11" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q11" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-2" data-correct="false">
+      <p class="quiz-prompt"><strong>س12.</strong> <span dir="ltr">ASP.NET is a cross-platform technology that runs on any operating system.</span></p>
+      <p class="quiz-ar">ASP.NET تقنية متعددة المنصات تعمل على أي نظام تشغيل.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q12" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q12" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، ASP.NET مخصص لـ Windows." data-wrong-feedback="❌ خطأ — الصحيح: خطأ."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-3" data-correct="true">
+      <p class="quiz-prompt"><strong>س13.</strong> <span dir="ltr">Passing a parameter by reference (&amp;) allows the function to modify the original variable.</span></p>
+      <p class="quiz-ar">تمرير المعامل بالمرجع (&amp;) يسمح للدالة بتعديل المتغير الأصلي.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q13" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q13" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-4" data-correct="false">
+      <p class="quiz-prompt"><strong>س14.</strong> <span dir="ltr">require stops execution on failure, while include continues.</span></p>
+      <p class="quiz-ar">require يوقف التنفيذ عند الفشل، بينما include يستمر.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q14" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q14" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، العكس هو الصحيح." data-wrong-feedback="❌ خطأ — العكس: require يوقف."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-5" data-correct="true">
+      <p class="quiz-prompt"><strong>س15.</strong> <span dir="ltr">In PHP, variables must begin with a dollar sign ($).</span></p>
+      <p class="quiz-ar">في PHP، يجب أن تبدأ المتغيرات بعلامة الدولار ($).</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q15" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q15" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-6" data-correct="true">
+      <p class="quiz-prompt"><strong>س16.</strong> <span dir="ltr">Variables inside a function are only accessible within that function.</span></p>
+      <p class="quiz-ar">المتغيرات داخل الدالة متاحة فقط داخل تلك الدالة (function scope).</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q16" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q16" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-7" data-correct="false">
+      <p class="quiz-prompt"><strong>س17.</strong> <span dir="ltr">PHP's syntax for loops and conditionals is completely different from JavaScript.</span></p>
+      <p class="quiz-ar">صياغة الحلقات والشروط في PHP مختلفة تمامًا عن JavaScript.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q17" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q17" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، الصياغة متشابهة." data-wrong-feedback="❌ خطأ — الصياغة متشابهة جدًا في JavaScript."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-8" data-correct="true">
+      <p class="quiz-prompt"><strong>س18.</strong> <span dir="ltr">Node.js is its own web server software and doesn't need Apache or IIS.</span></p>
+      <p class="quiz-ar">Node.js خادم ويب بحد ذاته ولا يحتاج Apache أو IIS.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q18" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q18" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-9" data-correct="true">
+      <p class="quiz-prompt"><strong>س19.</strong> <span dir="ltr">PHP code must be contained between &lt;?php and ?&gt; tags.</span></p>
+      <p class="quiz-ar">يجب أن يكون كود PHP محصورًا بين وسمي &lt;?php و ?&gt;.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q19" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q19" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح." data-wrong-feedback="❌ خطأ — الصحيح: صح."></p>
+    </article>
+
+    <article class="quiz-question" data-question="tf-10" data-correct="false">
+      <p class="quiz-prompt"><strong>س20.</strong> <span dir="ltr">Pass by value allows the function to permanently modify the original variable.</span></p>
+      <p class="quiz-ar">التمرير بالقيمة (Pass by Value) يسمح للدالة بتعديل المتغير الأصلي بشكل دائم.</p>
+      <ul class="quiz-options quiz-tf">
+        <li><label><input type="radio" name="q20" value="true"> <span>صح (True)</span></label></li>
+        <li><label><input type="radio" name="q20" value="false"> <span>خطأ (False)</span></label></li>
+      </ul>
+      <p class="quiz-feedback" data-correct-feedback="✅ صحيح — العبارة خاطئة، Pass by Value لا يعدّل الأصل." data-wrong-feedback="❌ خطأ — الصحيح: خطأ (القيمة لا تعدّل الأصل)."></p>
+    </article>
+
+  </div>
+
+  <div class="quiz-actions">
+    <button id="quizSubmitBtn" class="btn btn-primary" type="button">إظهار النتيجة</button>
+    <button id="quizResetBtn" class="btn" type="button">إعادة المحاولة</button>
+  </div>
+
+  <div id="quizResult" class="quiz-result" aria-live="polite"></div>
+
+</section>
+
+</main>
+
+<footer class="page-footer">
+  <div class="container">
+    <p> المذاكرة الشاملة — <span dir="ltr">osmh</span></p>
+    <p style="font-size:.85rem;color:var(--text-muted);margin-top:6px;">إعداد: osamh almtyl</p>
+  </div>
+</footer>
+
+<button id="backToTop" class="back-to-top" type="button" aria-label="العودة إلى الأعلى" title="العودة إلى الأعلى">↑</button>
+
+<script src="script.js"></script>
+</body>
+</html>
